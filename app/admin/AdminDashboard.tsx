@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -13,7 +13,6 @@ import { Download, Edit, LogOut, AlertCircle, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Link from 'next/link'
 
 interface Contact {
   id: number
@@ -35,23 +34,25 @@ export default function AdminDashboard() {
   const [selectedMessage, setSelectedMessage] = useState<string | null>(null)
   const router = useRouter()
 
-  useEffect(() => {
-    fetchContacts()
+  const fetchContacts = useCallback(async () => {
+    try {
+      const response = await fetch('/api/contacts')
+      if (!response.ok) throw new Error('Failed to fetch contacts')
+      const data = await response.json()
+      setContacts(data.map((contact: Contact) => ({
+        ...contact,
+        status: contact.status || 'New'
+      })))
+      setError(null)
+    } catch (error) {
+      console.error('Error fetching contacts:', error)
+      setError(error instanceof Error ? error.message : 'An error occurred while fetching contacts')
+    }
   }, [])
 
-  const fetchContacts = async () => {
-    try {
-      const response = await fetch('/api/contacts');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setContacts(data);
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
-      // Optionally, set an error state here to display to the user
-    }
-  };
+  useEffect(() => {
+    fetchContacts()
+  }, [fetchContacts])
 
   const handleSort = (field: keyof Contact) => {
     if (field === sortField) {
@@ -173,16 +174,15 @@ export default function AdminDashboard() {
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <header className="bg-blue-900/20 py-4 sticky top-0 z-10 shadow-md">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link href="/" className="relative w-36 h-12">
+          <div className="relative w-36 h-12">
             <Image
               src="/images/LargeSideLogo.png"
               alt="Aoniqq Logo"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 144px, 144px"
+              layout="fill"
+              objectFit="contain"
               priority
             />
-          </Link>
+          </div>
           <Button
             onClick={handleLogout}
             className="bg-blue-600 hover:bg-blue-700 text-white"
