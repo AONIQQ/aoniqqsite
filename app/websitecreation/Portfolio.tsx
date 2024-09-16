@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -64,12 +64,32 @@ const projects: Project[] = [
 
 export default function Portfolio() {
   const [hoveredService, setHoveredService] = useState<number | null>(null)
+  const [videosLoaded, setVideosLoaded] = useState<boolean[]>(new Array(projects.length).fill(false))
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+
+  useEffect(() => {
+    const loadVideos = () => {
+      videoRefs.current.forEach((video, index) => {
+        if (video) {
+          video.load()
+          video.addEventListener('loadeddata', () => {
+            setVideosLoaded(prev => {
+              const newState = [...prev]
+              newState[index] = true
+              return newState
+            })
+          })
+        }
+      })
+    }
+
+    loadVideos()
+  }, [])
 
   const handleMouseEnter = (index: number) => {
     setHoveredService(index)
-    if (videoRefs.current[index]) {
-      videoRefs.current[index]?.play()
+    if (videoRefs.current[index] && videosLoaded[index]) {
+      videoRefs.current[index]?.play().catch(error => console.log("Autoplay was prevented:", error))
     }
   }
 
@@ -112,9 +132,14 @@ export default function Portfolio() {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-contain"
+                    className={`w-full h-full object-contain ${videosLoaded[index] ? 'opacity-100' : 'opacity-0'}`}
                     aria-label={project.alt}
                   />
+                  {!videosLoaded[index] && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-blue-900/40">
+                      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
+                    </div>
+                  )}
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-2 text-center">{project.title}</h3>

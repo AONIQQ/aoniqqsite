@@ -399,12 +399,11 @@ export default function WebsiteCreation() {
         {/* Pricing Section */}
         <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-black/30">
           <div className="container mx-auto px-4 max-w-6xl">
-            <motion.h2 
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+            <motion.h2
+              className="text-4xl font-bold mb-4 text-center leading-relaxed pb-2" // Added leading-relaxed and pb-2
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
               Pricing
             </motion.h2>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, DollarSign } from 'lucide-react'
+import { CheckCircle2, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const pricingTiers = [
   {
@@ -162,39 +162,93 @@ interface PricingSliderProps {
 
 export default function PricingSlider({ openContactForm }: PricingSliderProps) {
   const [selectedTierIndex, setSelectedTierIndex] = useState(2) // Default to Advanced Website Package
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 7 })
+  const sliderRef = useRef<HTMLDivElement>(null)
 
   const currentTier = pricingTiers[selectedTierIndex]
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (sliderRef.current) {
+        const width = sliderRef.current.offsetWidth
+        const visibleItems = Math.floor(width / 100) // Assuming each item is roughly 100px wide
+        const start = Math.max(0, selectedTierIndex - Math.floor(visibleItems / 2))
+        const end = Math.min(pricingTiers.length, start + visibleItems)
+        setVisibleRange({ start, end })
+      }
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [selectedTierIndex])
+
+  const handlePrev = () => {
+    if (selectedTierIndex > 0) {
+      setSelectedTierIndex(selectedTierIndex - 1);
+    }
+    if (visibleRange.start > 0) {
+      setVisibleRange(prev => ({ start: prev.start - 1, end: prev.end - 1 }));
+    }
+  }
+
+  const handleNext = () => {
+    if (selectedTierIndex < pricingTiers.length - 1) {
+      setSelectedTierIndex(selectedTierIndex + 1);
+    }
+    if (visibleRange.end < pricingTiers.length) {
+      setVisibleRange(prev => ({ start: prev.start + 1, end: prev.end + 1 }));
+    }
+  }
+
   return (
-    <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 p-8 rounded-lg border-2 border-blue-400/50 transition-all duration-300 shadow-2xl">
+    <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 p-4 sm:p-8 rounded-lg border-2 border-blue-400/50 transition-all duration-300 shadow-2xl mt-8"> {/* Added mt-8 here */}
       <div className="mb-8">
         <h3 className="text-2xl font-bold mb-6 text-center">Estimate Your Project Cost</h3>
         <div className="relative mb-12">
-          <div className="flex justify-between items-center">
-            {pricingTiers.map((tier, index) => (
-              <motion.button
-                key={tier.price}
-                className={`flex flex-col items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 rounded-lg p-3 ${
-                  selectedTierIndex === index 
-                    ? 'bg-blue-600 text-white shadow-lg z-10' 
-                    : 'bg-blue-900/40 text-gray-300 hover:bg-blue-800/60'
-                }`}
-                onClick={() => setSelectedTierIndex(index)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                animate={selectedTierIndex === index ? { scale: 1.2 } : { scale: 1 }}
-              >
-                <span className="text-sm md:text-base lg:text-lg font-bold mb-1">
-                  ${tier.price.toLocaleString()}
-                </span>
-                <motion.div 
-                  className={`w-4 h-4 rounded-full ${
-                    selectedTierIndex === index ? 'bg-white' : 'bg-gray-500'
-                  }`}
-                  animate={selectedTierIndex === index ? { scale: 1.5 } : { scale: 1 }}
-                />
-              </motion.button>
-            ))}
+          <div className="flex items-center">
+            <button
+              onClick={handlePrev}
+              className="text-white p-2 focus:outline-none"
+              aria-label="Previous tier"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <div ref={sliderRef} className="flex-grow overflow-hidden">
+              <div className="flex justify-between items-center">
+                {pricingTiers.map((tier, index) => (
+                  <motion.button
+                    key={tier.price}
+                    className={`flex flex-col items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 rounded-lg p-3 ${
+                      selectedTierIndex === index 
+                        ? 'bg-blue-600 text-white shadow-lg z-10' 
+                        : 'bg-blue-900/40 text-gray-300 hover:bg-blue-800/60'
+                    } ${index >= visibleRange.start && index < visibleRange.end ? '' : 'hidden'}`}
+                    onClick={() => setSelectedTierIndex(index)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={selectedTierIndex === index ? { scale: 1.2 } : { scale: 1 }}
+                  >
+                    <span className="text-sm md:text-base lg:text-lg font-bold mb-1">
+                      ${tier.price.toLocaleString()}
+                    </span>
+                    <motion.div 
+                      className={`w-4 h-4 rounded-full ${
+                        selectedTierIndex === index ? 'bg-white' : 'bg-gray-500'
+                      }`}
+                      animate={selectedTierIndex === index ? { scale: 1.5 } : { scale: 1 }}
+                    />
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+            <button
+              onClick={handleNext}
+              className="text-white p-2 focus:outline-none"
+              aria-label="Next tier"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
           </div>
           <div className="absolute w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 top-1/2 transform -translate-y-1/2 -z-10" />
         </div>

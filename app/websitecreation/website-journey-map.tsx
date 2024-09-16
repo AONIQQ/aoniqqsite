@@ -1,65 +1,65 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, AlertTriangle, Code, DollarSign, FileText, Image, Video, MessageSquare, ClipboardCheck, Globe } from 'lucide-react'
 
 const journeySteps = [
   {
-    title: "Initial Contact",
-    badDev: "Take a sales call, They oversell you their service",
-    aoniqq: "Take a sales call, we are honest and set the expectations about exactly what you'll be receiving for your service level",
+    title: "Discover",
+    badDev: "They get you on the phone, promise you the world, and oversell you their service",
+    aoniqq: "We have a two way interview process, you tell us what you're looking for, and if we can help, we proceed. We set the expectations on exactly what you'll be receiving",
     icon: MessageSquare
   },
   {
-    title: "Payment",
-    badDev: "You pay",
+    title: "Pay",
+    badDev: "You pay upfront, probably more than you should",
     aoniqq: "You pay, with a full refund guarantee and the option for 0% APR financing",
     icon: DollarSign
   },
   {
-    title: "Design Phase",
+    title: "Design",
     badDev: "They choose a template",
     aoniqq: "We gather any resources, copy, web assets, logos from you and begin building your website with custom code",
     icon: Code
   },
   {
-    title: "Content Creation",
+    title: "Copywriting",
     badDev: "They copy and paste text from the internet",
     aoniqq: "We write SEO and conversion optimized custom copy for your site",
     icon: FileText
   },
   {
-    title: "Visual Elements",
-    badDev: "They add your logo to the template",
+    title: "Graphics",
+    badDev: "They add your logo to the template, change the color scheme, and call it a day",
     aoniqq: "We add all web assets, design and create engaging, aesthetic, and intuitive graphics made specifically for your website",
     icon: Image
   },
   {
-    title: "Progress Update",
+    title: "Progress",
     badDev: "They take on more clients and say they need to delay your project",
     aoniqq: "We update you on the process of the site of the site via video recording, ask you for your feedback and any changes you would like implemented",
     icon: Video
   },
   {
-    title: "Feedback Loop",
-    badDev: "Weeks go by, you message them and they give lackluster \"we're working on it responses\"",
+    title: "Feedback",
+    badDev: "Weeks go by, you message them and they give mutliple lackluster \"we're working on it responses\"",
     aoniqq: "We update the site based on your feedback and organize everything for deployment",
     icon: MessageSquare
   },
   {
-    title: "Final Review",
-    badDev: "They start asking you for copy, web assets, etc, trying to offload work",
+    title: "Review",
+    badDev: "They decide they need to get this project off their plate and start asking you for copy, web assets, etc, in an attempt to offload work onto you",
     aoniqq: "We do a final review with you to ensure everything is exactly as you want it",
     icon: ClipboardCheck
   },
   {
     title: "Handover",
-    badDev: "They delivered the poorly designed template and leave you on your way",
-    aoniqq: "We offer to give you all of your project files and help with setup, or we host your website with our services for a small monthly fee",
+    badDev: "They deliver the poorly designed website and leave you on your way, at this point they also tell you about all of the hidden fees to actually get your site live",
+    aoniqq: "We offer two options, the first is to give you all of your project files and help with setup externally, the second is for us to host your website with our hosting provider for a small monthly fee",
     icon: Globe
   },
   {
-    title: "Ongoing Support",
-    badDev: "They tell you about all of the hidden fees, and don't handle hosting, management, updates, or ongoing support",
+    title: "Support",
+    badDev: "They've already stopped responding to you, and will not handle hosting, management, updates, or ongoing support",
     aoniqq: "We deploy your website and share are relevant information on hosting and management, we provide ongoing support, maintenance, and edits if your site is hosted on our services, and support if you decide to host your website on your own",
     icon: CheckCircle2
   }
@@ -68,12 +68,16 @@ const journeySteps = [
 export default function WebsiteJourneyMap() {
   const [activeJourneyStep, setActiveJourneyStep] = useState<number>(0)
   const [dimensions, setDimensions] = useState({ width: 1000, height: 400 })
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function handleResize() {
-      const width = Math.min(window.innerWidth - 40, 1200)
-      const height = width < 768 ? 300 : 400
-      setDimensions({ width, height })
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth
+        const width = Math.min(containerWidth - 20, 1200)
+        const height = width < 768 ? 300 : 400
+        setDimensions({ width, height })
+      }
     }
 
     window.addEventListener('resize', handleResize)
@@ -86,7 +90,7 @@ export default function WebsiteJourneyMap() {
     const baseFontSize = 20
     const baseIconSize = 24
     const baseSpacing = 0.2
-    const minSpacing = 0.1
+    const minSpacing = 0.08
 
     const scale = Math.max(0.5, width / 1200)
     const spacing = Math.max(minSpacing, baseSpacing * scale)
@@ -126,8 +130,8 @@ export default function WebsiteJourneyMap() {
       <p className="text-center text-white mb-4 max-w-3xl mx-auto px-4 text-sm md:text-base">
         Click each step in the interactive map below to see how our development process goes vs what you may experience with other developers
       </p>
-      <div className="relative w-full max-w-[1200px] mx-auto px-2" style={{ height: `${dimensions.height + 250}px` }}>
-        <svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="absolute top-0 left-0 right-0 mx-auto">
+      <div ref={containerRef} className="relative w-full max-w-[1200px] mx-auto px-2 overflow-x-hidden" style={{ height: `${dimensions.height + 250}px` }}>
+        <svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="absolute top-0 left-1/2 transform -translate-x-1/2">
           <defs>
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#3b82f6" />
