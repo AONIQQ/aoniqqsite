@@ -179,9 +179,9 @@ export default function WebsiteCreation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Get a fully customized website
+                Get a Fast, Functional, and Fully Customized Website
                 <br />
-                <span style={{ color: '#3337f2' }}>in 24 hours</span>
+                <span style={{ color: '#3337f2' }}>Tailored to Your Business</span>
               </motion.h1>
               <motion.p 
                 className="mx-auto max-w-[1000px] text-gray-300 text-lg lg:text-xl"
@@ -189,7 +189,7 @@ export default function WebsiteCreation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Don&apos;t waste valuable time and money on low quality design, poor communication, and long turnaround times. Functional website delivered in 24 hours or your money back.
+                Don&apos;t waste valuable time and money on low quality design, poor communication, and long turnaround times. Get a thoughtfully designed website that is optimized for conversions and sales, without having to spend precious time on the development process.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

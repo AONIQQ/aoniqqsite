@@ -13,6 +13,7 @@ import { Download, Edit, LogOut, AlertCircle, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Link from 'next/link'
 
 interface Contact {
   id: number
@@ -174,7 +175,7 @@ export default function AdminDashboard() {
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <header className="bg-blue-900/20 py-4 sticky top-0 z-10 shadow-md">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="relative w-36 h-12">
+          <Link href="/" className="relative w-36 h-12">
             <Image
               src="/images/LargeSideLogo.png"
               alt="Aoniqq Logo"
@@ -182,7 +183,7 @@ export default function AdminDashboard() {
               objectFit="contain"
               priority
             />
-          </div>
+          </Link>
           <Button
             onClick={handleLogout}
             className="bg-blue-600 hover:bg-blue-700 text-white"
