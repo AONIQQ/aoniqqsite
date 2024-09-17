@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Download, Edit, LogOut, AlertCircle, Trash2 } from 'lucide-react'
+import { Download, Edit, LogOut, AlertCircle, Trash2, RefreshCw } from 'lucide-react'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -32,12 +32,15 @@ export default function AdminDashboard() {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
   const [searchTerm, setSearchTerm] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const [selectedMessage, setSelectedMessage] = useState<string | null>(null)
   const router = useRouter()
 
   const fetchContacts = useCallback(async () => {
+    setIsRefreshing(true)
     try {
-      const response = await fetch('/api/contacts')
+      const timestamp = new Date().getTime()
+      const response = await fetch(`/api/contacts?timestamp=${timestamp}`)
       if (!response.ok) throw new Error('Failed to fetch contacts')
       const data = await response.json()
       setContacts(data.map((contact: Contact) => ({
@@ -48,6 +51,8 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Error fetching contacts:', error)
       setError(error instanceof Error ? error.message : 'An error occurred while fetching contacts')
+    } finally {
+      setIsRefreshing(false)
     }
   }, [])
 
@@ -226,6 +231,14 @@ export default function AdminDashboard() {
                 >
                   <Edit className="mr-2 h-4 w-4" />
                   {isSaving ? 'Saving...' : 'Save Changes'}
+                </Button>
+                <Button
+                  onClick={fetchContacts}
+                  disabled={isRefreshing}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  {isRefreshing ? 'Refreshing...' : 'Refresh'}
                 </Button>
               </div>
             </div>
