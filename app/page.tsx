@@ -19,6 +19,7 @@ export default function Component() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeWhySection, setActiveWhySection] = useState(1) // Set to 1 for Expert Communication
   const [hoveredService, setHoveredService] = useState<number | null>(null)
+  const [expandedReviews, setExpandedReviews] = useState<boolean[]>(Array(8).fill(false))
 
   const reviews = [
     {
@@ -26,8 +27,16 @@ export default function Component() {
       author: "Ryan | Founder | Pylon Enterprises"
     },
     {
-      text: "I recently had the pleasure of working with Aoniqq on a project and was extremely impressed with their expertise. Their team of developers were not only highly skilled, but also very responsive and efficient in meeting our deadlines. One of the things I appreciated most about Aoniqq was their ability to understand our business needs and provide tailored solutions. Their automation scripting skills saved us a lot of time and allowed us to streamline our processes. I highly recommend Aoniqq for anyone in need of the services they offer. Their attention to detail, expertise, and customer service are top-notch. Aoniqq truly exceeded our expectations. We will not hesitate to recommend Aoniqq in the future.",
+      text: "Aoniqq is a lifesaver.  After spending 6 months spinning my wheels with another developer, I brought in Andrew from Aoniqq and he accomplished more in our first meeting than had been done in the previous 6 months.  He's been great, building an entire custom website for me to get me exactly the functionality I needed while also fixing all the weird issues that came up while we had been trying to use Webflow.  It's what I want without compromises, and looks better.  I'm even saving money on hosting his tailor-made build compared to the cost of an endless subscription to Webflow or another competitor.  Just considering the final product, Aoniqq is absolutely the way to go.\nFactoring in Andrew's excellent communication, professionalism, cleverness, flexibility, and discipline, I can't recommend Andrew and Aoniqq enough.  His ability to understand and implement 'bleeding-edge' web development tools has also been a huge help.  When I've asked if we need to add a feature, he's always clear about how he would go about it and what the pros and cons would be, allowing me to make a decision based on the final product.  Aoniqq is an excellent service.  When you compare it to other website development services, Aoniqq is truly exceptional.\nI've been recommending Aoniqq to friends and business contacts since I first worked with Andrew and will happily continue to do so.",
+      author: "Rob | Founder | Remotetutoring.com"
+    },
+    {
+      text: "I recently had the pleasure of working with Aoniqq on a project and was extremely impressed with their expertise. Their team of developers were not only highly skilled, but also very responsive and efficient in meeting deadlines. One of the things I appreciated most about Aoniqq was their ability to understand our business, and provide tailored solutions based on this information. I highly recommend Aoniqq for anyone in need of the services they offer. Their attention to detail, expertise, and customer service is top-notch. Aoniqq truly exceeded our expectations and we will not hesitate to recommend them and work with them in the future.",
       author: "Josh | CEO | Express Solutions"
+    },
+    {
+      text: "After discussing our plans with the Aoniqq team and asking them more about how they can help fill a gap we had, we were extremely impressed. Their ability to understand our complex business and explain things in a way that was easy to understand enabled us to consider them a true partner, and is what led us to bring them on for ongoing project and strategy management.",
+      author: "Fastrack Team | Fastrack EDU LLC"
     },
     {
       text: "After months of working with Aoniqq, I can say without pause, that they are one of the most reliable service providers with whom we have worked. What started with generative art coding services has blossomed into Aoniqq providing overall smart contract consulting and project management. They have taken on the increased scope professionally. They have taken the initiative to research new trends as they emerge in the space. And, they have properly -and timely! - communicated things along the way. We consider Aoniqq to be a true partner in the project.",
@@ -108,6 +117,19 @@ export default function Component() {
       document.removeEventListener('keydown', handleEscape)
     }
   }, [closeCalendly])
+
+  const toggleExpandReview = (index: number) => {
+    setExpandedReviews(prev => {
+      const newExpanded = [...prev]
+      newExpanded[index] = !newExpanded[index]
+      return newExpanded
+    })
+  }
+
+  const truncateText = (text: string, sentences: number) => {
+    const sentenceArray = text.match(/[^.!?]+[.!?]+/g) || []
+    return sentenceArray.slice(0, sentences).join(' ')
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#000033] to-[#000066] text-white">
@@ -365,8 +387,18 @@ export default function Component() {
                       </div>
                       <div className="max-h-[300px] overflow-y-auto mb-4 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100">
                         <p className="text-lg leading-relaxed">
-                          {reviews[currentReview].text}
+                          {expandedReviews[currentReview]
+                            ? reviews[currentReview].text
+                            : truncateText(reviews[currentReview].text, 3)}
                         </p>
+                        {reviews[currentReview].text.length > truncateText(reviews[currentReview].text, 3).length && (
+                          <Button
+                            onClick={() => toggleExpandReview(currentReview)}
+                            className="mt-2 bg-blue-600 hover:bg-blue-700 text-white"
+                          >
+                            {expandedReviews[currentReview] ? 'Read Less' : 'Read More'}
+                          </Button>
+                        )}
                       </div>
                       <p className="font-bold text-blue-400 mt-4 text-right">{reviews[currentReview].author}</p>
                     </CardContent>
@@ -405,16 +437,10 @@ export default function Component() {
         <section id="contact" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-900/40 to-purple-900/40">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="flex flex-col items-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Contact Us</h2>
-              <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl lg:text-2xl">
-                Get in touch with us to discuss your project needs via email, text, call, or by booking a meeting via the button below.
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Ready to Get Started?</h2>
+              <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Let&apos;s discuss your project and see how we can help you achieve your goals.
               </p>
-              <div className="space-y-2 text-gray-300">
-                <p>1007 N Orange St</p>
-                <p>Wilmington, DE, 19801</p>
-                <p>info@aoniqq.com</p>
-                <p>605-884-6550</p>
-              </div>
               <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 mt-6 animate-pulse" onClick={openCalendly}>
                 Schedule a Free Consultation
               </Button>
@@ -422,38 +448,32 @@ export default function Component() {
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-700">
-        <p className="text-xs text-gray-400">© 2024 Aoniqq LLC. All rights reserved.</p>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-blue-400/20">
+        <p className="text-xs text-gray-400">© 2023 Aoniqq. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a className="text-xs hover:text-blue-400 transition-colors text-gray-400" href="#">
+          <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
             Terms of Service
-          </a>
-          <a className="text-xs hover:text-blue-400 transition-colors text-gray-400" href="#">
-            Privacy Policy
-          </a>
+          </Link>
+          <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
+            Privacy
+          </Link>
         </nav>
       </footer>
       {isCalendlyOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={closeCalendly}>
-          <div className="relative w-[90%] h-[90%] bg-gradient-to-br from-[#000033] to-[#000066] rounded-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="bg-white p-4 rounded-lg w-full max-w-3xl h-[80vh] relative">
             <Button
-              className="absolute top-2 right-2 bg-transparent hover:bg-blue-700 text-white z-10"
+              className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2"
               onClick={closeCalendly}
             >
-              <X className="h-8 w-8" />
+              <X className="h-6 w-6" />
             </Button>
-            <div className="p-4 text-center bg-gradient-to-r from-[#000033] to-[#000066]">
-              <h2 className="text-2xl font-bold mb-2 text-white">Schedule a Free Consultation</h2>
-              <p className="text-lg text-gray-300">Book a time below, or shoot us an email (info@aoniqq.com) or text (605-884-6550) to discuss your needs with our experts.</p>
-            </div>
-            <div className="h-[calc(100%-5rem)] overflow-y-auto">
-              <iframe
-                src="https://calendly.com/aoniqq/consulation?hide_gdpr_banner=1&background_color=000033&text_color=ffffff&primary_color=3337f2"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-              ></iframe>
-            </div>
+            <iframe
+              src="https://calendly.com/aoniqq/30min"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+            ></iframe>
           </div>
         </div>
       )}

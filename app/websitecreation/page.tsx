@@ -29,23 +29,31 @@ export default function WebsiteCreation() {
       author: "Ryan | Founder | Pylon Enterprises"
     },
     {
+      text: "Aoniqq is a lifesaver.  After spending 6 months spinning my wheels with another developer, I brought in Andrew from Aoniqq and he accomplished more in our first meeting than had been done in the previous 6 months.  He's been great, building an entire custom website for me to get me exactly the functionality I needed while also fixing all the weird issues that came up while we had been trying to use Webflow.  It's what I want without compromises, and looks better.  I'm even saving money on hosting his tailor-made build compared to the cost of an endless subscription to Webflow or another competitor.  Just considering the final product, Aoniqq is absolutely the way to go.\nFactoring in Andrew's excellent communication, professionalism, cleverness, flexibility, and discipline, I can't recommend Andrew and Aoniqq enough.  His ability to understand and implement 'bleeding-edge' web development tools has also been a huge help.  When I've asked if we need to add a feature, he's always clear about how he would go about it and what the pros and cons would be, allowing me to make a decision based on the final product.  Aoniqq is an excellent service.  When you compare it to other website development services, Aoniqq is truly exceptional.\nI've been recommending Aoniqq to friends and business contacts since I first worked with Andrew and will happily continue to do so.",
+      author: "Rob | Founder | Remotetutoring.com"
+    },
+    {
       text: "Aoniqq was fantastic to work with. They quickly understood the task and delivered a stunning website for my business faster than expected and within my budget. The site is user-friendly and visually appealing, and resonates well with my customers and brand. Communication was seamless, and they were always responsive and professional. Highly recommend Aoniqq for any development needs, and I look forward to working with them again in the future.",
       author: "Steven | CEO | Market Vision"
     },
     {
-      text: "I recently had the pleasure of working with Aoniqq on a project and was extremely impressed with their expertise. Their team of developers were not only highly skilled, but also very responsive and efficient in meeting our deadlines. One of the things I appreciated most about Aoniqq was their ability to understand our business needs and provide tailored solutions. Their automation scripting skills saved us a lot of time and allowed us to streamline our processes. I highly recommend Aoniqq for anyone in need of the services they offer. Their attention to detail, expertise, and customer service are top-notch. Aoniqq truly exceeded our expectations. We will not hesitate to recommend Aoniqq in the future.",
+      text: "I recently had the pleasure of working with Aoniqq on a project and was extremely impressed with their expertise. Their team of developers were not only highly skilled, but also very responsive and efficient in meeting deadlines. One of the things I appreciated most about Aoniqq was their ability to understand our business, and provide tailored solutions based on this information. I highly recommend Aoniqq for anyone in need of the services they offer. Their attention to detail, expertise, and customer service is top-notch. Aoniqq truly exceeded our expectations and we will not hesitate to recommend them and work with them in the future.",
       author: "Josh | CEO | Express Solutions"
     },
     {
-      text: "After months of working with Aoniqq, I can say without pause, that they are one of the most reliable service providers with whom we have worked. What started with generative art coding services has blossomed into Aoniqq providing overall smart contract consulting and project management. They have taken on the increased scope professionally. They have taken the initiative to research new trends as they emerge in the space. And, they have properly -and timely! - communicated things along the way. We consider Aoniqq to be a true partner in the project.",
+      text: "Our Design assets and our website were delivered ahead of schedule, and exceeded our expectations. We were able to be truly hands off throughout the process, which was extremely valuable, as we are already extremely busy. After discussing the project with the Aoniqq team and seeing their attention to detail, we knew we had made the right decision. In past projects of ours, web development has been a huge headache because of the necessity to micromanage developers. This was not the case with Aoniqq, which made working with them a breath of fresh air.",
+      author: "Fastrack Team | Fastrack EDU LLC"
+    },
+    {
+      text: "After months of working with Aoniqq, I can say without pause, that they are one of the most reliable service providers with whom we have worked. What started with a small project has blossomed into Aoniqq providing oversight of our team, project management, and development. They have taken on the increased scope professionally. They have taken the initiative to research new trends as they emerge in the space. And, they have properly -and timely! - communicated things along the way. We consider Aoniqq to be a true partner in the project.",
       author: "Justin | Founder | Bodega Blocks"
     },
     {
-      text: "Aoniqq was recommended to the team by an advisor helping out on the project after we had issues with our previous development team. The level of professionalism we received from the team at Aoniqq was something we haven't experienced in web3 before, and it came at the perfect time. Their team was actively engaged in the whole process and their technical knowledge from start to finish allowed us to focus on the growth of the project.",
+      text: "Aoniqq was recommended to the team by an advisor helping out on the project after we had issues with our previous development team. The level of professionalism we received from the team at Aoniqq was something we hadn't experienced before, and it came at the perfect time. Their team was actively engaged in the whole process and their technical knowledge from start to finish allowed us to focus on the growth of the project.",
       author: "Alex | Founder | All For One"
     },
     {
-      text: "The team at Aoniqq helped us program all of the contracts and code for our NFT drop and much much more. Andrew from the team came to every meeting and had excellent ideas. Despite changing direction multiple times as the project developed, their team never complained, and their team didn't flinch when the work doubled and then tripled. Highly professional, and especially trustworthy team. Can't wait to work together in the future.",
+      text: "The team at Aoniqq designed and created a feature rich website for our project. Andrew from the team came to every meeting and had excellent ideas. Despite changing direction multiple times as the project developed, their team never complained, and their team didn't flinch when the work doubled and then tripled. Highly professional, and especially trustworthy team. Can't wait to work together in the future.",
       author: "Max | CEO | Unreal Assets"
     }
   ]
@@ -354,9 +362,9 @@ export default function WebsiteCreation() {
                         </p>
                       </div>
                       {reviews[currentReview].text.length > truncateText(reviews[currentReview].text, 3).length && (
-                        <Button 
+                          <Button
                           onClick={() => toggleExpandReview(currentReview)}
-                          className="mb-4"
+                          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white"
                         >
                           {expandedReviews[currentReview] ? 'Read Less' : 'Read More'}
                         </Button>
