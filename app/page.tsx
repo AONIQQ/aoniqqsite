@@ -148,6 +148,9 @@ export default function Component() {
           <Link href="/websitecreation" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
           Website Creation
           </Link>
+          <Link href="/speedtest" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
+         Website Speed Test
+          </Link>
           <nav className="hidden md:flex gap-4 sm:gap-6">
             <a className="text-sm font-medium hover:text-blue-400 transition-colors" href="#services" onClick={handleNavClick}>
               Services

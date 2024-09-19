@@ -136,7 +136,10 @@ export default function WebsiteCreation() {
           </motion.a>
         </Link>
         <nav className="hidden md:flex gap-4 sm:gap-6">
-          {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
+        <Link href="/speedtest" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
+                Website Speed Test
+            </Link>
+          {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact',].map((item, index) => (
             <motion.a
               key={item}
               className="text-sm font-medium hover:text-blue-400 transition-colors"
@@ -159,7 +162,7 @@ export default function WebsiteCreation() {
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000033] border-l border-blue-400/20">
             <nav className="flex flex-col gap-4 mt-8">
-              {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
+              {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact', 'Website Speed Test'].map((item, index) => (
                 <motion.a
                   key={item}
                   className="text-lg font-medium hover:text-blue-400 transition-colors"

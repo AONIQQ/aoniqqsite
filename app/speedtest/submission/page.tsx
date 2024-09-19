@@ -3,12 +3,13 @@
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, X } from 'lucide-react'
+import { ArrowLeft, CheckCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
-export default function BookPage() {
+export default function BookingSuccessPage() {
   const [isClient, setIsClient] = useState(false)
   const router = useRouter()
 
@@ -17,7 +18,7 @@ export default function BookPage() {
   }, [])
 
   const handleGoBack = () => {
-    router.back()
+    router.push('/websitecreation')
   }
 
   return (
@@ -51,22 +52,35 @@ export default function BookPage() {
       </header>
 
       <main className="flex-grow flex items-center justify-center p-4">
-        <Card className="w-full max-w-4xl bg-blue-900/20 border-blue-400/20">
+        <Card className="w-full max-w-2xl bg-blue-900/20 border-blue-400/20">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center text-white">Schedule Your Website Consultation</CardTitle>
-            <CardDescription className="text-center text-blue-200">Get your fully customized website!</CardDescription>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              className="flex justify-center mb-4"
+            >
+              <CheckCircle className="w-16 h-16 text-green-400" />
+            </motion.div>
+            <CardTitle className="text-2xl font-bold text-center text-white">Submission Successful!</CardTitle>
+            <CardDescription className="text-center text-blue-200">Your Full Report Will Be Sent Soon!</CardDescription>
           </CardHeader>
-          <CardContent>
-            {isClient && (
-              <div className="aspect-video">
-                <iframe
-                  src="https://calendly.com/aoniqq/websitecreation?hide_gdpr_banner=1&background_color=ffffff&text_color=000000&primary_color=3337f2"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                ></iframe>
-              </div>
-            )}
+          <CardContent className="text-center">
+            <p className="mb-4">
+              If you need to contact us in the meantime, feel free to call or text 605-884-6550, or email us at{' '}
+              <Link href="mailto:info@aoniqq.com" className="text-blue-300 hover:text-blue-200 underline">
+                info@aoniqq.com
+              </Link>
+            </p>
+            <p>
+              If you would like help with your current website, or you know someone who does, <Link href="/websitecreation/book" className="text-blue-300 hover:text-blue-200 underline">Book a call here</Link> or click the button below to learn more about our services.
+            </p>
+            <Button
+              onClick={handleGoBack}
+              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Learn About Our Custom Website Creation Service
+            </Button>
           </CardContent>
         </Card>
       </main>
