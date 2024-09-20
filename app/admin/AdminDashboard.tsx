@@ -9,11 +9,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Download, Edit, LogOut, AlertCircle, Trash2, RefreshCw } from 'lucide-react'
+import { Download, Edit, LogOut, AlertCircle, Trash2, RefreshCw, Plus } from 'lucide-react'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Link from 'next/link'
+import { Textarea } from "@/components/ui/textarea"
 
 interface Contact {
   id: number
@@ -34,17 +35,29 @@ interface Lead {
   status: string
 }
 
+interface BlogPost {
+  id: number
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  created_at: string
+}
+
 export default function AdminDashboard() {
   const [contacts, setContacts] = useState<Contact[]>([])
   const [leads, setLeads] = useState<Lead[]>([])
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
   const [error, setError] = useState<string | null>(null)
-  const [sortField, setSortField] = useState<keyof Contact | keyof Lead>('created_at')
+  const [sortField, setSortField] = useState<keyof Contact | keyof Lead | keyof BlogPost>('created_at')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
   const [searchTerm, setSearchTerm] = useState('')
   const [isSaving, setIsSaving] = useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [selectedMessage, setSelectedMessage] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'contacts' | 'leads'>('contacts')
+  const [activeTab, setActiveTab] = useState<'contacts' | 'leads' | 'blog'>('contacts')
+  const [newBlogPost, setNewBlogPost] = useState({ title: '', slug: '', excerpt: '', content: '' })
+  const [showNewBlogPostDialog, setShowNewBlogPostDialog] = useState(false)
   const router = useRouter()
 
   const fetchContacts = useCallback(async () => {
@@ -87,12 +100,30 @@ export default function AdminDashboard() {
     }
   }, [])
 
+  const fetchBlogPosts = useCallback(async () => {
+    setIsRefreshing(true)
+    try {
+      const timestamp = new Date().getTime()
+      const response = await fetch(`/api/blog-posts?timestamp=${timestamp}`)
+      if (!response.ok) throw new Error('Failed to fetch blog posts')
+      const data = await response.json()
+      setBlogPosts(data)
+      setError(null)
+    } catch (error) {
+      console.error('Error fetching blog posts:', error)
+      setError(error instanceof Error ? error.message : 'An error occurred while fetching blog posts')
+    } finally {
+      setIsRefreshing(false)
+    }
+  }, [])
+
   useEffect(() => {
     fetchContacts()
     fetchLeads()
-  }, [fetchContacts, fetchLeads])
+    fetchBlogPosts()
+  }, [fetchContacts, fetchLeads, fetchBlogPosts])
 
-  const handleSort = (field: keyof Contact | keyof Lead) => {
+  const handleSort = (field: keyof Contact | keyof Lead | keyof BlogPost) => {
     if (field === sortField) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
     } else {
@@ -101,7 +132,7 @@ export default function AdminDashboard() {
     }
   }
 
-  const sortItems = <T extends Contact | Lead>(items: T[]): T[] => {
+  const sortItems = <T extends Contact | Lead | BlogPost>(items: T[]): T[] => {
     return [...items].sort((a, b) => {
       const aValue = a[sortField as keyof T]
       const bValue = b[sortField as keyof T]
@@ -164,24 +195,26 @@ export default function AdminDashboard() {
   }
 
   const handleDelete = async (id: number) => {
-    if (window.confirm(`Are you sure you want to delete this ${activeTab === 'contacts' ? 'contact' : 'lead'}?`)) {
+    if (window.confirm(`Are you sure you want to delete this ${activeTab === 'blog' ? 'blog post' : activeTab === 'contacts' ? 'contact' : 'lead'}?`)) {
       try {
-        const endpoint = activeTab === 'contacts' ? `/api/contacts/${id}` : `/api/leads/${id}`
+        const endpoint = activeTab === 'contacts' ? `/api/contacts/${id}` : activeTab === 'leads' ? `/api/leads/${id}` : `/api/blog-posts/${id}`
         const response = await fetch(endpoint, {
           method: 'DELETE',
         })
 
-        if (!response.ok) throw new Error(`Failed to delete ${activeTab === 'contacts' ? 'contact' : 'lead'}`)
+        if (!response.ok) throw new Error(`Failed to delete ${activeTab === 'blog' ? 'blog post' : activeTab === 'contacts' ? 'contact' : 'lead'}`)
 
-        toast.success(`${activeTab === 'contacts' ? 'Contact' : 'Lead'} deleted successfully`)
+        toast.success(`${activeTab === 'blog' ? 'Blog post' : activeTab === 'contacts' ? 'Contact' : 'Lead'} deleted successfully`)
         if (activeTab === 'contacts') {
           await fetchContacts()
-        } else {
+        } else if (activeTab === 'leads') {
           await fetchLeads()
+        } else {
+          await fetchBlogPosts()
         }
       } catch (error) {
-        console.error(`Error deleting ${activeTab === 'contacts' ? 'contact' : 'lead'}:`, error)
-        toast.error(`Failed to delete ${activeTab === 'contacts' ? 'contact' : 'lead'}: ${error instanceof Error ? error.message : 'Unknown error'}`)
+        console.error(`Error deleting ${activeTab === 'blog' ? 'blog post' : activeTab === 'contacts' ? 'contact' : 'lead'}:`, error)
+        toast.error(`Failed to delete ${activeTab === 'blog' ? 'blog post' : activeTab === 'contacts' ? 'contact' : 'lead'}: ${error instanceof Error ? error.message : 'Unknown error'}`)
       }
     }
   }
@@ -232,7 +265,35 @@ export default function AdminDashboard() {
     }
   }
 
-  const sortedItems = activeTab === 'contacts' ? sortItems(contacts) : sortItems(leads)
+  const handleCreateBlogPost = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSaving(true)
+    try {
+      const response = await fetch('/api/blog-posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newBlogPost),
+      })
+
+      if (!response.ok) throw new Error('Failed to create blog post')
+
+      toast.success("Blog post created successfully")
+      setShowNewBlogPostDialog(false)
+      setNewBlogPost({ title: '', slug: '', excerpt: '', content: '' })
+      await fetchBlogPosts()
+    } catch (error) {
+      console.error('Error creating blog post:', error)
+      toast.error(`Failed to create blog post: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const sortedItems = activeTab === 'contacts' 
+    ? sortItems(contacts) 
+    : activeTab === 'leads' 
+    ? sortItems(leads) 
+    : sortItems(blogPosts)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#000033] to-[#000066] text-white">
@@ -271,7 +332,7 @@ export default function AdminDashboard() {
         <Card className="mb-8 bg-blue-900/20 border-blue-400/20">
           <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
             <CardTitle className="text-2xl font-bold">
-              {activeTab === 'contacts' ? 'Contact Management' : 'Lead Management'}
+              {activeTab === 'contacts' ? 'Contact Management' : activeTab === 'leads' ? 'Lead Management' : 'Blog Management'}
             </CardTitle>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
               <Input
@@ -281,20 +342,28 @@ export default function AdminDashboard() {
                 className="w-full sm:w-64 bg-blue-900/30 border-blue-400/30 text-white placeholder-gray-400"
               />
               <div className="flex space-x-2">
-                <Button onClick={downloadCSV} className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download CSV
-                </Button>
+                {activeTab !== 'blog' && (
+                  <Button onClick={downloadCSV} className="bg-blue-600 hover:bg-blue-700 text-white">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download CSV
+                  </Button>
+                )}
+                {activeTab === 'blog' && (
+                  <Button onClick={() => setShowNewBlogPostDialog(true)} className="bg-green-600 hover:bg-green-700 text-white">
+                    <Plus className="mr-2 h-4 w-4" />
+                    New Blog Post
+                  </Button>
+                )}
                 <Button 
                   onClick={handleSaveChanges} 
-                  disabled={isSaving} 
+                  disabled={isSaving || activeTab === 'blog'} 
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   <Edit className="mr-2 h-4 w-4" />
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </Button>
                 <Button
-                  onClick={activeTab === 'contacts' ? fetchContacts : fetchLeads}
+                  onClick={activeTab === 'contacts' ? fetchContacts : activeTab === 'leads' ? fetchLeads : fetchBlogPosts}
                   disabled={isRefreshing}
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                 >
@@ -314,9 +383,15 @@ export default function AdminDashboard() {
               </Button>
               <Button
                 onClick={() => setActiveTab('leads')}
-                className={`${activeTab === 'leads' ? 'bg-blue-600' : 'bg-blue-900/30'}`}
+                className={`mr-2 ${activeTab === 'leads' ? 'bg-blue-600' : 'bg-blue-900/30'}`}
               >
                 Leads
+              </Button>
+              <Button
+                onClick={() => setActiveTab('blog')}
+                className={`${activeTab === 'blog' ? 'bg-blue-600' : 'bg-blue-900/30'}`}
+              >
+                Blog
               </Button>
             </div>
             <div className="overflow-x-auto">
@@ -326,45 +401,71 @@ export default function AdminDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead onClick={() => handleSort('name')} className="cursor-pointer">
-                        Name {sortField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
-                      </TableHead>
-                      <TableHead onClick={() => handleSort('email')} className="cursor-pointer">
-                        Email {sortField === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
-                      </TableHead>
-                      <TableHead>Phone</TableHead>
+                      {activeTab === 'blog' ? (
+                        <>
+                          <TableHead onClick={() => handleSort('title')} className="cursor-pointer">
+                            Title {sortField === 'title' && (sortDirection === 'asc' ? '↑' : '↓')}
+                          </TableHead>
+                          <TableHead onClick={() => handleSort('slug')} className="cursor-pointer">
+                            Slug {sortField === 'slug' && (sortDirection === 'asc' ? '↑' : '↓')}
+                          </TableHead>
+                          <TableHead>Excerpt</TableHead>
+                        </>
+                      ) : (
+                        <>
+                          <TableHead onClick={() => handleSort('name')} className="cursor-pointer">
+                            Name {sortField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
+                          </TableHead>
+                          <TableHead onClick={() => handleSort('email')} className="cursor-pointer">
+                            Email {sortField === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
+                          </TableHead>
+                          <TableHead>Phone</TableHead>
+                        </>
+                      )}
                       <TableHead onClick={() => handleSort('created_at')} className="cursor-pointer">
                         Created At {sortField === 'created_at' && (sortDirection === 'asc' ? '↑' : '↓')}
                       </TableHead>
-                      <TableHead>Status</TableHead>
+                      {activeTab !== 'blog' && <TableHead>Status</TableHead>}
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {sortedItems.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell>{item.name}</TableCell>
-                        <TableCell>{item.email}</TableCell>
-                        <TableCell>{item.phone}</TableCell>
-                        <TableCell>{new Date(item.created_at).toLocaleString()}</TableCell>
-                        <TableCell>
-                          <Select
-                            value={item.status}
-                            onValueChange={(value) => handleStatusChange(item.id, value)}
-                          >
-                            <SelectTrigger className="w-[200px] bg-blue-900/30 border-blue-400/30 text-white">
-                              <SelectValue placeholder="Select status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="New">New</SelectItem>
-                              <SelectItem value="Called - No answer">Called - No answer</SelectItem>
-                              <SelectItem value="Called - Meeting Booked">Called - Meeting Booked</SelectItem>
-                              <SelectItem value="Called - Sale Closed">Called - Sale Closed</SelectItem>
-                              <SelectItem value="Multiple No responses">Multiple No responses</SelectItem>
-                              <SelectItem value="Called - Bad Lead">Called - Bad Lead</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </TableCell>
+  {sortedItems.map((item) => (
+    <TableRow key={item.id}>
+      {activeTab === 'blog' ? (
+        <>
+          <TableCell>{(item as BlogPost).title}</TableCell>
+          <TableCell>{(item as BlogPost).slug}</TableCell>
+          <TableCell>{(item as BlogPost).excerpt}</TableCell>
+        </>
+      ) : (
+        <>
+          <TableCell>{(item as Contact | Lead).name}</TableCell>
+          <TableCell>{(item as Contact | Lead).email}</TableCell>
+          <TableCell>{(item as Contact | Lead).phone}</TableCell>
+        </>
+      )}
+      <TableCell>{new Date(item.created_at).toLocaleString()}</TableCell>
+      {activeTab !== 'blog' && (
+        <TableCell>
+          <Select
+            value={(item as Contact | Lead).status}
+            onValueChange={(value) => handleStatusChange(item.id, value)}
+          >
+                              <SelectTrigger className="w-[200px] bg-blue-900/30 border-blue-400/30 text-white">
+                                <SelectValue placeholder="Select status" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="New">New</SelectItem>
+                                <SelectItem value="Called - No answer">Called - No answer</SelectItem>
+                                <SelectItem value="Called - Meeting Booked">Called - Meeting Booked</SelectItem>
+                                <SelectItem value="Called - Sale Closed">Called - Sale Closed</SelectItem>
+                                <SelectItem value="Multiple No responses">Multiple No responses</SelectItem>
+                                <SelectItem value="Called - Bad Lead">Called - Bad Lead</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                        )}
                         <TableCell>
                           <Button
                             onClick={() => handleDelete(item.id)}
@@ -382,6 +483,59 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
       </main>
+      <Dialog open={showNewBlogPostDialog} onOpenChange={setShowNewBlogPostDialog}>
+        <DialogContent className="bg-blue-900 text-white">
+          <DialogHeader>
+            <DialogTitle>Create New Blog Post</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleCreateBlogPost} className="space-y-4">
+            <div>
+              <label htmlFor="title" className="block text-sm font-medium mb-1">Title</label>
+              <Input
+                id="title"
+                value={newBlogPost.title}
+                onChange={(e) => setNewBlogPost({ ...newBlogPost, title: e.target.value })}
+                className="w-full bg-blue-800 text-white"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="slug" className="block text-sm font-medium mb-1">Slug</label>
+              <Input
+                id="slug"
+                value={newBlogPost.slug}
+                onChange={(e) => setNewBlogPost({ ...newBlogPost, slug: e.target.value })}
+                className="w-full bg-blue-800 text-white"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="excerpt" className="block text-sm font-medium mb-1">Excerpt</label>
+              <Textarea
+                id="excerpt"
+                value={newBlogPost.excerpt}
+                onChange={(e) => setNewBlogPost({ ...newBlogPost, excerpt: e.target.value })}
+                className="w-full bg-blue-800 text-white"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="content" className="block text-sm font-medium mb-1">Content</label>
+              <Textarea
+                id="content"
+                value={newBlogPost.content}
+                onChange={(e) => setNewBlogPost({ ...newBlogPost, content: e.target.value })}
+                className="w-full bg-blue-800 text-white"
+                rows={10}
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white">
+              Create Blog Post
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
