@@ -420,6 +420,7 @@ export default function AdminDashboard() {
                             Email {sortField === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
                           </TableHead>
                           <TableHead>Phone</TableHead>
+                          {activeTab === 'contacts' && <TableHead>Message</TableHead>}
                         </>
                       )}
                       <TableHead onClick={() => handleSort('created_at')} className="cursor-pointer">
@@ -430,28 +431,38 @@ export default function AdminDashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-  {sortedItems.map((item) => (
-    <TableRow key={item.id}>
-      {activeTab === 'blog' ? (
-        <>
-          <TableCell>{(item as BlogPost).title}</TableCell>
-          <TableCell>{(item as BlogPost).slug}</TableCell>
-          <TableCell>{(item as BlogPost).excerpt}</TableCell>
-        </>
-      ) : (
-        <>
-          <TableCell>{(item as Contact | Lead).name}</TableCell>
-          <TableCell>{(item as Contact | Lead).email}</TableCell>
-          <TableCell>{(item as Contact | Lead).phone}</TableCell>
-        </>
-      )}
-      <TableCell>{new Date(item.created_at).toLocaleString()}</TableCell>
-      {activeTab !== 'blog' && (
-        <TableCell>
-          <Select
-            value={(item as Contact | Lead).status}
-            onValueChange={(value) => handleStatusChange(item.id, value)}
-          >
+                    {sortedItems.map((item) => (
+                      <TableRow key={item.id}>
+                        {activeTab === 'blog' ? (
+                          <>
+                            <TableCell>{(item as BlogPost).title}</TableCell>
+                            <TableCell>{(item as BlogPost).slug}</TableCell>
+                            <TableCell>{(item as BlogPost).excerpt}</TableCell>
+                          </>
+                        ) : (
+                          <>
+                            <TableCell>{(item as Contact | Lead).name}</TableCell>
+                            <TableCell>{(item as Contact | Lead).email}</TableCell>
+                            <TableCell>{(item as Contact | Lead).phone}</TableCell>
+                            {activeTab === 'contacts' && (
+                              <TableCell>
+                                <Button
+                                  onClick={() => setSelectedMessage((item as Contact).message)}
+                                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                                >
+                                  View Message
+                                </Button>
+                              </TableCell>
+                            )}
+                          </>
+                        )}
+                        <TableCell>{new Date(item.created_at).toLocaleString()}</TableCell>
+                        {activeTab !== 'blog' && (
+                          <TableCell>
+                            <Select
+                              value={(item as Contact | Lead).status}
+                              onValueChange={(value) => handleStatusChange(item.id, value)}
+                            >
                               <SelectTrigger className="w-[200px] bg-blue-900/30 border-blue-400/30 text-white">
                                 <SelectValue placeholder="Select status" />
                               </SelectTrigger>
@@ -534,6 +545,16 @@ export default function AdminDashboard() {
               Create Blog Post
             </Button>
           </form>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={!!selectedMessage} onOpenChange={() => setSelectedMessage(null)}>
+        <DialogContent className="bg-blue-900 text-white">
+          <DialogHeader>
+            <DialogTitle>Message</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <p>{selectedMessage}</p>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
