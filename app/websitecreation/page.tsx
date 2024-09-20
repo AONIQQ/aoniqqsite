@@ -138,7 +138,7 @@ export default function WebsiteCreation() {
         </Link>
         <nav className="hidden md:flex gap-4 sm:gap-6">
         <Link href="/speedtest" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
-                Website Speed Test
+               Free Website Speed Test
             </Link>
           {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact',].map((item, index) => (
             <motion.a
