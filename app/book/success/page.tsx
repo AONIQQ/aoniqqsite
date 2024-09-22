@@ -18,7 +18,7 @@ export default function BookingSuccessPage() {
   }, [])
 
   const handleGoBack = () => {
-    router.push('/websitecreation')
+    router.push('/')
   }
 
   return (
@@ -39,7 +39,7 @@ export default function BookingSuccessPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Link href="/websitecreation" className="block">
+        <Link href="/" className="block">
             <Image
               src="/images/LargeSideLogo.png"
               alt="Aoniqq Logo"
@@ -65,7 +65,7 @@ export default function BookingSuccessPage() {
               <CheckCircle className="w-16 h-16 text-green-400" />
             </motion.div>
             <CardTitle className="text-2xl font-bold text-center text-white">Booking Successful!</CardTitle>
-            <CardDescription className="text-center text-blue-200">Your website consultation has been scheduled.</CardDescription>
+            <CardDescription className="text-center text-blue-200">Your consultation has been scheduled.</CardDescription>
           </CardHeader>
           <CardContent className="text-center">
             <p className="mb-4">
@@ -81,14 +81,22 @@ export default function BookingSuccessPage() {
               onClick={handleGoBack}
               className="mt-4 bg-blue-600 hover:bg-blue-700 text-white"
             >
-              Return to Website Creation
+              Return to Home Page
             </Button>
           </CardContent>
         </Card>
       </main>
 
-      <footer className="py-6 px-4 md:px-6 border-t border-gray-700 text-center">
-        <p className="text-xs text-gray-400">© 2024 Aoniqq LLC. All rights reserved.</p>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-blue-400/20">
+        <p className="text-xs text-gray-400">© 2024 Aoniqq. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+        <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+            Terms of Service
+          </Link>
+          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+            Privacy Policy
+          </Link>
+        </nav>
       </footer>
     </div>
   )

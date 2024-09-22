@@ -1,14 +1,10 @@
-
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react'
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import WebsiteJourneyMap from './website-journey-map'
-import PricingSlider from './PricingSlider'
-import Portfolio from './Portfolio'
 import {
   Sheet,
   SheetContent,
@@ -16,7 +12,12 @@ import {
 } from "@/components/ui/sheet"
 import { Calendar, ChevronRight, ChevronLeft, Menu, X, Star, ArrowRight, DollarSign, CheckCircle2, AlertTriangle } from "lucide-react"
 import Link from 'next/link'
-import ContactForm from '@/components/ContactForm'
+
+// Lazy load components
+const LazyWebsiteJourneyMap = lazy(() => import('./website-journey-map'))
+const LazyPricingSlider = lazy(() => import('./PricingSlider'))
+const LazyPortfolio = lazy(() => import('./Portfolio'))
+const LazyContactForm = lazy(() => import('@/components/ContactForm'))
 
 export default function WebsiteCreation() {
   const [currentReview, setCurrentReview] = useState(0)
@@ -24,7 +25,7 @@ export default function WebsiteCreation() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const reviews = [
+  const reviews = useMemo(() => [
     {
       text: "I have had the pleasure of working with Andrew, the founder of Aoniqq, on multiple Web3 and Web2 projects for over a year now. Throughout our collaborations, Andrew has consistently demonstrated competence, trustworthiness, professionalism, discipline, punctuality, open-mindedness, quick learning ability, and excellent problem-solving skills. His extensive experience is further bolstered by his ability to know when to delegate or call in experts to fill any gaps. In challenging situations, Andrew has shown his ability to perform under pressure and in harsh conditions without slipping up. His technical expertise combined with his ability to work with and manage a team of developers makes him a great resource. For the sake of providing a more specific and helpful review, I'd like to share one of my recent positive experiences with Aoniqq. Aoniqq single-handedly saved a Web3 project launch that was being severely mismanaged by a team of supposedly professional developers. The other developers not only failed to do their job correctly but were also an absolute nightmare to work with when corrections were needed. Aoniqq solved the technical issues while also successfully navigating the complicated communication issues with the original dev team to ensure that they provided what was needed for the corrections to be completed. I felt safe trusting Aoniqq to take charge of the process, and they executed flawlessly, leading to a smooth launch for the project. Being able to trust Aoniqq to handle the development side of a project completely allows my team and me to focus our energy on our areas of specialization, opening us up to the most success and growth possible. The peace of mind provided by such confident delegation is priceless. If anyone requires further validation of any claims or would like to learn more about the quality of work I've seen from Andrew and Aoniqq, I would be happy to serve as a reference.",
       author: "Ryan | Founder | Pylon Enterprises"
@@ -57,7 +58,7 @@ export default function WebsiteCreation() {
       text: "The team at Aoniqq designed and created a feature rich website for our project. Andrew from the team came to every meeting and had excellent ideas. Despite changing direction multiple times as the project developed, their team never complained, and their team didn't flinch when the work doubled and then tripled. Highly professional, and especially trustworthy team. Can't wait to work together in the future.",
       author: "Max | CEO | Unreal Assets"
     }
-  ]
+  ], [])
 
   const nextReview = useCallback(() => {
     setCurrentReview((prev) => (prev + 1) % reviews.length)
@@ -67,18 +68,18 @@ export default function WebsiteCreation() {
     setCurrentReview((prev) => (prev - 1 + reviews.length) % reviews.length)
   }, [reviews.length])
 
-  const toggleExpandReview = (index: number) => {
+  const toggleExpandReview = useCallback((index: number) => {
     setExpandedReviews(prev => {
       const newExpanded = [...prev]
       newExpanded[index] = !newExpanded[index]
       return newExpanded
     })
-  }
+  }, [])
 
-  const truncateText = (text: string, sentences: number) => {
+  const truncateText = useCallback((text: string, sentences: number) => {
     const sentenceArray = text.match(/[^.!?]+[.!?]+/g) || []
     return sentenceArray.slice(0, sentences).join(' ')
-  }
+  }, [])
 
   const openContactForm = useCallback(() => {
     setIsContactFormOpen(true)
@@ -90,7 +91,7 @@ export default function WebsiteCreation() {
     document.body.style.overflow = 'auto'
   }, [])
 
-  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     const href = event.currentTarget.getAttribute('href')
     if (href) {
@@ -100,7 +101,7 @@ export default function WebsiteCreation() {
       }
     }
     setIsMenuOpen(false)
-  }
+  }, [])
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -136,49 +137,62 @@ export default function WebsiteCreation() {
             />
           </motion.a>
         </Link>
-        <nav className="hidden md:flex gap-4 sm:gap-6">
-        <Link href="/speedtest" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
-               Free Website Speed Test
-            </Link>
-          {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact',].map((item, index) => (
-            <motion.a
-              key={item}
-              className="text-sm font-medium hover:text-blue-400 transition-colors"
-              href={`#${item.toLowerCase().replace(' ', '-')}`}
-              onClick={handleNavClick}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              {item}
-            </motion.a>
-          ))}
-        </nav>
-        <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="md:hidden">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Open menu</span>
+        <div className="flex items-center">
+          <nav className="hidden md:flex gap-4 sm:gap-6">
+            {[ 'Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
+              <motion.a
+                key={item}
+                className="text-sm font-medium hover:text-blue-400 transition-colors"
+                href={`#${item.toLowerCase().replace(' ', '-')}`}
+                onClick={handleNavClick}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                {item}
+              </motion.a>
+            ))}
+          </nav>
+          <div className="hidden md:flex items-center ml-4 space-x-2">
+            <Button asChild variant="outline">
+              <Link href="/speedtest">Website Speed Test</Link>
             </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000033] border-l border-blue-400/20">
-            <nav className="flex flex-col gap-4 mt-8">
-              {['Portfolio', 'Why Aoniqq', 'Testimonials', 'Pricing', 'Contact', 'Website Speed Test'].map((item, index) => (
-                <motion.a
-                  key={item}
-                  className="text-lg font-medium hover:text-blue-400 transition-colors"
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
-                  onClick={handleNavClick}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  {item}
-                </motion.a>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
+            <Button asChild variant="outline">
+              <Link href="/websitecreation/book">Book</Link>
+            </Button>
+          </div>
+          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000033] border-l border-blue-400/20">
+              <nav className="flex flex-col gap-4 mt-8">
+                {[ 'Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
+                  <motion.a
+                    key={item}
+                    className="text-lg font-medium hover:text-blue-400 transition-colors"
+                    href={item === 'Website Speed Test' ? '/speedtest' : `#${item.toLowerCase().replace(' ', '-')}`}
+                    onClick={handleNavClick}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    {item}
+                  </motion.a>
+                ))}
+                  <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/speedtest">Website Speed Test</Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/book">Book</Link>
+                </Button>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </header>
       <main className="flex-1">
         {/* Hero Section */}
@@ -307,7 +321,9 @@ export default function WebsiteCreation() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <WebsiteJourneyMap />
+              <Suspense fallback={<div>Loading...</div>}>
+                <LazyWebsiteJourneyMap />
+              </Suspense>
             </motion.div>
           </div>
         </section>
@@ -325,7 +341,9 @@ export default function WebsiteCreation() {
             >
               Some of Our Most Recent Portfolio Websites
             </motion.h2>
-            <Portfolio />
+            <Suspense fallback={<div>Loading portfolio...</div>}>
+              <LazyPortfolio />
+            </Suspense>
           </div>
         </section>
 
@@ -412,14 +430,16 @@ export default function WebsiteCreation() {
         <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-black/30">
           <div className="container mx-auto px-4 max-w-6xl">
             <motion.h2
-              className="text-4xl font-bold mb-4 text-center leading-relaxed pb-2" // Added leading-relaxed and pb-2
+              className="text-4xl font-bold mb-4 text-center leading-relaxed pb-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               Pricing
             </motion.h2>
-            <PricingSlider openContactForm={openContactForm} />
+            <Suspense fallback={<div>Loading pricing...</div>}>
+              <LazyPricingSlider openContactForm={openContactForm} />
+            </Suspense>
           </div>
         </section>
 
@@ -478,11 +498,11 @@ export default function WebsiteCreation() {
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-700">
         <p className="text-xs text-gray-400">© 2024 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+          <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
             Terms of Service
           </Link>
-          <Link href="#" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
-            Privacy
+          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+            Privacy Policy
           </Link>
         </nav>
       </footer>
@@ -505,7 +525,9 @@ export default function WebsiteCreation() {
                 <X className="h-6 w-6" />
               </Button>
             </div>
-            <ContactForm isOpen={isContactFormOpen} onClose={closeContactForm} redirectUrl="/" />
+            <Suspense fallback={<div>Loading form...</div>}>
+              <LazyContactForm isOpen={isContactFormOpen} onClose={closeContactForm} redirectUrl="/" />
+            </Suspense>
           </motion.div>
         </div>
       )}

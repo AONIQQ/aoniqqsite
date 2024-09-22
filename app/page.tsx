@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -15,13 +15,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Component() {
   const [currentReview, setCurrentReview] = useState(0)
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeWhySection, setActiveWhySection] = useState(1) // Set to 1 for Expert Communication
+  const [activeWhySection, setActiveWhySection] = useState(1)
   const [hoveredService, setHoveredService] = useState<number | null>(null)
   const [expandedReviews, setExpandedReviews] = useState<boolean[]>(Array(8).fill(false))
 
-  const reviews = [
+  const reviews = useMemo(() => [
     {
       text: "I have had the pleasure of working with Andrew, the founder of Aoniqq, on multiple Web3 and Web2 projects for over a year now. Throughout our collaborations, Andrew has consistently demonstrated competence, trustworthiness, professionalism, discipline, punctuality, open-mindedness, quick learning ability, and excellent problem-solving skills. His extensive experience is further bolstered by his ability to know when to delegate or call in experts to fill any gaps. In challenging situations, Andrew has shown his ability to perform under pressure and in harsh conditions without slipping up. His technical expertise combined with his ability to work with and manage a team of developers makes him a great resource. For the sake of providing a more specific and helpful review, I'd like to share one of my recent positive experiences with Aoniqq. Aoniqq single-handedly saved a Web3 project launch that was being severely mismanaged by a team of supposedly professional developers. The other developers not only failed to do their job correctly but were also an absolute nightmare to work with when corrections were needed. Aoniqq solved the technical issues while also successfully navigating the complicated communication issues with the original dev team to ensure that they provided what was needed for the corrections to be completed. I felt safe trusting Aoniqq to take charge of the process, and they executed flawlessly, leading to a smooth launch for the project. Being able to trust Aoniqq to handle the development side of a project completely allows my team and me to focus our energy on our areas of specialization, opening us up to the most success and growth possible. The peace of mind provided by such confident delegation is priceless. If anyone requires further validation of any claims or would like to learn more about the quality of work I've seen from Andrew and Aoniqq, I would be happy to serve as a reference.",
       author: "Ryan | Founder | Pylon Enterprises"
@@ -54,9 +53,9 @@ export default function Component() {
       text: "The team at Aoniqq helped us program all of the contracts and code for our NFT drop and much much more. Andrew from the team came to every meeting and had excellent ideas. Despite changing direction multiple times as the project developed, their team never complained, and their team didn't flinch when the work doubled and then tripled. Highly professional, and especially trustworthy team. Can't wait to work together in the future.",
       author: "Max | CEO | Unreal Assets"
     }
-  ]
+  ], [])
 
-  const whySections = [
+  const whySections = useMemo(() => [
     {
       title: "Tailored Approach",
       content: "You've probably experienced the frustration of working with developers who don't understand your business or project, and it feels like you're just being given a generic solution. We understand that every business and project is unique, and our team works closely with you to develop a personalized plan that meets your specific needs. We ensure what we deliver is exactly what you need, and we're always here to answer questions and make adjustments as needed.",
@@ -72,7 +71,7 @@ export default function Component() {
       content: "Our extensive experience across multiple industries enables us to offer solutions to even the most complex roadblocks your business may face. We have experience in the most cutting edge technologies, and we are constantly learning and adapting to new trends. From small business operations, to startups, to massive corporate projects, we have the experience to help you. And if we don't have experience in your industry, we'll be honest about that too, and direct you towards someone who can better serve you.",
       icon: <Briefcase className="h-8 w-8" />
     }
-  ]
+  ], [])
 
   const nextReview = useCallback(() => {
     setCurrentReview((prev) => (prev + 1) % reviews.length)
@@ -82,17 +81,7 @@ export default function Component() {
     setCurrentReview((prev) => (prev - 1 + reviews.length) % reviews.length)
   }, [reviews.length])
 
-  const openCalendly = useCallback(() => {
-    setIsCalendlyOpen(true)
-    document.body.style.overflow = 'hidden'
-  }, [])
-
-  const closeCalendly = useCallback(() => {
-    setIsCalendlyOpen(false)
-    document.body.style.overflow = 'auto'
-  }, [])
-
-  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     const href = event.currentTarget.getAttribute('href')
     if (href) {
@@ -102,34 +91,20 @@ export default function Component() {
       }
     }
     setIsMenuOpen(false)
-  }
+  }, [])
 
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeCalendly()
-      }
-    }
-
-    document.addEventListener('keydown', handleEscape)
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape)
-    }
-  }, [closeCalendly])
-
-  const toggleExpandReview = (index: number) => {
+  const toggleExpandReview = useCallback((index: number) => {
     setExpandedReviews(prev => {
       const newExpanded = [...prev]
       newExpanded[index] = !newExpanded[index]
       return newExpanded
     })
-  }
+  }, [])
 
-  const truncateText = (text: string, sentences: number) => {
+  const truncateText = useCallback((text: string, sentences: number) => {
     const sentenceArray = text.match(/[^.!?]+[.!?]+/g) || []
     return sentenceArray.slice(0, sentences).join(' ')
-  }
+  }, [])
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#000033] to-[#000066] text-white">
@@ -145,12 +120,6 @@ export default function Component() {
           />
         </div>
         <div className="flex items-center">
-          <Link href="/websitecreation" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
-          Website Creation
-          </Link>
-          <Link href="/speedtest" className="text-sm font-medium hover:text-blue-400 transition-colors mr-4">
-         Website Speed Test
-          </Link>
           <nav className="hidden md:flex gap-4 sm:gap-6">
             <a className="text-sm font-medium hover:text-blue-400 transition-colors" href="#services" onClick={handleNavClick}>
               Services
@@ -165,6 +134,17 @@ export default function Component() {
               Contact
             </a>
           </nav>
+          <div className="hidden md:flex items-center ml-4 space-x-2">
+            <Button asChild variant="outline">
+              <Link href="/websitecreation">Website Development</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/speedtest">Website Speed Test</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/book">Book</Link>
+            </Button>
+          </div>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
@@ -174,9 +154,6 @@ export default function Component() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000033] border-l border-blue-400/20">
               <nav className="flex flex-col gap-4 mt-8">
-                <Link href="/websitecreation" className="text-lg font-medium hover:text-blue-400 transition-colors">
-                  24hr Website Creation
-                </Link>
                 <a className="text-lg font-medium hover:text-blue-400 transition-colors" href="#services" onClick={handleNavClick}>
                   Services
                 </a>
@@ -189,6 +166,15 @@ export default function Component() {
                 <a className="text-lg font-medium hover:text-blue-400 transition-colors" href="#contact" onClick={handleNavClick}>
                   Contact
                 </a>
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/websitecreation">Website Development</Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/speedtest">Website Speed Test</Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/book">Book</Link>
+                </Button>
               </nav>
             </SheetContent>
           </Sheet>
@@ -206,9 +192,11 @@ export default function Component() {
               <p className="mx-auto max-w-[1000px] text-gray-300 text-lg lg:text-xl">
                 At Aoniqq, we handle the technical side so you can focus on what matters most — your business. Our personalized approach, clear communication, and industry expertise ensure your project is in capable hands, from start to finish.
               </p>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 mt-6 animate-pulse" onClick={openCalendly}>
-                Schedule a Free Consultation
-              </Button>
+              <Link href="/book" passHref>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 mt-6 animate-pulse">
+                  Schedule a Free Consultation
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -259,9 +247,11 @@ export default function Component() {
               ))}
             </div>
             <div className="mt-12 text-center">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 animate-bounce" onClick={openCalendly}>
-                Schedule a Free Consultation
-              </Button>
+              <Link href="/book" passHref>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 animate-bounce">
+                  Schedule a Free Consultation
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -441,45 +431,29 @@ export default function Component() {
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="flex flex-col items-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Ready to Get Started?</h2>
-              <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl">
                 Let&apos;s discuss your project and see how we can help you achieve your goals.
               </p>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 mt-6 animate-pulse" onClick={openCalendly}>
-                Schedule a Free Consultation
-              </Button>
+              <Link href="/book" passHref>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-6 px-10 mt-6 animate-pulse">
+                  Schedule a Free Consultation
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-blue-400/20">
-        <p className="text-xs text-gray-400">© 2023 Aoniqq. All rights reserved.</p>
+        <p className="text-xs text-gray-400">© 2024 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
+          <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
             Terms of Service
           </Link>
-          <Link className="text-xs hover:underline underline-offset-4 text-gray-400" href="#">
-            Privacy
+          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+            Privacy Policy
           </Link>
         </nav>
       </footer>
-      {isCalendlyOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-          <div className="bg-white p-4 rounded-lg w-full max-w-3xl h-[80vh] relative">
-            <Button
-              className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2"
-              onClick={closeCalendly}
-            >
-              <X className="h-6 w-6" />
-            </Button>
-            <iframe
-              src="https://calendly.com/aoniqq/30min"
-              width="100%"
-              height="100%"
-              frameBorder="0"
-            ></iframe>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

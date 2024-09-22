@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import Link from 'next/link'; 
+
 
 export default function BookPage() {
   const [isClient, setIsClient] = useState(false)
@@ -38,14 +40,16 @@ export default function BookPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Image
-            src="/images/LargeSideLogo.png"
-            alt="Aoniqq Logo"
-            fill
-            className="object-contain"
-            sizes="(max-width: 768px) 144px, 144px"
-            priority
-          />
+          <Link href="/" className="block"> 
+            <Image
+              src="/images/LargeSideLogo.png"
+              alt="Aoniqq Logo"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 144px, 144px"
+              priority
+            />
+          </Link>
         </motion.div>
         <div className="w-10" /> {/* Placeholder for layout balance */}
       </header>
@@ -53,14 +57,13 @@ export default function BookPage() {
       <main className="flex-grow flex items-center justify-center p-4">
         <Card className="w-full max-w-4xl bg-blue-900/20 border-blue-400/20">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center text-white">Schedule Your Website Consultation</CardTitle>
-            <CardDescription className="text-center text-blue-200">Get your fully customized website!</CardDescription>
+            <CardTitle className="text-2xl font-bold text-center text-white">Schedule Your Free Consultation with one of our experts</CardTitle>
           </CardHeader>
           <CardContent>
             {isClient && (
               <div className="aspect-video">
                 <iframe
-                  src="https://calendly.com/aoniqq/websitecreation"
+                  src="https://calendly.com/aoniqq/consulation"
                   width="100%"
                   height="100%"
                   frameBorder="0"
@@ -71,8 +74,16 @@ export default function BookPage() {
         </Card>
       </main>
 
-      <footer className="py-6 px-4 md:px-6 border-t border-gray-700 text-center">
-        <p className="text-xs text-gray-400">© 2024 Aoniqq LLC. All rights reserved.</p>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-blue-400/20">
+        <p className="text-xs text-gray-400">© 2024 Aoniqq. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+        <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+            Terms of Service
+          </Link>
+          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+            Privacy Policy
+          </Link>
+        </nav>
       </footer>
     </div>
   )
