@@ -105,49 +105,48 @@ export default function Component() {
     const sentenceArray = text.match(/[^.!?]+[.!?]+/g) || []
     return sentenceArray.slice(0, sentences).join(' ')
   }, [])
-
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#000033] to-[#000066] text-white">
       <header className="px-4 lg:px-6 h-16 flex items-center justify-between">
-        <div className="relative w-36 h-12">
+        <Link href="/" className="flex-shrink-0">
           <Image
             src="/images/LargeSideLogo.png"
             alt="Aoniqq Logo"
-            fill
-            className="object-contain"
-            sizes="(max-width: 768px) 144px, 144px"
+            width={144}
+            height={48}
+            className="w-36 h-12 object-contain"
             priority
           />
-        </div>
+        </Link>
         <div className="flex items-center">
-          <nav className="hidden md:flex gap-4 sm:gap-6">
-            <a className="text-sm font-medium hover:text-blue-400 transition-colors" href="#services" onClick={handleNavClick}>
+          <nav className="hidden xl:flex space-x-4">
+            <a className="text-sm font-medium hover:text-blue-400 transition-colors whitespace-nowrap" href="#services" onClick={handleNavClick}>
               Services
             </a>
-            <a className="text-sm font-medium hover:text-blue-400 transition-colors" href="#why-aoniqq" onClick={handleNavClick}>
+            <a className="text-sm font-medium hover:text-blue-400 transition-colors whitespace-nowrap" href="#why-aoniqq" onClick={handleNavClick}>
               What Sets Us Apart
             </a>
-            <a className="text-sm font-medium hover:text-blue-400 transition-colors" href="#testimonials" onClick={handleNavClick}>
+            <a className="text-sm font-medium hover:text-blue-400 transition-colors whitespace-nowrap" href="#testimonials" onClick={handleNavClick}>
               Testimonials
             </a>
-            <a className="text-sm font-medium hover:text-blue-400 transition-colors" href="#contact" onClick={handleNavClick}>
+            <a className="text-sm font-medium hover:text-blue-400 transition-colors whitespace-nowrap" href="#contact" onClick={handleNavClick}>
               Contact
             </a>
           </nav>
-          <div className="hidden md:flex items-center ml-4 space-x-2">
-            <Button asChild variant="outline">
+          <div className="hidden xl:flex items-center ml-4 space-x-2">
+            <Button asChild variant="outline" size="sm">
               <Link href="/websitecreation">Website Development</Link>
             </Button>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" size="sm">
               <Link href="/speedtest">Website Speed Test</Link>
             </Button>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" size="sm">
               <Link href="/book">Book</Link>
             </Button>
           </div>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
+              <Button variant="outline" size="icon" className="xl:hidden ml-2">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
