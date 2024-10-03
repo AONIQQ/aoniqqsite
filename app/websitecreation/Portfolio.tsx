@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
@@ -84,6 +86,15 @@ export default function Portfolio() {
     }
 
     loadVideos()
+
+    // Cleanup function
+    return () => {
+      videoRefs.current.forEach(video => {
+        if (video) {
+          video.removeEventListener('loadeddata', () => {})
+        }
+      })
+    }
   }, [])
 
   const handleMouseEnter = (index: number) => {

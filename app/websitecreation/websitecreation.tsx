@@ -21,9 +21,10 @@ const LazyContactForm = lazy(() => import('@/components/ContactForm'))
 
 export default function WebsiteCreation() {
   const [currentReview, setCurrentReview] = useState(0)
-  const [expandedReviews, setExpandedReviews] = useState<boolean[]>(Array(5).fill(false))
+  const [expandedReviews, setExpandedReviews] = useState<boolean[]>([])
   const [isContactFormOpen, setIsContactFormOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(false)
 
   const reviews = useMemo(() => [
     {
@@ -33,6 +34,10 @@ export default function WebsiteCreation() {
     {
       text: "Aoniqq is a lifesaver.  After spending 6 months spinning my wheels with another developer, I brought in Andrew from Aoniqq and he accomplished more in our first meeting than had been done in the previous 6 months.  He's been great, building an entire custom website for me to get me exactly the functionality I needed while also fixing all the weird issues that came up while we had been trying to use Webflow.  It's what I want without compromises, and looks better.  I'm even saving money on hosting his tailor-made build compared to the cost of an endless subscription to Webflow or another competitor.  Just considering the final product, Aoniqq is absolutely the way to go.\nFactoring in Andrew's excellent communication, professionalism, cleverness, flexibility, and discipline, I can't recommend Andrew and Aoniqq enough.  His ability to understand and implement 'bleeding-edge' web development tools has also been a huge help.  When I've asked if we need to add a feature, he's always clear about how he would go about it and what the pros and cons would be, allowing me to make a decision based on the final product.  Aoniqq is an excellent service.  When you compare it to other website development services, Aoniqq is truly exceptional.\nI've been recommending Aoniqq to friends and business contacts since I first worked with Andrew and will happily continue to do so.",
       author: "Rob | Founder | Remotetutoring.com"
+    },
+    {
+      text: "Andrew was recommended to assist in the development of the website for our organization. I did not know him or have any experience in designing a website. We desired to have the first features in place by August 12, 2024. Andrew got it done. Phase II required greater effort and periodic revisions as we refined our objectives. Features that we envisioned but did not know how to implement were easily effectuated by Andrew. Tasks first outlined on Friday were accomplished over the weekend. Andrew has been a pleasure to work with.",
+      author: "Albert | Treasurer | DPE Foundation for Foreign Service Education"
     },
     {
       text: "Aoniqq was fantastic to work with. They quickly understood the task and delivered a stunning website for my business faster than expected and within my budget. The site is user-friendly and visually appealing, and resonates well with my customers and brand. Communication was seamless, and they were always responsive and professional. Highly recommend Aoniqq for any development needs, and I look forward to working with them again in the future.",
@@ -46,19 +51,11 @@ export default function WebsiteCreation() {
       text: "Our Design assets and our website were delivered ahead of schedule, and exceeded our expectations. We were able to be truly hands off throughout the process, which was extremely valuable, as we are already extremely busy. After discussing the project with the Aoniqq team and seeing their attention to detail, we knew we had made the right decision. In past projects of ours, web development has been a huge headache because of the necessity to micromanage developers. This was not the case with Aoniqq, which made working with them a breath of fresh air.",
       author: "Fastrack Team | Fastrack EDU LLC"
     },
-    {
-      text: "After months of working with Aoniqq, I can say without pause, that they are one of the most reliable service providers with whom we have worked. What started with a small project has blossomed into Aoniqq providing oversight of our team, project management, and development. They have taken on the increased scope professionally. They have taken the initiative to research new trends as they emerge in the space. And, they have properly -and timely! - communicated things along the way. We consider Aoniqq to be a true partner in the project.",
-      author: "Justin | Founder | Bodega Blocks"
-    },
-    {
-      text: "Aoniqq was recommended to the team by an advisor helping out on the project after we had issues with our previous development team. The level of professionalism we received from the team at Aoniqq was something we hadn't experienced before, and it came at the perfect time. Their team was actively engaged in the whole process and their technical knowledge from start to finish allowed us to focus on the growth of the project.",
-      author: "Alex | Founder | All For One"
-    },
-    {
-      text: "The team at Aoniqq designed and created a feature rich website for our project. Andrew from the team came to every meeting and had excellent ideas. Despite changing direction multiple times as the project developed, their team never complained, and their team didn't flinch when the work doubled and then tripled. Highly professional, and especially trustworthy team. Can't wait to work together in the future.",
-      author: "Max | CEO | Unreal Assets"
-    }
   ], [])
+
+  useEffect(() => {
+    setExpandedReviews(new Array(reviews.length).fill(false))
+  }, [reviews])
 
   const nextReview = useCallback(() => {
     setCurrentReview((prev) => (prev + 1) % reviews.length)
@@ -117,6 +114,20 @@ export default function WebsiteCreation() {
     }
   }, [closeContactForm])
 
+  useEffect(() => {
+    const checkNavbarCollapse = () => {
+      const breakpoint = 1024 // lg breakpoint
+      setIsNavbarCollapsed(window.innerWidth < breakpoint)
+    }
+
+    checkNavbarCollapse()
+    window.addEventListener('resize', checkNavbarCollapse)
+
+    return () => {
+      window.removeEventListener('resize', checkNavbarCollapse)
+    }
+  }, [])
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#000033] to-[#000066] text-white">
       <header className="px-4 lg:px-6 h-16 flex items-center justify-between">
@@ -138,60 +149,65 @@ export default function WebsiteCreation() {
           </motion.a>
         </Link>
         <div className="flex items-center">
-          <nav className="hidden md:flex gap-4 sm:gap-6">
-            {[ 'Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
-              <motion.a
-                key={item}
-                className="text-sm font-medium hover:text-blue-400 transition-colors"
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
-                onClick={handleNavClick}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                {item}
-              </motion.a>
-            ))}
-          </nav>
-          <div className="hidden md:flex items-center ml-4 space-x-2">
-            <Button asChild variant="outline">
-              <Link href="/speedtest">Website Speed Test</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href="/websitecreation/book">Book</Link>
-            </Button>
-          </div>
-          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000033] border-l border-blue-400/20">
-              <nav className="flex flex-col gap-4 mt-8">
-                {[ 'Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
+          {!isNavbarCollapsed ? (
+            <>
+              <nav className="flex gap-4 sm:gap-6">
+                {['Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
                   <motion.a
                     key={item}
-                    className="text-lg font-medium hover:text-blue-400 transition-colors"
-                    href={item === 'Website Speed Test' ? '/speedtest' : `#${item.toLowerCase().replace(' ', '-')}`}
+                    className="text-sm font-medium hover:text-blue-400 transition-colors"
+                    href={`#${item.toLowerCase().replace(' ', '-')}`}
                     onClick={handleNavClick}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     {item}
                   </motion.a>
                 ))}
-                  <Button asChild variant="outline" className="w-full justify-start">
+              </nav>
+              <div className="flex items-center ml-4 space-x-2">
+                <Button asChild variant="outline">
                   <Link href="/speedtest">Website Speed Test</Link>
                 </Button>
-                <Button asChild variant="outline" className="w-full justify-start">
-                  <Link href="/book">Book</Link>
+                <Button asChild variant="outline">
+                  <Link href="/websitecreation/book">Book</Link>
                 </Button>
-              </nav>
-            </SheetContent>
-          </Sheet>
+              </div>
+            </>
+          ) : (
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000033] border-l border-blue-400/20">
+                <nav className="flex flex-col gap-4 mt-8">
+                  {['Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item, index) => (
+                    <motion.a
+                      key={item}
+                      className="text-lg font-medium hover:text-blue-400 transition-colors"
+                      href={`#${item.toLowerCase().replace(' ', '-')}`}
+                      onClick={handleNavClick}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      {item}
+                    </motion.a>
+                  ))}
+                  <Button asChild variant="outline" className="w-full justify-start">
+                    <Link href="/speedtest">Website Speed Test</Link>
+                  </Button>
+                  <Button asChild variant="outline" className="w-full justify-start">
+                    <Link href="/websitecreation/book">Book</Link>
+                  </Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          )}
         </div>
       </header>
       <main className="flex-1">
@@ -378,12 +394,12 @@ export default function WebsiteCreation() {
                       </div>
                       <div className="max-h-[300px] overflow-y-auto mb-4 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100">
                         <p className="text-lg leading-relaxed">
-                          {expandedReviews[currentReview] 
+                          {reviews[currentReview] && (expandedReviews[currentReview] 
                             ? reviews[currentReview].text 
-                            : truncateText(reviews[currentReview].text, 3)}
+                            : truncateText(reviews[currentReview].text, 3))}
                         </p>
                       </div>
-                      {reviews[currentReview].text.length > truncateText(reviews[currentReview].text, 3).length && (
+                      {reviews[currentReview] && reviews[currentReview].text.length > truncateText(reviews[currentReview].text, 3).length && (
                           <Button
                           onClick={() => toggleExpandReview(currentReview)}
                           className="mt-2 bg-blue-600 hover:bg-blue-700 text-white"
@@ -391,7 +407,7 @@ export default function WebsiteCreation() {
                           {expandedReviews[currentReview] ? 'Read Less' : 'Read More'}
                         </Button>
                       )}
-                      <p className="font-bold text-blue-400 mt-4 text-right">{reviews[currentReview].author}</p>
+                      <p className="font-bold text-blue-400 mt-4 text-right">{reviews[currentReview]?.author}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
