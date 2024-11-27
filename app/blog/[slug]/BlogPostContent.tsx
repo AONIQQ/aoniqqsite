@@ -22,15 +22,15 @@ type Props = {
 }
 
 const RenderContent: React.FC<{ content: string }> = ({ content }) => {
-  const paragraphs = content.split('\n\n')
+  const paragraphs = content.split('\n\n');
 
   const renderTextWithLinksAndBold = (text: string) => {
-    const parts = text.split(/(\[.*?\]$$.*?$$|\*\*.*?\*\*)/g)
+    const parts = text.split(/(\[.*?\]$$.*?$$|\*\*.*?\*\*)/g);
     return parts.map((part, index) => {
-      const linkMatch = part.match(/\[(.*?)\]$$(.*?)$$/)
-      const boldMatch = part.match(/\*\*(.*?)\*\*/)
+      const linkMatch = part.match(/\[(.*?)\]$$(.*?)$$/);
+      const boldMatch = part.match(/\*\*(.*?)\*\*/);
       if (linkMatch) {
-        const [_, linkText, url] = linkMatch
+        const [_, linkText, url] = linkMatch;
         return (
           <a
             key={index}
@@ -41,57 +41,74 @@ const RenderContent: React.FC<{ content: string }> = ({ content }) => {
           >
             {linkText}
           </a>
-        )
+        );
       } else if (boldMatch) {
-        return <strong key={index}>{boldMatch[1]}</strong>
+        return <strong key={index}>{boldMatch[1]}</strong>;
       }
-      return <React.Fragment key={index}>{part}</React.Fragment>
-    })
-  }
+      return <React.Fragment key={index}>{part}</React.Fragment>;
+    });
+  };
 
   return (
     <>
       {paragraphs.map((paragraph, index) => {
+        // Handle different content types
         if (paragraph.startsWith('### ')) {
           return (
-            <h3 key={index} className="text-xl md:text-2xl font-bold mt-8 md:mt-12 mb-4 md:mb-6 text-blue-300 border-b border-blue-500 pb-2">
-              {renderTextWithLinksAndBold(paragraph.slice(3).trim())}
+            <h3
+              key={index}
+              className="text-xl md:text-2xl font-bold mt-6 md:mt-8 mb-3 md:mb-4 text-blue-300 border-b border-blue-500 pb-2"
+            >
+              {renderTextWithLinksAndBold(paragraph.slice(4).trim())}
             </h3>
-          )
+          );
         } else if (paragraph.startsWith('## ')) {
           return (
-            <h2 key={index} className="text-2xl md:text-3xl font-bold mt-8 md:mt-12 mb-4 md:mb-6 text-blue-200">
-              {renderTextWithLinksAndBold(paragraph.slice(2).trim())}
+            <h2
+              key={index}
+              className="text-2xl md:text-3xl font-bold mt-8 md:mt-12 mb-4 md:mb-6 text-blue-200"
+            >
+              {renderTextWithLinksAndBold(paragraph.slice(3).trim())}
             </h2>
-          )
+          );
         } else if (paragraph.startsWith('# ')) {
           return (
-            <h1 key={index} className="text-3xl md:text-4xl font-bold mt-6 md:mt-8 mb-3 md:mb-4 text-blue-100">
-              {renderTextWithLinksAndBold(paragraph.slice(1).trim())}
+            <h1
+              key={index}
+              className="text-3xl md:text-4xl font-bold mt-6 md:mt-8 mb-3 md:mb-4 text-blue-100"
+            >
+              {renderTextWithLinksAndBold(paragraph.slice(2).trim())}
             </h1>
-          )
+          );
         } else if (paragraph.startsWith('- ')) {
-          const listItems = paragraph.split('\n')
+          // Handle lists by splitting into individual items
+          const listItems = paragraph.split('\n').map((item) => item.slice(2));
           return (
-            <ul key={index} className="list-disc pl-4 md:pl-6 mb-4 space-y-2">
+            <ul
+              key={index}
+              className="list-disc pl-4 md:pl-6 mb-4 space-y-2 text-sm md:text-base"
+            >
               {listItems.map((item, itemIndex) => (
-                <li key={itemIndex} className="text-sm md:text-base">
-                  {renderTextWithLinksAndBold(item.slice(2))}
-                </li>
+                <li key={itemIndex}>{renderTextWithLinksAndBold(item)}</li>
               ))}
             </ul>
-          )
+          );
         } else {
+          // Handle normal paragraphs
           return (
-            <p key={index} className="mb-4 leading-relaxed text-sm md:text-base">
-              {renderTextWithLinksAndBold(paragraph)}
+            <p
+              key={index}
+              className="mb-4 leading-relaxed text-sm md:text-base text-gray-200"
+            >
+              {renderTextWithLinksAndBold(paragraph.trim())}
             </p>
-          )
+          );
         }
       })}
     </>
-  )
-}
+  );
+};
+
 
 export default function BlogPostContent({ post, otherPosts }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
