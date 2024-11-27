@@ -25,7 +25,12 @@ export const crms = [
       'Franchises'
     ],
     referralLink: 'https://get.keap.com/cqv1obbu22zq',
-    description: 'Keap (formerly Infusionsoft) offers an all-in-one sales and marketing automation platform designed to help small businesses capture new leads, save time with automations, and keep teams organized. It provides CRM, email and text marketing, landing pages, appointments, invoicing, and payment processing, all in one place. Keap also offers outstanding customer support, including a dedicated Customer Success Manager, U.S.-based phone support, and 24/7 chat support.'
+    description: 'Keap (formerly Infusionsoft) offers an all-in-one sales and marketing automation platform designed to help small businesses capture new leads, save time with automations, and keep teams organized. It provides CRM, email and text marketing, landing pages, appointments, invoicing, and payment processing, all in one place. Keap also offers outstanding customer support, including a dedicated Customer Success Manager, U.S.-based phone support, and 24/7 chat support.',
+    landingPageWebsiteFunctionality: 'Offers landing page creation tools but lacks a full website builder.',
+    customizationLevel: 'Moderate customization options for forms, emails, and landing pages.',
+    nativeIntegrations: 250,
+    easeOfUse: 'User-friendly interface with a moderate learning curve.',
+    pricing: 'Starts at $129/month for the Pro plan.'
   },
   {
     name: 'GoHighLevel',
@@ -57,7 +62,12 @@ export const crms = [
       'Legal Services'
     ],
     referralLink: 'https://www.gohighlevel.com/?fp_ref=8pmeg',
-    description: 'GoHighLevel is an all-in-one marketing platform that allows agencies and businesses to manage their marketing, sales, and customer service in one place. It offers features like CRM, marketing automation, sales automation, email and SMS marketing, funnel and website builders, membership sites, reputation management, and call tracking. GoHighLevel also provides a white-label solution, enabling agencies to offer branded services to their clients.'
+    description: 'GoHighLevel is an all-in-one marketing platform that allows agencies and businesses to manage their marketing, sales, and customer service in one place. It offers features like CRM, marketing automation, sales automation, email and SMS marketing, funnel and website builders, membership sites, reputation management, and call tracking. GoHighLevel also provides a white-label solution, enabling agencies to offer branded services to their clients.',
+    landingPageWebsiteFunctionality: 'Includes both landing page and full website building capabilities.',
+    customizationLevel: 'High customization with drag-and-drop builders for funnels, websites, and emails.',
+    nativeIntegrations: 100,
+    easeOfUse: 'Comprehensive features may require a steeper learning curve.',
+    pricing: 'Starts at $97/month for the Starter plan.'
   },
   {
     name: 'ActiveCampaign',
@@ -73,6 +83,7 @@ export const crms = [
       'Forms',
       'Analytics & Reporting',
       'Integrated AI',
+      'Agency Tools',
       'Integrations'
     ],
     bestFor: [
@@ -87,7 +98,12 @@ export const crms = [
       'Non-Profit organizations'
     ],
     referralLink: 'https://www.activecampaign.com/?_r=6YC8RHQS',
-    description: 'ActiveCampaign is an all-in-one marketing automation platform that combines email marketing, marketing automation, sales automation, and CRM. It offers powerful segmentation and personalization across social, email, messaging, chat, and text, enabling businesses to create tailored customer experiences. With over 900 integrations, it connects seamlessly with various tools to streamline marketing efforts.'
+    description: 'ActiveCampaign is an all-in-one marketing automation platform that combines email marketing, marketing automation, sales automation, and CRM. It offers powerful segmentation and personalization across social, email, messaging, chat, and text, enabling businesses to create tailored customer experiences. With over 900 integrations, it connects seamlessly with various tools to streamline marketing efforts.',
+    landingPageWebsiteFunctionality: 'Provides landing page creation but lacks full website building features.',
+    customizationLevel: 'High customization with advanced automation workflows and email templates.',
+    nativeIntegrations: 870,
+    easeOfUse: 'Feature-rich platform with a moderate learning curve.',
+    pricing: 'Starts at $29/month for the Lite plan.'
   },
   {
     name: 'monday.com',
@@ -117,8 +133,13 @@ export const crms = [
       'Freelancers'
     ],
     referralLink: 'https://try.monday.com/v8ni7fnymhxm',
-    description: 'monday.com is a work operating system that enables organizations to manage tasks, projects, and workflows in a centralized platform. It offers customizable templates, automation capabilities, and a visual interface to enhance team collaboration and productivity. With features like CRM, project management, marketing automation, and sales automation, monday.com caters to various business needs across different industries.'
-  },
+    description: 'monday.com is a work operating system that enables organizations to manage tasks, projects, and workflows in a centralized platform. It offers customizable templates, automation capabilities, and a visual interface to enhance team collaboration and productivity. With features like CRM, project management, marketing automation, and sales automation, monday.com caters to various business needs across different industries.',
+    landingPageWebsiteFunctionality: 'Does not offer landing page or website building functionalities.',
+    customizationLevel: 'Highly customizable workflows and dashboards to fit various business needs.',
+    nativeIntegrations: 50,
+    easeOfUse: 'Intuitive interface with a gentle learning curve.',
+    pricing: 'Starts at $8/seat/month for the Basic plan.'
+  }
   // {
   //   name: 'Zoho CRM',
   //   features: [
@@ -147,37 +168,6 @@ export const crms = [
   //     'Educational institutions'
   //   ],
   //   referralLink: 'Waiting',
-  //   description: 'Zoho CRM is a cloud-based customer relationship management platform designed to help businesses of all sizes manage their sales, marketing, and customer support in a single system. It offers features like sales automation, marketing automation, customer support, analytics, and an AI-powered sales assistant. Zoho CRM is highly customizable and integrates with numerous third-party applications to streamline business processes.'
-  // },
-  // {
-  //   name: 'HubSpot',
-  //   features: [
-  //     'CRM',
-  //     'Marketing Hub',
-  //     'Sales Hub',
-  //     'Service Hub',
-  //     'CMS Hub',
-  //     'Operations Hub',
-  //     'Email Marketing',
-  //     'Marketing Automation',
-  //     'Sales Automation',
-  //     'Customer Service Tools',
-  //     'Content Management',
-  //     'SEO Tools',
-  //     'Analytics & Reporting',
-  //     'Integrations'
-  //   ],
-  //   bestFor: [
-  //     'Startups',
-  //     'Growing businesses',
-  //     'Enterprise companies',
-  //     'B2B companies',
-  //     'E-commerce businesses',
-  //     'Non-Profit organizations',
-  //     'Educational institutions',
-  //     'Healthcare'
-  //   ],
-  //   referralLink: 'Waiting',
-  //   description: 'HubSpot offers a full platform of marketing, sales, customer service, and CRM software — plus the methodology, resources, and support — to help businesses grow better. Its CRM platform includes Marketing Hub, Sales Hub, Service Hub, CMS Hub, and Operations Hub, providing a comprehensive suite of tools to manage customer relationships, automate marketing and sales processes, deliver exceptional customer service, and create and manage content.'
-  // }
-];
+  //   description: 'Zoho CRM is a cloud-based customer relationship management platform designed to help businesses of all sizes manage their sales, marketing, and customer support in a single system. It offers features like sales automation, marketing automation, customer support, analytics, and an AI-powered sales assistant. Zoho CRM is highly customizable and integrates with
+]
+ 
