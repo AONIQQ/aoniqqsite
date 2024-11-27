@@ -8,7 +8,7 @@ import MobileNav from './MobileNav'
 
 export const metadata: Metadata = {
   title: 'Blog | Aoniqq',
-  description: 'Read the latest insights and updates from the Aoniqq team on software and website development, AI use cases, project management, and technology trends.',
+  description: 'Read the latest insights and updates from the Aoniqq team on software and website development, AI use cases, project management, CRMs and technology trends.',
 }
 
 export default async function BlogIndexPage() {
