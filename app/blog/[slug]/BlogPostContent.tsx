@@ -23,12 +23,12 @@ type Props = {
 
 const RenderContent: React.FC<{ content: string }> = ({ content }) => {
   const paragraphs = content.split('\n\n');
-
   const renderTextWithLinksAndBold = (text: string) => {
-    const parts = text.split(/(\[.*?\]$$.*?$$|\*\*.*?\*\*)/g);
+    const parts = text.split(/(\[.*?\]\$\$.*?\$\$|\*\*.*?\*\*)/g); // Updated regex
     return parts.map((part, index) => {
-      const linkMatch = part.match(/\[(.*?)\]$$(.*?)$$/);
-      const boldMatch = part.match(/\*\*(.*?)\*\*/);
+      const linkMatch = part.match(/\[(.*?)\]\$\$(.*?)\$\$/); // Match [Link Text]$$URL$$
+      const boldMatch = part.match(/\*\*(.*?)\*\*/); // Match **Bold Text**
+  
       if (linkMatch) {
         const [_, linkText, url] = linkMatch;
         return (
