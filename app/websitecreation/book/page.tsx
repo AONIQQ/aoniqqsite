@@ -72,7 +72,7 @@ export default function BookPage() {
       </main>
 
       <footer className="py-6 px-4 md:px-6 border-t border-gray-700 text-center">
-        <p className="text-xs text-gray-400">© 2024 Aoniqq LLC. All rights reserved.</p>
+        <p className="text-xs text-gray-400">©2025 Aoniqq LLC. All rights reserved.</p>
       </footer>
     </div>
   )
