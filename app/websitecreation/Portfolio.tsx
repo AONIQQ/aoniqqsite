@@ -25,7 +25,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/WSV.mp4",
-    fallbackImage: "/images/wsv.png",
+    fallbackImage: "/images/fff.png",
     alt: "Wall Street Vision Website",
     title: "Wall Street Vision",
     description: "A stock trading program.",
@@ -41,11 +41,11 @@ const projects: Project[] = [
   },
   {
     src: "/videos/dpe.mp4",
-    fallbackImage: "/images/dpe.png",
+    fallbackImage: "/images/found.png",
     alt: "DPE Foundation Website",
     title: "DPE Foundation",
     description: "A Nonprofit Organization.",
-    url: "https://www.dpefoundation.org"
+    url: "https://dpefoundation.org/"
   },
   {
     src: "/videos/marketvision.mp4",
