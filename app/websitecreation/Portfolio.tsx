@@ -3,9 +3,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
+import Image from 'next/image'
 
 interface Project {
   src: string;
+  fallbackImage: string;
   alt: string;
   title: string;
   description: string;
@@ -15,13 +17,15 @@ interface Project {
 const projects: Project[] = [
   {
     src: "/videos/Fastrackedu.mp4",
+    fallbackImage: "/images/fasttrack-preview.jpg",
     alt: "Fastrack Website",
     title: "Fastrack",
     description: "A training business in the education sector.",
     url: "https://www.fastrack.school"
   },
   {
-    src: "/videos/wsv.mp4",
+    src: "/videos/WSV.mp4",
+    fallbackImage: "/images/wsv-preview.jpg",
     alt: "Wall Street Vision Website",
     title: "Wall Street Vision",
     description: "A stock trading program.",
@@ -29,34 +33,39 @@ const projects: Project[] = [
   },
   {
     src: "/videos/Weaksaucephilly.mp4",
+    fallbackImage: "/images/weaksauce-preview.jpg",
     alt: "Weaksauce Website",
     title: "Weaksauce",
     description: "A Hot Sauce Brand.",
     url: "https://www.weaksaucephilly.com"
   },
   {
-    src: "/videos/DPE.mp4",
+    src: "/videos/dpe.mp4",
+    fallbackImage: "/images/dpe-preview.jpg",
     alt: "DPE Foundation Website",
     title: "DPE Foundation",
     description: "A Nonprofit Organization.",
     url: "https://www.dpefoundation.org"
   },
   {
-    src: "/videos/Marketvision.mp4",
+    src: "/videos/marketvision.mp4",
+    fallbackImage: "/images/marketvision-preview.jpg",
     alt: "Market Vision Website",
     title: "Market Vision",
     description: "A marketing service for scaling with tiktok ads.",
     url: "https://www.marketvision.net"
   },
   {
-    src: "/videos/Picozzi.mp4",
+    src: "/videos/picozzi.mp4",
+    fallbackImage: "/images/picozzi-preview.jpg",
     alt: "VotePicozzi Website",
     title: "VotePicozzi",
     description: "A political campaign website.",
     url: "https://www.Votepicozzi.com"
   },
   {
-    src: "/videos/Remotetutoring.mp4",
+    src: "/videos/remotetutoring.mp4",
+    fallbackImage: "/images/remotetutoring-preview.jpg",
     alt: "Remote Tutoring Website",
     title: "Remote Tutoring",
     description: "A chemistry tutoring business.",
@@ -67,48 +76,68 @@ const projects: Project[] = [
 export default function Portfolio() {
   const [hoveredService, setHoveredService] = useState<number | null>(null)
   const [videosLoaded, setVideosLoaded] = useState<boolean[]>(new Array(projects.length).fill(false))
+  const [videoErrors, setVideoErrors] = useState<boolean[]>(new Array(projects.length).fill(false))
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   useEffect(() => {
     const loadVideos = () => {
       videoRefs.current.forEach((video, index) => {
         if (video) {
-          video.load()
-          video.addEventListener('loadeddata', () => {
+          const handleLoad = () => {
             setVideosLoaded(prev => {
               const newState = [...prev]
               newState[index] = true
               return newState
             })
-          })
+          }
+
+          const handleError = () => {
+            console.warn(`Failed to load video: ${projects[index].src}`)
+            setVideoErrors(prev => {
+              const newState = [...prev]
+              newState[index] = true
+              return newState
+            })
+          }
+
+          video.addEventListener('loadeddata', handleLoad)
+          video.addEventListener('error', handleError)
+
+          // Preload the video
+          video.load()
+
+          return () => {
+            video.removeEventListener('loadeddata', handleLoad)
+            video.removeEventListener('error', handleError)
+          }
         }
       })
     }
 
     loadVideos()
-
-    // Cleanup function
-    return () => {
-      videoRefs.current.forEach(video => {
-        if (video) {
-          video.removeEventListener('loadeddata', () => {})
-        }
-      })
-    }
   }, [])
 
   const handleMouseEnter = (index: number) => {
     setHoveredService(index)
-    if (videoRefs.current[index] && videosLoaded[index]) {
-      videoRefs.current[index]?.play().catch(error => console.log("Autoplay was prevented:", error))
+    const video = videoRefs.current[index]
+    if (video && videosLoaded[index] && !videoErrors[index]) {
+      video.play().catch(error => {
+        console.warn(`Autoplay prevented for video ${index}:`, error)
+        setVideoErrors(prev => {
+          const newState = [...prev]
+          newState[index] = true
+          return newState
+        })
+      })
     }
   }
 
   const handleMouseLeave = (index: number) => {
     setHoveredService(null)
-    if (videoRefs.current[index]) {
-      videoRefs.current[index]?.pause()
-      videoRefs.current[index]!.currentTime = 0
+    const video = videoRefs.current[index]
+    if (video && !videoErrors[index]) {
+      video.pause()
+      video.currentTime = 0
     }
   }
 
@@ -120,10 +149,10 @@ export default function Portfolio() {
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative"
+          className="relative block"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.2 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
           onMouseEnter={() => handleMouseEnter(index)}
           onMouseLeave={() => handleMouseLeave(index)}
         >
@@ -135,33 +164,49 @@ export default function Portfolio() {
                 animate={{ opacity: hoveredService === index ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
               />
-              <div className="relative z-10 w-full aspect-video mb-4 overflow-hidden rounded-lg">
-                <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative z-10 w-full aspect-video mb-4 overflow-hidden rounded-lg bg-blue-900/40">
+                {!videoErrors[index] ? (
                   <video
-                    ref={el => { if (el) videoRefs.current[index] = el }}
+                    ref={el => { videoRefs.current[index] = el }}
                     src={project.src}
                     loop
                     muted
                     playsInline
-                    className={`w-full h-full object-contain ${videosLoaded[index] ? 'opacity-100' : 'opacity-0'}`}
-                    aria-label={project.alt}
+                    className={`w-full h-full object-cover transition-opacity duration-300 ${
+                      videosLoaded[index] ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    poster={project.fallbackImage}
+                    onError={() => {
+                      setVideoErrors(prev => {
+                        const newState = [...prev]
+                        newState[index] = true
+                        return newState
+                      })
+                    }}
                   />
-                  {!videosLoaded[index] && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-blue-900/40">
-                      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
-                    </div>
-                  )}
-                </div>
+                ) : (
+                  <div className="w-full h-full">
+                    <Image
+                      src={project.fallbackImage || "/placeholder.svg"}
+                      alt={project.alt}
+                      width={640}
+                      height={360}
+                      className="w-full h-full object-cover"
+                      onError={() => {
+                        console.warn(`Failed to load fallback image for ${project.title}`)
+                      }}
+                    />
+                  </div>
+                )}
+                {!videosLoaded[index] && !videoErrors[index] && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
+                  </div>
+                )}
               </div>
               <h3 className="text-xl font-bold mb-2 text-center">{project.title}</h3>
               <p className="text-center text-gray-300">
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {project.description}
-                </motion.span>
+                {project.description}
               </p>
             </CardContent>
           </Card>
