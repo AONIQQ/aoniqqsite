@@ -17,7 +17,7 @@ interface Project {
 const projects: Project[] = [
   {
     src: "/videos/Fastrackedu.mp4",
-    fallbackImage: "/images/fasttrack-preview.jpg",
+    fallbackImage: "/images/fastrack.png",
     alt: "Fastrack Website",
     title: "Fastrack",
     description: "A training business in the education sector.",
@@ -25,7 +25,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/WSV.mp4",
-    fallbackImage: "/images/wsv-preview.jpg",
+    fallbackImage: "/images/wsv.png",
     alt: "Wall Street Vision Website",
     title: "Wall Street Vision",
     description: "A stock trading program.",
@@ -33,7 +33,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/Weaksaucephilly.mp4",
-    fallbackImage: "/images/weaksauce-preview.jpg",
+    fallbackImage: "/images/weak.png",
     alt: "Weaksauce Website",
     title: "Weaksauce",
     description: "A Hot Sauce Brand.",
@@ -41,7 +41,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/dpe.mp4",
-    fallbackImage: "/images/dpe-preview.jpg",
+    fallbackImage: "/images/dpe.png",
     alt: "DPE Foundation Website",
     title: "DPE Foundation",
     description: "A Nonprofit Organization.",
@@ -49,7 +49,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/marketvision.mp4",
-    fallbackImage: "/images/marketvision-preview.jpg",
+    fallbackImage: "/images/mkt.png",
     alt: "Market Vision Website",
     title: "Market Vision",
     description: "A marketing service for scaling with tiktok ads.",
@@ -57,7 +57,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/picozzi.mp4",
-    fallbackImage: "/images/picozzi-preview.jpg",
+    fallbackImage: "/images/joe.png",
     alt: "VotePicozzi Website",
     title: "VotePicozzi",
     description: "A political campaign website.",
@@ -65,7 +65,7 @@ const projects: Project[] = [
   },
   {
     src: "/videos/remotetutoring.mp4",
-    fallbackImage: "/images/remotetutoring-preview.jpg",
+    fallbackImage: "/images/rem.png",
     alt: "Remote Tutoring Website",
     title: "Remote Tutoring",
     description: "A chemistry tutoring business.",
