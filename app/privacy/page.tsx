@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import AoniqqLogo from '/public/images/aoniqqlogo.png';
+import AoniqqLogo from '/public/images/Finalaoniqqlogo.png';
 
 export default function Component() {
   return (

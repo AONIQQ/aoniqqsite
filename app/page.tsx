@@ -19,7 +19,6 @@ import clsx from 'clsx'
 import { HoverButton } from '@/components/ui/HoverButton'
 import { ShuffleCards, TestimonialCard } from '@/components/ui/testimonial-cards'
 import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel'
-import AoniqqLogo from '/public/images/aoniqqlogo.png'
 
 const motionProps = {
   transition: { duration: 0.35, ease: [0.4, 0, 0.2, 1] }
@@ -174,7 +173,7 @@ export default function Component() {
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
           <Image
-            src={AoniqqLogo}
+            src="/images/Finalaoniqqlogo.png"
             alt="Aoniqq Logo"
             width={400}
             height={400}
@@ -385,7 +384,7 @@ export default function Component() {
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
           <Image
-            src={AoniqqLogo}
+            src="/images/Finalaoniqqlogo.png"
             alt="Aoniqq Logo"
             width={150}
             height={150}

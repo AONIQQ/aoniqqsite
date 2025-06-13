@@ -175,14 +175,14 @@ export default function WebsiteCreation() {
         <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
-            <Image
-            src={AoniqqLogo}
-              alt="Aoniqq Logo"
+          <Image
+            src="/images/Finalaoniqqlogo.png"
+            alt="Aoniqq Logo"
             width={300}
             height={300}
             className="w-40 h-20 object-contain"
-              priority
-            />
+            priority
+          />
         </Link>
         <div className="flex items-center">
           {!isNavbarCollapsed ? (
@@ -438,7 +438,7 @@ export default function WebsiteCreation() {
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
           <Image
-            src={AoniqqLogo}
+            src="/images/Finalaoniqqlogo.png"
             alt="Aoniqq Logo"
             width={150}
             height={150}

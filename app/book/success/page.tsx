@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import AoniqqLogo from '/public/images/aoniqqlogo.png';
+import AoniqqLogo from '/public/images/Finalaoniqqlogo.png';
 
 export default function BookingSuccessPage() {
   const router = useRouter()

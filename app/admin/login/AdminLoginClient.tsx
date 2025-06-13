@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { HoverButton } from '@/components/ui/HoverButton';
-import AoniqqLogo from '/public/images/aoniqqlogo.png';
+
 
 export default function AdminLoginClient() {
   const [username, setUsername] = useState('');
@@ -73,7 +73,7 @@ export default function AdminLoginClient() {
           <div className="flex justify-center mb-4">
             <div className="relative w-40 h-20">
               <Image
-                src={AoniqqLogo}
+                src="/images/Finalaoniqqlogo.png"
                 alt="Aoniqq Logo"
                 width={400}
                 height={400}

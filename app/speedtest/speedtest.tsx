@@ -16,7 +16,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Label } from "@/components/ui/label"
 import { GlassButton } from '@/components/ui/GlassButton'
 import { HoverButton } from '@/components/ui/HoverButton'
-import AoniqqLogo from '/public/images/aoniqqlogo.png';
+import AoniqqLogo from '/public/images/Finalaoniqqlogo.png';
 
 interface PageSpeedResult {
   performance: number;

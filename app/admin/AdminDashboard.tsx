@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Link from 'next/link'
 import { Textarea } from "@/components/ui/textarea"
 import { HoverButton } from '@/components/ui/HoverButton'
-import AoniqqLogo from '/public/images/aoniqqlogo.png'
+import AoniqqLogo from '/public/images/Finalaoniqqlogo.png'
 
 interface Contact {
   id: number
@@ -306,7 +306,7 @@ export default function AdminDashboard() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/" className="relative w-40 h-20">
             <Image
-              src={AoniqqLogo}
+              src="/images/Finalaoniqqlogo.png"
               alt="Aoniqq Logo"
               width={400}
               height={400}
