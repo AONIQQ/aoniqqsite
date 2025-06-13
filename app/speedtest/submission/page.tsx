@@ -25,7 +25,7 @@ export default function BookingSuccessPage() {
 
   return (
     <div className="relative isolate flex flex-col min-h-screen bg-obsidian text-ink">
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Button
           variant="ghost"
           size="icon"
@@ -41,14 +41,14 @@ export default function BookingSuccessPage() {
             alt="Aoniqq Logo"
             width={400}
             height={400}
-            className="w-40 h-20 object-contain"
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>
         <div className="w-10" /> {/* Placeholder for layout balance */}
       </header>
 
-      <main className="flex-grow flex items-center justify-center p-8 pt-24">
+      <main className="flex-grow flex items-center justify-center p-8 pt-32">
         <Card className="w-full max-w-2xl bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm text-center">
           <CardHeader>
             <motion.div

@@ -247,19 +247,19 @@ const Speedtest = () => {
         <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
         <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
 
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
           <Image
             src={AoniqqLogo}
             alt="Aoniqq Logo"
             width={300}
             height={300}
-            className="w-40 h-20 object-contain"
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>
         <div className="flex items-center">
-            <nav className="hidden gap-9 md:flex">
+            <nav className="hidden gap-9 lg:flex">
                 <Link href="/websitecreation" className="px-3 py-1.5 text-sm font-medium text-ink hover:text-white transition">
                   Website Creation Service
                 </Link>
@@ -269,7 +269,7 @@ const Speedtest = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden"
+                  className="lg:hidden"
                   onClick={() => setShowMobileMenu(!showMobileMenu)}
                 >
                   <Menu className="h-6 w-6" />

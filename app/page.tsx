@@ -170,19 +170,19 @@ export default function Component() {
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
           <Image
             src="/images/Finalaoniqqlogo.png"
             alt="Aoniqq Logo"
             width={400}
             height={400}
-            className="w-40 h-20 object-contain"
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>
         <div className="flex items-center">
-          <nav className="hidden gap-9 md:flex">
+          <nav className="hidden gap-6 lg:flex">
             <a href="#services" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
               Services
               <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
@@ -200,7 +200,7 @@ export default function Component() {
               <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
             </a>
           </nav>
-          <div className="hidden gap-3 md:flex items-center ml-8">
+          <div className="hidden gap-3 lg:flex items-center ml-8">
             <Link href="/websitecreation" className="relative px-3 py-1.5 text-sm font-medium text-white transition">
               Website Development
               <span className="absolute -bottom-1 left-0 h-[1.5px] w-full bg-gradient-to-r from-tealLux to-royal"/>
@@ -216,7 +216,7 @@ export default function Component() {
           </div>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden ml-4 border-white-_06">
+              <Button variant="outline" size="icon" className="lg:hidden ml-4 border-white-_06">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
@@ -235,15 +235,15 @@ export default function Component() {
                 <a className="text-lg font-medium hover:text-white transition-colors" href="#contact" onClick={handleNavClick}>
                   Contact
                 </a>
-                <Button asChild variant="outline" className="w-full justify-start border-white-_06 hover:bg-white/5 hover:text-white font-semibold">
-                  <Link href="/websitecreation">Website Development</Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full justify-start border-white-_06 hover:bg-white/5 hover:text-white font-semibold">
-                  <Link href="/speedtest">Website Speed Test</Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full justify-start border-white-_06 hover:bg-white/5 hover:text-white font-semibold">
-                  <Link href="/book">Book</Link>
-                </Button>
+                <Link href="/websitecreation" passHref>
+                  <HoverButton className="w-full">Website Development</HoverButton>
+                </Link>
+                <Link href="/speedtest" passHref>
+                  <HoverButton className="w-full">Website Speed Test</HoverButton>
+                </Link>
+                <Link href="/book" passHref>
+                  <HoverButton className="w-full">Book</HoverButton>
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>

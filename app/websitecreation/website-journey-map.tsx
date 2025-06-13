@@ -130,8 +130,13 @@ export default function WebsiteJourneyMap() {
       <p className="text-center text-ink opacity-[.92] mb-8 max-w-3xl mx-auto px-4 text-sm md:text-base leading-relaxed">
         Click each step in the interactive map below to see how our development process goes vs what you may experience with other developers
       </p>
-      <div ref={containerRef} className="relative w-full max-w-[1200px] mx-auto px-2 overflow-x-hidden" style={{ height: `${dimensions.height + 250}px` }}>
-        <svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="absolute top-0 left-1/2 transform -translate-x-1/2">
+      <div ref={containerRef} className="relative w-full max-w-[1200px] mx-auto px-2" style={{ height: `${dimensions.height + 250}px` }}>
+        <svg 
+          width={dimensions.width} 
+          height={dimensions.height + 50} 
+          viewBox={`0 -50 ${dimensions.width} ${dimensions.height + 50}`} 
+          className="absolute top-0 left-1/2 transform -translate-x-1/2"
+        >
           <defs>
             <linearGradient id="journey-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#0ABF8E" />
@@ -202,7 +207,7 @@ export default function WebsiteJourneyMap() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
               className="absolute left-0 right-0 mx-auto w-full max-w-[1200px] p-6 bg-obsidian/80 backdrop-blur-md rounded-lg shadow-diffused-bloom border border-white-_06"
-              style={{ top: `${dimensions.height + 20}px` }}
+              style={{ top: `${dimensions.height + 40}px` }}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-obsidian/90 p-4 rounded-lg border border-white-_06">

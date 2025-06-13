@@ -12,7 +12,7 @@ export default function MobileNav() {
   return (
     <>
       <button
-        className="md:hidden"
+        className="lg:hidden ml-4"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label="Toggle menu"
       >
@@ -20,7 +20,7 @@ export default function MobileNav() {
       </button>
 
       {isMenuOpen && (
-        <nav className="md:hidden bg-obsidian/90 backdrop-blur-sm py-4 absolute top-16 left-0 right-0 z-50 border-b border-white-_06">
+        <nav className="lg:hidden bg-obsidian/90 backdrop-blur-sm py-4 absolute top-full left-0 right-0 z-50 border-b border-white-_06">
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             <Link href="/websitecreation" passHref>
                 <HoverButton className="w-full">Website Creation</HoverButton>

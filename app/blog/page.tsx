@@ -21,19 +21,19 @@ export default async function BlogIndexPage() {
     <div className="relative isolate flex flex-col min-h-screen bg-obsidian text-ink">
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
-        <div className="container mx-auto px-8 flex justify-between items-center">
-          <Link href="/" className="relative w-40 h-20">
-            <Image
-              src="/images/aoniqqlogo.png"
-              alt="Aoniqq Logo"
-              width={400}
-              height={400}
-              className="object-contain"
-              priority
-            />
-          </Link>
-          <div className="hidden md:flex space-x-4">
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/images/aoniqqlogo.png"
+            alt="Aoniqq Logo"
+            width={400}
+            height={400}
+            className="h-14 w-auto object-contain"
+            priority
+          />
+        </Link>
+        <div className="flex items-center">
+          <div className="hidden lg:flex space-x-4 items-center">
             <Link href="/websitecreation" passHref>
               <HoverButton>Website Creation Service</HoverButton>
             </Link>
@@ -45,7 +45,7 @@ export default async function BlogIndexPage() {
         </div>
       </header>
 
-      <main className="container mx-auto px-8 py-16">
+      <main className="container mx-auto px-8 pt-32 pb-16">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 text-center text-clr-text-high leading-tight py-2 font-serif -tracking-wider">
           Aoniqq Blog
         </h1>
