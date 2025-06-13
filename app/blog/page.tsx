@@ -15,23 +15,23 @@ export default async function BlogIndexPage() {
   const posts = await getAllBlogPosts()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#000033] to-[#000066] text-white">
-      <header className="bg-blue-900/20 py-4 shadow-md">
-        <div className="container mx-auto px-4 flex justify-between items-center">
+    <div className="min-h-screen font-sans">
+      <header className="bg-clr-surface-1 py-4 shadow-md border-b border-clr-highlight/10">
+        <div className="container mx-auto px-8 flex justify-between items-center">
           <Link href="/" className="relative w-36 h-12">
             <Image
               src="/images/LargeSideLogo.png"
               alt="Aoniqq Logo"
-              layout="fill"
+              fill
               objectFit="contain"
               priority
             />
           </Link>
           <div className="hidden md:flex space-x-4">
-            <Button asChild className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105">
+            <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105">
               <Link href="/websitecreation">Website Creation Service</Link>
             </Button>
-            <Button asChild className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-full transition-all duration-200 transform hover:scale-105">
+            <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105">
               <Link href="/speedtest">Free Website Speed Test</Link>
             </Button>
           </div>
@@ -39,20 +39,20 @@ export default async function BlogIndexPage() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text leading-tight py-2">
+      <main className="container mx-auto px-8 py-16">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 text-center text-clr-text-high leading-tight py-2 font-serif -tracking-wider">
           Aoniqq Blog
         </h1>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
-            <Link key={post.id} href={`/blog/${post.slug}`} className="no-underline">
-              <Card className="h-full hover:shadow-2xl transition-all duration-300 bg-blue-800/40 border-blue-400/40 hover:bg-blue-700/50 transform hover:scale-105">
+            <Link key={post.id} href={`/blog/${post.slug}`} className="no-underline group">
+              <Card className="h-full transition-all duration-300 bg-clr-surface-1 border border-clr-highlight/10 group-hover:bg-clr-surface-1/80 group-hover:-translate-y-1 group-hover:shadow-card-luxe">
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl font-semibold mb-3 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">{post.title}</CardTitle>
+                  <CardTitle className="text-lg md:text-xl font-semibold mb-3 text-clr-primary">{post.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm md:text-base text-gray-300 mb-2">{post.excerpt}</p>
-                  <p className="text-xs md:text-sm text-gray-400">
+                  <p className="text-sm md:text-base text-clr-text-low opacity-[.92] mb-4 leading-relaxed">{post.excerpt}</p>
+                  <p className="text-xs md:text-sm text-clr-text-low/70 opacity-80">
                     {new Date(post.created_at).toLocaleDateString()}
                   </p>
                 </CardContent>

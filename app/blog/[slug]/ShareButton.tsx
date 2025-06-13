@@ -9,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { toast } from 'react-hot-toast'
 
 interface ShareButtonProps {
   title: string
@@ -18,11 +17,11 @@ interface ShareButtonProps {
 
 export function ShareButton({ title, url }: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [notification, setNotification] = useState<string | null>(null); // Add state for notification
+  const [notification, setNotification] = useState<string | null>(null);
 
   const handleShare = async (method: 'twitter' | 'text' | 'copy') => {
     setIsOpen(false)
-    setNotification(null); // Clear previous notification
+    setNotification(null);
 
     switch (method) {
       case 'twitter':
@@ -31,10 +30,10 @@ export function ShareButton({ title, url }: ShareButtonProps) {
       case 'copy':
         try {
           await navigator.clipboard.writeText(url);
-          setNotification('Link copied to clipboard!'); // Set success message
+          setNotification('Link copied to clipboard!'); 
         } catch (err) {
           console.error('Failed to copy text: ', err);
-          setNotification('Failed to copy link'); // Set error message
+          setNotification('Failed to copy link'); 
         }
         break;
     }
@@ -43,26 +42,26 @@ export function ShareButton({ title, url }: ShareButtonProps) {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="flex items-center">
+        <Button variant="outline" size="sm" className="flex items-center border-clr-highlight/20 hover:bg-clr-primary-dark hover:text-clr-text-high font-sans font-semibold">
           <Share2 className="w-4 h-4 mr-2" />
           Share
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem onSelect={() => handleShare('twitter')}>
+      <DropdownMenuContent className="bg-clr-surface-1 border-clr-highlight/10 text-clr-text-low font-sans">
+        <DropdownMenuItem onSelect={() => handleShare('twitter')} className="hover:bg-clr-primary-dark focus:bg-clr-primary-dark">
           <Twitter className="w-4 h-4 mr-2" />
           Twitter
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleShare('text')}>
+        <DropdownMenuItem onSelect={() => handleShare('text')} className="hover:bg-clr-primary-dark focus:bg-clr-primary-dark">
           <MessageSquare className="w-4 h-4 mr-2" />
           Text
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleShare('copy')}>
+        <DropdownMenuItem onSelect={() => handleShare('copy')} className="hover:bg-clr-primary-dark focus:bg-clr-primary-dark">
           <Copy className="w-4 h-4 mr-2" />
         Copy Link
         </DropdownMenuItem>
       </DropdownMenuContent>
-      {notification && <div className="notification">{notification}</div>} {/* Display notification */}
+      {notification && <div className="fixed bottom-5 right-5 bg-clr-surface-1 p-3 rounded-lg shadow-card-luxe text-clr-text-high font-sans">{notification}</div>}
     </DropdownMenu>
   )
 }

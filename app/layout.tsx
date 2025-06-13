@@ -1,10 +1,48 @@
 // app/layout.tsx (Server Component)
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import ClientProvider from './ClientProvider';  // Import the client-side provider
+import localFont from 'next/font/local'
 
-const inter = Inter({ subsets: ['latin'] });
+const playfair_display = localFont({
+  src: './fonts/playfairDisplay/PlayfairDisplay-VariableFont_wght.ttf',
+  display: 'swap',
+  variable: '--font-playfair-display',
+})
+
+const epilogue = localFont({
+  src: './fonts/epilogue/Epilogue-VariableFont_wght.ttf',
+  display: 'swap',
+  variable: '--font-epilogue',
+})
+
+const jetbrains_mono = localFont({
+  src: [
+    {
+      path: './fonts/jetbrains/JetBrainsMono-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/jetbrains/JetBrainsMono-Italic.ttf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/jetbrains/JetBrainsMono-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/jetbrains/JetBrainsMono-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+})
+
 
 export const metadata = {
   title: 'Aoniqq - Software Development and Consulting Services',
@@ -17,7 +55,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${epilogue.variable} ${playfair_display.variable} ${jetbrains_mono.variable}`}>
       <head>
         {/* Facebook Pixel Code */}
         <script
@@ -74,7 +112,7 @@ export default function RootLayout({
         />
         {/* End Google Tag */}
       </head>
-      <body className={inter.className}>
+      <body className={`font-sans bg-obsidian text-ink`}>
         {/* ClientProvider wraps all children to provide session context */}
         <ClientProvider>
           {children}

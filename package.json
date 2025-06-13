@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-collapsible": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -21,13 +22,14 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "bcrypt": "^5.1.1",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.5.5",
     "langdetect": "^0.2.1",
     "lucide-react": "^0.438.0",
     "next": "14.2.7",
     "next-auth": "^4.24.7",
+    "next-themes": "^0.4.6",
     "openai": "^4.73.1",
     "pg": "^8.12.0",
     "react": "^18",
@@ -36,11 +38,13 @@
     "react-facebook-pixel": "^1.0.4",
     "react-hot-toast": "^2.4.1",
     "react-toastify": "^10.0.5",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
     "validator": "^13.12.0",
     "vercel": "^37.4.2"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@types/langdetect": "^0.2.2",
     "@types/node": "^20",
     "@types/pg": "^8.11.9",

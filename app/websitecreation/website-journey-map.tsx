@@ -123,25 +123,25 @@ export default function WebsiteJourneyMap() {
   })
 
   return (
-    <div className="w-full py-6 bg-gradient-to-br from-[#000033] to-[#000066]">
-      <h3 className="text-2xl md:text-3xl font-bold mb-2 text-blue-400 text-center px-4">
-        Website Build Journey Map with Aoniqq versus other website developers
+    <div className="w-full py-12">
+      <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white text-center px-4 font-serif -tracking-wide">
+        Website Build Journey Map
       </h3>
-      <p className="text-center text-white mb-4 max-w-3xl mx-auto px-4 text-sm md:text-base">
+      <p className="text-center text-ink opacity-[.92] mb-8 max-w-3xl mx-auto px-4 text-sm md:text-base leading-relaxed">
         Click each step in the interactive map below to see how our development process goes vs what you may experience with other developers
       </p>
       <div ref={containerRef} className="relative w-full max-w-[1200px] mx-auto px-2 overflow-x-hidden" style={{ height: `${dimensions.height + 250}px` }}>
         <svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="absolute top-0 left-1/2 transform -translate-x-1/2">
           <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#3b82f6" />
-              <stop offset="100%" stopColor="#8b5cf6" />
+            <linearGradient id="journey-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0ABF8E" />
+              <stop offset="100%" stopColor="#2454FF" />
             </linearGradient>
           </defs>
           <path
             d={pathPoints}
             fill="none"
-            stroke="url(#gradient)"
+            stroke="url(#journey-gradient)"
             strokeWidth={Math.max(2, 6 * (dimensions.width / 1200))}
             strokeLinecap="round"
           />
@@ -160,7 +160,8 @@ export default function WebsiteJourneyMap() {
                   transition: {
                     duration: 2,
                     repeat: Infinity,
-                    repeatType: "reverse"
+                    repeatType: "reverse",
+                    ease: [0.4, 0, 0.2, 1]
                   }
                 }}
               >
@@ -168,7 +169,9 @@ export default function WebsiteJourneyMap() {
                   cx={x}
                   cy={y}
                   r={circleSize}
-                  fill={activeJourneyStep === index ? '#3b82f6' : '#1e40af'}
+                  fill={activeJourneyStep === index ? '#2454FF' : '#0d0d0d'}
+                  stroke={activeJourneyStep === index ? '#5B5BFF' : '#4a4a4a'}
+                  strokeWidth="2"
                   className="transition-all duration-300"
                 />
                 <text
@@ -181,21 +184,11 @@ export default function WebsiteJourneyMap() {
                 >
                   {index === 0 ? 'Start' : index === 9 ? 'Finish' : index + 1}
                 </text>
-                <foreignObject x={x - iconSize / 2} y={y - circleSize - iconSize} width={iconSize} height={iconSize}>
+                <foreignObject x={x - iconSize / 2} y={y - circleSize - iconSize - 10} width={iconSize} height={iconSize}>
                   <div className="flex items-center justify-center h-full">
                     <Icon className="w-full h-full text-white" />
                   </div>
                 </foreignObject>
-                <text
-                  x={x}
-                  y={y + circleSize + fontSize / 2}
-                  textAnchor="middle"
-                  fill="white"
-                  fontSize={fontSize * 0.7}
-                  fontWeight="bold"
-                >
-                  {step.title}
-                </text>
               </motion.g>
             )
           })}
@@ -207,22 +200,22 @@ export default function WebsiteJourneyMap() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="absolute left-0 right-0 mx-auto w-full max-w-[1200px] p-4 bg-blue-900/50 rounded-lg shadow-xl"
+              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+              className="absolute left-0 right-0 mx-auto w-full max-w-[1200px] p-6 bg-obsidian/80 backdrop-blur-md rounded-lg shadow-diffused-bloom border border-white-_06"
               style={{ top: `${dimensions.height + 20}px` }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-red-900/30 p-4 rounded-lg">
-                  <h4 className="font-bold text-red-400 mb-2 flex items-center text-sm md:text-base">
-                    <AlertTriangle className="mr-2 w-4 h-4 md:w-5 md:h-5" /> Other Developers
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-obsidian/90 p-4 rounded-lg border border-white-_06">
+                  <h4 className="font-bold text-mute mb-2 flex items-center text-sm md:text-base">
+                    <AlertTriangle className="mr-2 w-4 h-4 md:w-5 md:h-5 text-[#ff3b3b]/70" /> Other Developers
                   </h4>
-                  <p className="text-xs md:text-sm">{journeySteps[activeJourneyStep].badDev}</p>
+                  <p className="text-xs md:text-sm text-ink leading-relaxed">{journeySteps[activeJourneyStep].badDev}</p>
                 </div>
-                <div className="bg-green-900/30 p-4 rounded-lg">
-                  <h4 className="font-bold text-green-400 mb-2 flex items-center text-sm md:text-base">
+                <div className="bg-obsidian/90 p-4 rounded-lg border border-white-_06">
+                  <h4 className="font-bold text-tealLux mb-2 flex items-center text-sm md:text-base">
                     <CheckCircle2 className="mr-2 w-4 h-4 md:w-5 md:h-5" /> Aoniqq
                   </h4>
-                  <p className="text-xs md:text-sm">{journeySteps[activeJourneyStep].aoniqq}</p>
+                  <p className="text-xs md:text-sm text-ink leading-relaxed">{journeySteps[activeJourneyStep].aoniqq}</p>
                 </div>
               </div>
             </motion.div>

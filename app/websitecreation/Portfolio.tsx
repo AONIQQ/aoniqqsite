@@ -103,7 +103,6 @@ export default function Portfolio() {
           video.addEventListener('loadeddata', handleLoad)
           video.addEventListener('error', handleError)
 
-          // Preload the video
           video.load()
 
           return () => {
@@ -142,29 +141,24 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 font-sans">
       {projects.map((project, index) => (
         <motion.a 
           key={index} 
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative block"
+          className="relative block group"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
+          viewport={{ once: true }}
           onMouseEnter={() => handleMouseEnter(index)}
           onMouseLeave={() => handleMouseLeave(index)}
         >
-          <Card className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 text-white border-2 border-blue-400/50 hover:border-blue-400 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl h-full overflow-hidden">
+          <Card className="bg-white/5 border border-white-_06 text-white transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-white/10 h-full overflow-hidden backdrop-blur-sm shadow-diffused-bloom">
             <CardContent className="flex flex-col items-center p-6 h-full relative">
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: hoveredService === index ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-              />
-              <div className="relative z-10 w-full aspect-video mb-4 overflow-hidden rounded-lg bg-blue-900/40">
+              <div className="relative z-10 w-full aspect-video mb-4 overflow-hidden rounded-lg bg-obsidian">
                 {!videoErrors[index] ? (
                   <video
                     ref={el => { videoRefs.current[index] = el }}
@@ -200,12 +194,12 @@ export default function Portfolio() {
                 )}
                 {!videosLoaded[index] && !videoErrors[index] && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-royal"></div>
                   </div>
                 )}
               </div>
-              <h3 className="text-xl font-bold mb-2 text-center">{project.title}</h3>
-              <p className="text-center text-gray-300">
+              <h3 className="text-xl font-bold mb-2 text-center text-white">{project.title}</h3>
+              <p className="text-center text-ink leading-relaxed">
                 {project.description}
               </p>
             </CardContent>

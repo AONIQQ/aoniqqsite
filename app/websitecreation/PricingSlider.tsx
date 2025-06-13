@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const pricingTiers = [
   {
@@ -160,131 +161,83 @@ interface PricingSliderProps {
   openContactForm: () => void;
 }
 
-export default function PricingSlider({ openContactForm }: PricingSliderProps) {
-  const [selectedTierIndex, setSelectedTierIndex] = useState(2) // Default to Advanced Website Package
-  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 7 })
-  const sliderRef = useRef<HTMLDivElement>(null)
+const motionProps = {
+  transition: { duration: 0.35, ease: [0.4, 0, 0.2, 1] }
+};
 
+export default function PricingSlider({ openContactForm }: PricingSliderProps) {
+  const [selectedTierIndex, setSelectedTierIndex] = useState(2)
+  const sliderRef = useRef<HTMLDivElement>(null)
   const currentTier = pricingTiers[selectedTierIndex]
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (sliderRef.current) {
-        const width = sliderRef.current.offsetWidth
-        const visibleItems = Math.floor(width / 100) // Assuming each item is roughly 100px wide
-        const start = Math.max(0, selectedTierIndex - Math.floor(visibleItems / 2))
-        const end = Math.min(pricingTiers.length, start + visibleItems)
-        setVisibleRange({ start, end })
-      }
-    }
-
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [selectedTierIndex])
-
-  const handlePrev = () => {
-    if (selectedTierIndex > 0) {
-      setSelectedTierIndex(selectedTierIndex - 1);
-    }
-    if (visibleRange.start > 0) {
-      setVisibleRange(prev => ({ start: prev.start - 1, end: prev.end - 1 }));
-    }
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTierIndex(Number(e.target.value))
   }
 
-  const handleNext = () => {
-    if (selectedTierIndex < pricingTiers.length - 1) {
-      setSelectedTierIndex(selectedTierIndex + 1);
-    }
-    if (visibleRange.end < pricingTiers.length) {
-      setVisibleRange(prev => ({ start: prev.start + 1, end: prev.end + 1 }));
-    }
+  const getBackgroundSize = () => {
+    const min = 0
+    const max = pricingTiers.length - 1
+    const percent = ((selectedTierIndex - min) / (max - min)) * 100
+    return `${percent}% 100%`
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 p-4 sm:p-8 rounded-lg border-2 border-blue-400/50 transition-all duration-300 shadow-2xl mt-8"> {/* Added mt-8 here */}
+    <div className="bg-[#0d0d0d]/90 p-8 rounded-2xl border border-white/5 transition-all duration-300 shadow-diffused-bloom mt-8 font-sans backdrop-blur-sm">
       <div className="mb-8">
-        <h3 className="text-2xl font-bold mb-6 text-center">Estimate Your Project Cost</h3>
+        <h3 className="text-2xl font-bold mb-6 text-center text-white font-serif -tracking-wide">Estimate Your Project Cost</h3>
         <div className="relative mb-12">
-          <div className="flex items-center">
-            <button
-              onClick={handlePrev}
-              className="text-white p-2 focus:outline-none"
-              aria-label="Previous tier"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </button>
-            <div ref={sliderRef} className="flex-grow overflow-hidden">
-              <div className="flex justify-between items-center">
-                {pricingTiers.map((tier, index) => (
-                  <motion.button
-                    key={tier.price}
-                    className={`flex flex-col items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 rounded-lg p-3 ${
-                      selectedTierIndex === index 
-                        ? 'bg-blue-600 text-white shadow-lg z-10' 
-                        : 'bg-blue-900/40 text-gray-300 hover:bg-blue-800/60'
-                    } ${index >= visibleRange.start && index < visibleRange.end ? '' : 'hidden'}`}
-                    onClick={() => setSelectedTierIndex(index)}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    animate={selectedTierIndex === index ? { scale: 1.2 } : { scale: 1 }}
-                  >
-                    <span className="text-sm md:text-base lg:text-lg font-bold mb-1">
-                      ${tier.price.toLocaleString()}
-                    </span>
-                    <motion.div 
-                      className={`w-4 h-4 rounded-full ${
-                        selectedTierIndex === index ? 'bg-white' : 'bg-gray-500'
-                      }`}
-                      animate={selectedTierIndex === index ? { scale: 1.5 } : { scale: 1 }}
-                    />
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-            <button
-              onClick={handleNext}
-              className="text-white p-2 focus:outline-none"
-              aria-label="Next tier"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </button>
-          </div>
-          <div className="absolute w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 top-1/2 transform -translate-y-1/2 -z-10" />
+          <input
+            type="range"
+            min="0"
+            max={pricingTiers.length - 1}
+            value={selectedTierIndex}
+            onChange={handleSliderChange}
+            className="w-full h-2 bg-transparent appearance-none cursor-pointer group"
+            style={{
+                background: `linear-gradient(to right, #2454ff 0%, #5b5bff ${getBackgroundSize()}, #4a4a4a ${getBackgroundSize()}, #4a4a4a 100%)`
+            }}
+          />
+           <div className="flex justify-between mt-2">
+            {pricingTiers.map((tier, index) => (
+                <div key={index} className="text-center text-xs text-mute w-1/7">
+                    ${tier.price.toLocaleString()}
+                </div>
+            ))}
+        </div>
         </div>
         <motion.p 
-          className="text-4xl font-bold text-center mt-4"
+          className="text-5xl font-bold text-center mt-4 text-white font-mono"
           key={currentTier.price}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          {...motionProps}
         >
-          <DollarSign className="inline-block mr-1" />
+          <DollarSign className="inline-block mr-2 h-10 w-10" />
           {currentTier.price.toLocaleString()}
         </motion.p>
         <motion.p 
-          className="text-center text-gray-300 mt-2 text-xl"
+          className="text-center text-mute mt-2 text-xl font-semibold"
           key={currentTier.name}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          {...motionProps}
         >
           {currentTier.name}
         </motion.p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8">
         <AnimatePresence initial={false}>
           {currentTier.features.map((feature, index) => (
             <motion.div
               key={feature}
-              className="flex items-center text-white"
+              className="flex items-center text-ink"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+              transition={{ duration: 0.35, delay: index * 0.05, ease: [0.4, 0, 0.2, 1] }}
             >
-              <CheckCircle2 className="h-5 w-5 mr-2 text-green-400 flex-shrink-0" />
-              <span>{feature}</span>
+              <CheckCircle2 className="h-5 w-5 mr-3 text-tealLux flex-shrink-0" />
+              <span className="leading-relaxed">{feature}</span>
             </motion.div>
           ))}
         </AnimatePresence>
@@ -293,17 +246,21 @@ export default function PricingSlider({ openContactForm }: PricingSliderProps) {
         className="mt-8 text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
+        transition={{ duration: 0.35, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
       >
-        <p className="text-gray-300 mb-4">
+        <p className="text-mute mb-4 leading-relaxed">
           This provides an estimate. To get an exact quote, book a call to discuss your project&apos;s needs.
         </p>
-        <Button 
-          className="bg-blue-600 hover:bg-blue-700 text-white transition-colors text-xl py-4 px-8"
-          onClick={openContactForm}
+        <a
+          href="#contact"
+          className="group relative inline-flex rounded-full bg-gradient-to-br from-royal to-royal2 px-10 py-4 font-sans text-[15px] font-semibold uppercase tracking-wide text-white shadow-[0_0_0_3px_rgba(255,255,255,.08)_inset] transition duration-150 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealLux"
+           onClick={(e) => {
+             e.preventDefault();
+             openContactForm();
+           }}
         >
           Get Started
-        </Button>
+        </a>
       </motion.div>
     </div>
   )

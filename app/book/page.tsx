@@ -1,21 +1,22 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, X } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import Link from 'next/link'; 
-
+import Cal, { getCalApi } from "@calcom/embed-react";
 
 export default function BookPage() {
-  const [isClient, setIsClient] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    setIsClient(true)
+    (async function () {
+      const cal = await getCalApi({"namespace":"30min"});
+      cal("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"});
+    })();
   }, [])
 
   const handleGoBack = () => {
@@ -23,64 +24,56 @@ export default function BookPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#000033] via-[#000066] to-[#0000CC] text-white flex flex-col">
-      <header className="px-4 lg:px-6 h-16 flex items-center justify-between sticky top-0 z-50 backdrop-blur-md bg-opacity-80 bg-[#000033]">
+    <div className="relative isolate flex flex-col min-h-screen bg-obsidian text-ink">
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
+
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <Button
           variant="ghost"
           size="icon"
-          className="text-white"
           onClick={handleGoBack}
+          className="text-ink hover:text-white"
         >
           <ArrowLeft className="h-6 w-6" />
           <span className="sr-only">Go back</span>
         </Button>
-        <motion.div 
-          className="relative w-36 h-12"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link href="/" className="block"> 
-            <Image
-              src="/images/LargeSideLogo.png"
-              alt="Aoniqq Logo"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 144px, 144px"
-              priority
-            />
-          </Link>
-        </motion.div>
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/images/logo-nav-uppercase.svg"
+            alt="Aoniqq Logo"
+            width={300}
+            height={300}
+            className="w-40 h-20 object-contain"
+            priority
+          />
+        </Link>
         <div className="w-10" /> {/* Placeholder for layout balance */}
       </header>
 
-      <main className="flex-grow flex items-center justify-center p-4">
-        <Card className="w-full max-w-4xl bg-blue-900/20 border-blue-400/20">
+      <main className="flex-grow flex items-center justify-center p-8 pt-24">
+        <Card className="w-full max-w-4xl h-[70vh] bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm overflow-hidden">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center text-white">Schedule Your Free Consultation with one of our experts</CardTitle>
+            <CardTitle className="text-2xl font-serif font-semibold -tracking-wide text-center text-white">Schedule Your Free Consultation</CardTitle>
           </CardHeader>
-          <CardContent>
-            {isClient && (
-              <div className="aspect-video">
-                <iframe
-                  src="https://calendly.com/aoniqq/consulation"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                ></iframe>
-              </div>
-            )}
+          <CardContent className="p-0 h-full">
+             <Cal
+                namespace="30min"
+                calLink="andrew-olson/30min"
+                style={{width:"100%",height:"100%",overflow:"scroll"}}
+                config={{"layout":"month_view","theme":"dark"}}
+              />
           </CardContent>
         </Card>
       </main>
 
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-blue-400/20">
-        <p className="text-xs text-gray-400">©2025 Aoniqq LLC. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-        <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+      <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
+        <p className="text-xs text-mute opacity-80">©2025 Aoniqq LLC. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-6 sm:gap-8">
+          <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service
           </Link>
-          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-gray-200">
+          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Privacy Policy
           </Link>
         </nav>

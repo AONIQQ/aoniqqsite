@@ -1,0 +1,13 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="28" viewBox="0 0 200 28" fill="none">
+  <defs>
+    <linearGradient id="gradNav" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0.00" stop-color="#FFFFFF"/>
+      <stop offset="0.75" stop-color="#FFFFFF"/>
+      <stop offset="1.00" stop-color="#2454FF"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="22" font-family="Playfair Display, serif" font-weight="900" font-size="28" fill="url(#gradNav)" letter-spacing="-0.5">
+    Aoniqq
+  </text>
+</svg>
