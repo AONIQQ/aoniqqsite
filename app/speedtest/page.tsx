@@ -14,7 +14,7 @@ const Page = () => {
 
 
 export const metadata: Metadata = {
-  title: 'Website Page Speed Report Generator',
+  title: 'Website Page Speed Report Generator - Aoniqq',
   description: 'Generate detailed reports on your website’s loading speed and performance metrics to optimize user experience.',
 };
 

@@ -15,6 +15,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Link from 'next/link'
 import { Textarea } from "@/components/ui/textarea"
+import { HoverButton } from '@/components/ui/HoverButton'
 
 interface Contact {
   id: number
@@ -296,42 +297,40 @@ export default function AdminDashboard() {
     : sortItems(blogPosts)
 
   return (
-    <div className="min-h-screen">
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
-      <header className="bg-clr-surface-1 py-4 sticky top-0 z-10 shadow-md border-b border-clr-highlight/10">
+    <div className="min-h-screen bg-obsidian text-ink">
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} theme="dark" />
+      <header className="bg-obsidian/80 backdrop-blur-md py-4 sticky top-0 z-10 shadow-md border-b border-white-_06">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link href="/" className="relative w-36 h-12">
+          <Link href="/" className="relative w-40 h-20">
             <Image
-              src="/images/LargeSideLogo.png"
+              src="/images/aoniqqlogo.png"
               alt="Aoniqq Logo"
-              fill
-              objectFit="contain"
+              width={400}
+              height={400}
+              className="object-contain"
               priority
             />
           </Link>
-          <Button
-            onClick={handleLogout}
-            className="bg-clr-primary hover:bg-clr-primary-light text-clr-text-high"
-          >
+          <HoverButton onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" />
             Logout
-          </Button>
+          </HoverButton>
         </div>
       </header>
 
       <main className="container mx-auto py-8 px-4">
         {error && (
-          <Card className="mb-8 bg-clr-primary-dark/30 border-clr-primary-dark/50">
+          <Card className="mb-8 bg-red-900/40 border-red-400/50">
             <CardContent className="p-4 flex items-center">
-              <AlertCircle className="text-clr-primary-dark mr-2" />
-              <p className="text-clr-text-low">{error}</p>
+              <AlertCircle className="text-red-400 mr-2" />
+              <p className="text-white">{error}</p>
             </CardContent>
           </Card>
         )}
 
-        <Card className="mb-8 bg-clr-surface-1 border border-clr-highlight/10 shadow-card-luxe">
+        <Card className="mb-8 bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm">
           <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
-            <CardTitle className="text-2xl font-bold text-clr-text-high">
+            <CardTitle className="text-2xl font-bold text-white font-serif -tracking-wide">
               {activeTab === 'contacts' ? 'Contact Management' : activeTab === 'leads' ? 'Lead Management' : 'Blog Management'}
             </CardTitle>
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
@@ -339,68 +338,66 @@ export default function AdminDashboard() {
                 placeholder={`Search ${activeTab}...`}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full sm:w-64 bg-clr-surface-0 border-clr-highlight/20 text-clr-text-high placeholder-clr-text-low/50"
+                className="w-full sm:w-64 bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
               />
               <div className="flex space-x-2">
                 {activeTab !== 'blog' && (
-                  <Button onClick={downloadCSV} className="bg-clr-primary hover:bg-clr-primary-light text-clr-text-high">
+                  <HoverButton onClick={downloadCSV}>
                     <Download className="mr-2 h-4 w-4" />
                     Download CSV
-                  </Button>
+                  </HoverButton>
                 )}
                 {activeTab === 'blog' && (
-                  <Button onClick={() => setShowNewBlogPostDialog(true)} className="bg-clr-primary hover:bg-clr-primary-light text-clr-text-high">
+                  <HoverButton onClick={() => setShowNewBlogPostDialog(true)}>
                     <Plus className="mr-2 h-4 w-4" />
                     New Blog Post
-                  </Button>
+                  </HoverButton>
                 )}
-                <Button 
+                <HoverButton 
                   onClick={handleSaveChanges} 
                   disabled={isSaving || activeTab === 'blog'} 
-                  className="bg-clr-primary hover:bg-clr-primary-light text-clr-text-high"
                 >
                   <Edit className="mr-2 h-4 w-4" />
                   {isSaving ? 'Saving...' : 'Save Changes'}
-                </Button>
-                <Button
+                </HoverButton>
+                <HoverButton
                   onClick={activeTab === 'contacts' ? fetchContacts : activeTab === 'leads' ? fetchLeads : fetchBlogPosts}
                   disabled={isRefreshing}
-                  className="bg-clr-primary hover:bg-clr-primary-light text-clr-text-high"
                 >
                   <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                   {isRefreshing ? 'Refreshing...' : 'Refresh'}
-                </Button>
+                </HoverButton>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <div className="mb-4">
-              <Button
+              <HoverButton
                 onClick={() => setActiveTab('contacts')}
-                className={`mr-2 ${activeTab === 'contacts' ? 'bg-clr-primary' : 'bg-clr-surface-0'} hover:bg-clr-primary-light`}
+                className={activeTab === 'contacts' ? 'bg-royal' : ''}
               >
                 Contacts
-              </Button>
-              <Button
+              </HoverButton>
+              <HoverButton
                 onClick={() => setActiveTab('leads')}
-                className={`mr-2 ${activeTab === 'leads' ? 'bg-clr-primary' : 'bg-clr-surface-0'} hover:bg-clr-primary-light`}
+                className={`ml-2 ${activeTab === 'leads' ? 'bg-royal' : ''}`}
               >
                 Leads
-              </Button>
-              <Button
+              </HoverButton>
+              <HoverButton
                 onClick={() => setActiveTab('blog')}
-                className={`${activeTab === 'blog' ? 'bg-clr-primary' : 'bg-clr-surface-0'} hover:bg-clr-primary-light`}
+                className={`ml-2 ${activeTab === 'blog' ? 'bg-royal' : ''}`}
               >
                 Blog
-              </Button>
+              </HoverButton>
             </div>
             <div className="overflow-x-auto">
               {sortedItems.length === 0 ? (
-                <p className="text-clr-text-low">No {activeTab} found.</p>
+                <p className="text-mute">No {activeTab} found.</p>
               ) : (
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-b-clr-highlight/10">
+                    <TableRow className="border-b-white-_06">
                       {activeTab === 'blog' ? (
                         <>
                           <TableHead onClick={() => handleSort('title')} className="cursor-pointer">
@@ -432,7 +429,7 @@ export default function AdminDashboard() {
                   </TableHeader>
                   <TableBody>
                     {sortedItems.map((item) => (
-                      <TableRow key={item.id} className="border-b-clr-highlight/10">
+                      <TableRow key={item.id} className="border-b-white-_06">
                         {activeTab === 'blog' ? (
                           <>
                             <TableCell>{(item as BlogPost).title}</TableCell>
@@ -446,12 +443,11 @@ export default function AdminDashboard() {
                             <TableCell>{(item as Contact | Lead).phone}</TableCell>
                             {activeTab === 'contacts' && (
                               <TableCell>
-                                <Button
+                                <HoverButton
                                   onClick={() => setSelectedMessage((item as Contact).message)}
-                                  className="bg-clr-primary hover:bg-clr-primary-light text-clr-text-high"
                                 >
                                   View Message
-                                </Button>
+                                </HoverButton>
                               </TableCell>
                             )}
                           </>
@@ -463,10 +459,10 @@ export default function AdminDashboard() {
                               value={(item as Contact | Lead).status}
                               onValueChange={(value) => handleStatusChange(item.id, value)}
                             >
-                              <SelectTrigger className="w-[200px] bg-clr-surface-0 border-clr-highlight/20 text-clr-text-low">
+                              <SelectTrigger className="w-[200px] bg-obsidian/80 border-white-_06 text-white placeholder:text-mute">
                                 <SelectValue placeholder="Select status" />
                               </SelectTrigger>
-                              <SelectContent className="bg-clr-surface-1 text-clr-text-low border-clr-highlight/10">
+                              <SelectContent className="bg-obsidian/80 text-white border-white-_06">
                                 <SelectItem value="New">New</SelectItem>
                                 <SelectItem value="Called - No answer">Called - No answer</SelectItem>
                                 <SelectItem value="Called - Meeting Booked">Called - Meeting Booked</SelectItem>
@@ -478,12 +474,12 @@ export default function AdminDashboard() {
                           </TableCell>
                         )}
                         <TableCell>
-                          <Button
+                          <HoverButton
                             onClick={() => handleDelete(item.id)}
-                            className="bg-clr-primary-dark hover:bg-opacity-80 text-clr-text-high"
+                            className="bg-red-900/80 hover:bg-red-800"
                           >
                             <Trash2 className="h-4 w-4" />
-                          </Button>
+                          </HoverButton>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -495,7 +491,7 @@ export default function AdminDashboard() {
         </Card>
       </main>
       <Dialog open={showNewBlogPostDialog} onOpenChange={setShowNewBlogPostDialog}>
-        <DialogContent className="bg-clr-surface-1 text-clr-text-high border-clr-highlight/10">
+        <DialogContent className="bg-obsidian/80 backdrop-blur-md text-white border border-white-_06 rounded-lg shadow-diffused-bloom">
           <DialogHeader>
             <DialogTitle>Create New Blog Post</DialogTitle>
           </DialogHeader>
@@ -506,7 +502,7 @@ export default function AdminDashboard() {
                 id="title"
                 value={newBlogPost.title}
                 onChange={(e) => setNewBlogPost({ ...newBlogPost, title: e.target.value })}
-                className="w-full bg-clr-surface-0 text-clr-text-high border-clr-highlight/20"
+                className="w-full bg-obsidian/80 text-white border-white-_06"
                 required
               />
             </div>
@@ -516,7 +512,7 @@ export default function AdminDashboard() {
                 id="slug"
                 value={newBlogPost.slug}
                 onChange={(e) => setNewBlogPost({ ...newBlogPost, slug: e.target.value })}
-                className="w-full bg-clr-surface-0 text-clr-text-high border-clr-highlight/20"
+                className="w-full bg-obsidian/80 text-white border-white-_06"
                 required
               />
             </div>
@@ -526,7 +522,7 @@ export default function AdminDashboard() {
                 id="excerpt"
                 value={newBlogPost.excerpt}
                 onChange={(e) => setNewBlogPost({ ...newBlogPost, excerpt: e.target.value })}
-                className="w-full bg-clr-surface-0 text-clr-text-high border-clr-highlight/20"
+                className="w-full bg-obsidian/80 text-white border-white-_06"
                 required
               />
             </div>
@@ -536,19 +532,19 @@ export default function AdminDashboard() {
                 id="content"
                 value={newBlogPost.content}
                 onChange={(e) => setNewBlogPost({ ...newBlogPost, content: e.target.value })}
-                className="w-full bg-clr-surface-0 text-clr-text-high border-clr-highlight/20"
+                className="w-full bg-obsidian/80 text-white border-white-_06"
                 rows={10}
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-clr-primary hover:bg-clr-primary-light text-clr-text-high">
+            <HoverButton type="submit" className="w-full">
               Create Blog Post
-            </Button>
+            </HoverButton>
           </form>
         </DialogContent>
       </Dialog>
       <Dialog open={!!selectedMessage} onOpenChange={() => setSelectedMessage(null)}>
-        <DialogContent className="bg-clr-surface-1 text-clr-text-high border-clr-highlight/10">
+        <DialogContent className="bg-obsidian/80 backdrop-blur-md text-white border border-white-_06 rounded-lg shadow-diffused-bloom">
           <DialogHeader>
             <DialogTitle>Message</DialogTitle>
           </DialogHeader>

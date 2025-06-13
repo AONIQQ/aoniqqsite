@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Menu, X } from 'lucide-react'
+import { HoverButton } from '@/components/ui/HoverButton'
 
 export default function MobileNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -19,14 +20,14 @@ export default function MobileNav() {
       </button>
 
       {isMenuOpen && (
-        <nav className="md:hidden bg-clr-surface-1/90 backdrop-blur-sm py-4 absolute top-16 left-0 right-0 z-50 border-b border-clr-highlight/10">
+        <nav className="md:hidden bg-obsidian/90 backdrop-blur-sm py-4 absolute top-16 left-0 right-0 z-50 border-b border-white-_06">
           <div className="container mx-auto px-4 flex flex-col space-y-4">
-            <Button asChild className="font-sans font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 text-sm">
-              <Link href="/websitecreation">Website Creation</Link>
-            </Button>
-            <Button asChild className="font-sans font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 text-sm">
-              <Link href="/speedtest">Speed Test</Link>
-            </Button>
+            <Link href="/websitecreation" passHref>
+                <HoverButton className="w-full">Website Creation</HoverButton>
+            </Link>
+            <Link href="/speedtest" passHref>
+                <HoverButton className="w-full">Speed Test</HoverButton>
+            </Link>
           </div>
         </nav>
       )}

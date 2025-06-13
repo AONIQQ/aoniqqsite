@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, Loader2 } from "lucide-react";
+import { HoverButton } from '@/components/ui/HoverButton';
 
 export default function AdminLoginClient() {
   const [username, setUsername] = useState('');
@@ -63,40 +64,42 @@ export default function AdminLoginClient() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Card className="w-full max-w-md bg-clr-surface-1 border border-clr-highlight/10 shadow-card-luxe">
+    <div className="relative isolate flex min-h-screen flex-col items-center justify-center bg-obsidian text-ink">
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
+      <Card className="w-full max-w-md bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="relative w-36 h-12">
+            <div className="relative w-40 h-20">
               <Image
-                src="/images/LargeSideLogo.png"
+                src="/images/aoniqqlogo.png"
                 alt="Aoniqq Logo"
-                fill
+                width={400}
+                height={400}
                 className="object-contain"
-                sizes="(max-width: 768px) 144px, 144px"
                 priority
               />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-clr-text-high">Admin Login</CardTitle>
+          <CardTitle className="text-2xl font-bold text-white font-serif -tracking-wide">Admin Login</CardTitle>
         </CardHeader>
         <CardContent>
           {error && (
-            <div className="bg-clr-primary-dark/30 border border-clr-primary-dark/50 text-clr-text-low px-4 py-2 rounded-md flex items-center mb-4">
+            <div className="bg-red-900/40 border border-red-400/50 text-white px-4 py-2 rounded-md flex items-center mb-4">
               <AlertCircle className="w-5 h-5 mr-2" />
               <p>{error}</p>
             </div>
           )}
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-clr-text-low">Username</Label>
+              <Label htmlFor="username" className="text-mute">Username</Label>
               <Input
                 type="text"
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="bg-clr-surface-0 border-clr-highlight/20 text-clr-text-high placeholder-clr-text-low/50"
+                className="bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
                 disabled={isLoading}
               />
             </div>
@@ -108,13 +111,13 @@ export default function AdminLoginClient() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-clr-surface-0 border-clr-highlight/20 text-clr-text-high placeholder-clr-text-low/50"
+                className="bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
                 disabled={isLoading}
               />
             </div>
-            <Button 
+            <HoverButton 
               type="submit" 
-              className="w-full bg-clr-primary hover:bg-clr-primary-light text-clr-text-high"
+              className="w-full"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -125,7 +128,7 @@ export default function AdminLoginClient() {
               ) : (
                 'Login'
               )}
-            </Button>
+            </HoverButton>
           </form>
         </CardContent>
       </Card>

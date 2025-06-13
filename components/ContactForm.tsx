@@ -1,11 +1,14 @@
+'use client'
+
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from "lucide-react"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { HoverButton } from './ui/HoverButton'
+import { Label } from './ui/label'
 
 interface ContactFormProps {
   isOpen: boolean;
@@ -52,38 +55,28 @@ export default function ContactForm({ isOpen, onClose, redirectUrl }: ContactFor
       ...prevData,
       [name]: value
     }))
-    // Clear error when user starts typing
     setErrors(prevErrors => ({...prevErrors, [name]: ''}))
   }
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {}
-
-    // Validate name
     if (formData.name.trim() === '') {
       newErrors.name = 'Name is required'
     }
-
-    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address'
     }
-
-    // Validate phone
     const phoneRegex = /^\+?[0-9]{10,12}$/
     if (!phoneRegex.test(formData.phone)) {
       newErrors.phone = 'Please enter a valid phone number.'
     }
-
-    // Validate message
     const words = formData.message.trim().split(/\s+/)
     if (words.length < 1) {
       newErrors.message = 'Message must be at least 1 word'
     } else if (!isEnglish(formData.message)) {
       newErrors.message = 'Please write your message in English'
     }
-
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -110,7 +103,7 @@ export default function ContactForm({ isOpen, onClose, redirectUrl }: ContactFor
           setToastMessage(null)
           onClose()
           if (isMounted && typeof window !== 'undefined') {
-            router.push('/websitecreation/inquirysubmitted')
+            router.push(redirectUrl)
           }
         }, 3000)
       } else {
@@ -133,91 +126,97 @@ export default function ContactForm({ isOpen, onClose, redirectUrl }: ContactFor
     <AnimatePresence>
       {isOpen && (
         <motion.div 
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div 
-            className="bg-[#000033] p-6 rounded-lg w-full max-w-2xl h-[90vh] overflow-y-auto relative"
+            className="bg-obsidian/80 border border-white-_06 shadow-diffused-bloom p-8 rounded-lg w-full max-w-2xl h-[95vh] overflow-y-auto relative"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: "spring", damping: 15 }}
           >
-            <Button
-              className="absolute top-2 right-2 bg-transparent hover:bg-blue-800"
+            <button
+              className="absolute top-4 right-4 text-mute hover:text-white"
               onClick={onClose}
             >
               <X className="h-6 w-6" />
-            </Button>
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white text-center">Contact Us</h2>
-              <p className="text-white text-center">
-                Please enter your details below, and someone from our team will contact you to discuss how we can best assist you. If you&apos;d prefer to book a time slot for a zoom/phone call, click the book a discovery call button below. You may also send us a text at 605-884-6550, or send an email to info@aoniqq.com. We look forward to hearing from you!
+            </button>
+            <div className="space-y-6 text-center">
+              <h2 className="text-3xl font-bold text-white font-serif -tracking-wide">Contact Us</h2>
+              <p className="text-ink leading-relaxed">
+                Please enter your details below, and someone from our team will contact you to discuss how we can best assist you. If you&apos;d prefer to book a time slot for a zoom/phone call, click the book a free consultation button below. You may also send us a text at 605-884-6550, or send an email to info@aoniqq.com. We look forward to hearing from you!
               </p>
               <div className="flex justify-center">
-                <Link href="/websitecreation/book" passHref>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Book a Discovery Call
-                  </Button>
+                <Link href="/book" passHref>
+                    <HoverButton>Book A Free Consultation</HoverButton>
                 </Link>
               </div>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 text-left">
                 <div>
+                  <Label htmlFor="name" className="text-mute mb-1 block">Name</Label>
                   <Input 
                     type="text" 
                     name="name" 
+                    id="name"
                     placeholder="Name" 
                     required 
                     value={formData.name}
                     onChange={handleChange}
-                    className="bg-blue-900/20 border-blue-400/20 text-white placeholder-blue-300"
+                    className="bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
                   />
                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </div>
                 <div>
+                  <Label htmlFor="email" className="text-mute mb-1 block">Email</Label>
                   <Input 
                     type="email" 
                     name="email" 
+                    id="email"
                     placeholder="Email" 
                     required 
                     value={formData.email}
                     onChange={handleChange}
-                    className="bg-blue-900/20 border-blue-400/20 text-white placeholder-blue-300"
+                    className="bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
                   />
                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
                 <div>
+                  <Label htmlFor="phone" className="text-mute mb-1 block">Phone</Label>
                   <Input 
                     type="tel" 
                     name="phone" 
+                    id="phone"
                     placeholder="Phone" 
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    className="bg-blue-900/20 border-blue-400/20 text-white placeholder-blue-300"
+                    className="bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
                   />
                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                 </div>
                 <div>
+                  <Label htmlFor="message" className="text-mute mb-1 block">Your message</Label>
                   <Textarea 
                     name="message" 
+                    id="message"
                     placeholder="Your message" 
                     required 
                     value={formData.message}
                     onChange={handleChange}
-                    className="bg-blue-900/20 border-blue-400/20 text-white placeholder-blue-300 min-h-[100px]"
+                    className="bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal min-h-[120px]"
                   />
                   {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                 </div>
-                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={isSubmitting}>
+                <HoverButton type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
-                </Button>
+                </HoverButton>
               </form>
             </div>
             {toastMessage && (
-              <div className="absolute bottom-4 left-4 right-4 bg-blue-500 text-white p-2 rounded">
+              <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-royal text-white p-3 rounded-lg shadow-lg">
                 {toastMessage}
               </div>
             )}

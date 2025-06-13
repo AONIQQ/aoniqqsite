@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ChevronLeft, Clock, Calendar, Menu, X } from 'lucide-react'
 import { ShareButton } from './ShareButton'
 import MobileNav from '../MobileNav' // Assuming MobileNav is moved or copied
+import { HoverButton } from '@/components/ui/HoverButton'
 
 type Post = {
   title: string
@@ -113,31 +114,30 @@ const RenderContent: React.FC<{ content: string }> = ({ content }) => {
 
 export default function BlogPostContent({ post, otherPosts }: Props) {
   return (
-    <div className="min-h-screen font-sans">
-       <header className="bg-clr-surface-1 py-4 shadow-md border-b border-clr-highlight/10">
-        <div className="container mx-auto px-8 flex justify-between items-center">
-          <Link href="/" className="relative w-36 h-12">
-            <Image
-              src="/images/LargeSideLogo.png"
-              alt="Aoniqq Logo"
-              fill
-              objectFit="contain"
-              priority
-            />
+    <div className="min-h-screen font-sans bg-obsidian text-ink">
+       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/images/logo-nav-uppercase.svg"
+            alt="Aoniqq Logo"
+            width={300}
+            height={300}
+            className="w-40 h-20 object-contain"
+            priority
+          />
+        </Link>
+        <div className="hidden md:flex space-x-4">
+          <Link href="/websitecreation" passHref>
+              <HoverButton>Website Creation Service</HoverButton>
           </Link>
-          <div className="hidden md:flex space-x-4">
-            <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105">
-              <Link href="/websitecreation">Website Creation Service</Link>
-            </Button>
-            <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105">
-              <Link href="/speedtest">Free Website Speed Test</Link>
-            </Button>
-          </div>
-          <MobileNav />
+          <Link href="/speedtest" passHref>
+              <HoverButton>Free Website Speed Test</HoverButton>
+          </Link>
         </div>
+        <MobileNav />
       </header>
 
-      <main className="container mx-auto px-4 py-6 md:py-8">
+      <main className="container mx-auto px-4 py-32">
         <Link href="/blog" className="inline-flex items-center text-clr-primary hover:text-clr-primary-light transition-colors mb-4 md:mb-6 text-sm md:text-base">
           <ChevronLeft className="w-4 h-4 mr-2" />
           Back to Blog Home
@@ -173,19 +173,19 @@ export default function BlogPostContent({ post, otherPosts }: Props) {
           </div>
         </article>
         
-        <Card className="mt-8 md:mt-16 bg-clr-surface-1 border border-clr-highlight/10 shadow-card-luxe">
-          <CardContent className="p-4 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center text-clr-primary font-serif -tracking-wide">Explore Our Services</h2>
-            <p className="text-center mb-6 md:mb-8 text-sm md:text-lg opacity-[.92] leading-relaxed">
+        <Card className="mt-8 md:mt-16 bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm">
+          <CardContent className="p-8 text-center">
+            <h2 className="text-3xl font-serif font-bold -tracking-wide mb-6 text-white">Explore Our Services</h2>
+            <p className="mb-8 text-lg text-ink leading-relaxed">
               Interested in learning more about how Aoniqq can help your business? Check out our services below.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
-                <Link href="/websitecreation">Website Creation</Link>
-              </Button>
-              <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
-                <Link href="/">Project Management</Link>
-              </Button>
+                <Link href="/websitecreation" passHref>
+                    <HoverButton>Website Creation</HoverButton>
+                </Link>
+                <Link href="/" passHref>
+                    <HoverButton>Project Management</HoverButton>
+                </Link>
             </div>
           </CardContent>
         </Card>

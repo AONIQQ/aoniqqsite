@@ -13,10 +13,10 @@ export default function Component() {
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
           <Image
-            src="/images/logo-nav-uppercase.svg"
+            src="/images/aoniqqlogo.png"
             alt="Aoniqq Logo"
-            width={300}
-            height={300}
+            width={400}
+            height={400}
             className="w-40 h-20 object-contain"
             priority
           />
@@ -92,7 +92,16 @@ export default function Component() {
       </main>
 
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
-        <p className="text-xs text-mute opacity-80">©2025 Aoniqq LLC. All rights reserved.</p>
+        <div className="flex-shrink-0">
+          <Image
+            src="/images/aoniqqlogo.png"
+            alt="Aoniqq Logo"
+            width={150}
+            height={150}
+            className="w-28 h-14 object-contain"
+          />
+        </div>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
           <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service

@@ -47,6 +47,18 @@ const jetbrains_mono = localFont({
 export const metadata = {
   title: 'Aoniqq - Software Development and Consulting Services',
   description: 'Aoniqq provides software and website development, project management, and consulting services.',
+  metadataBase: new URL('https://aoniqq.com'),
+  icons: {
+    icon: '/favicon_io/favicon.ico',
+    apple: '/favicon_io/apple-touch-icon.png',
+  },
+  openGraph: {
+    images: '/images/aoniqqlogo.png',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: '/images/aoniqqlogo.png',
+  },
 };
 
 export default function RootLayout({
@@ -80,6 +92,7 @@ export default function RootLayout({
             width="1"
             style={{ display: 'none' }}
             src="https://www.facebook.com/tr?id=521366960377690&ev=PageView&noscript=1"
+            alt="Facebook Pixel"
           />
         </noscript>
         {/* End Facebook Pixel Code */}

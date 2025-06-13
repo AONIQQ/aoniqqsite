@@ -14,6 +14,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Label } from "@/components/ui/label"
+import { GlassButton } from '@/components/ui/GlassButton'
+import { HoverButton } from '@/components/ui/HoverButton'
 
 interface PageSpeedResult {
   performance: number;
@@ -247,10 +249,10 @@ const Speedtest = () => {
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
           <Image
-            src="/images/logo-nav-uppercase.svg"
+            src="/images/aoniqqlogo.png"
             alt="Aoniqq Logo"
-            width={300}
-            height={300}
+            width={150}
+            height={150}
             className="w-40 h-20 object-contain"
             priority
           />
@@ -311,19 +313,16 @@ const Speedtest = () => {
                 onChange={(e) => setUrl(e.target.value)}
                 className="w-full sm:flex-grow bg-obsidian/80 border-white-_06 text-white placeholder:text-mute focus:ring-2 focus:ring-royal"
               />
-              <a
-                onClick={runSpeedTest}
-                className="group relative w-full sm:w-auto cursor-pointer inline-flex rounded-full bg-gradient-to-br from-royal to-royal2 px-10 py-3 font-sans text-[15px] font-semibold uppercase tracking-wide text-white shadow-[0_0_0_3px_rgba(255,255,255,.08)_inset] transition duration-150 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealLux"
-              >
-                  {loading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Analyzing...
-                    </>
-                  ) : (
-                    'Analyze'
-                  )}
-              </a>
+              <HoverButton onClick={runSpeedTest} disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  'Analyze'
+                )}
+              </HoverButton>
             </div>
             {loading && (
               <motion.div 
@@ -413,12 +412,11 @@ const Speedtest = () => {
                   </div>
                 </div>
                 <p className="mb-10 text-xl font-semibold text-white">Get a comprehensive analysis and actionable steps to supercharge your site&apos;s performance!</p>
-                <a
+                <HoverButton
                   onClick={() => setShowFullReportDialog(true)} 
-                  className="group relative inline-flex rounded-full bg-gradient-to-br from-tealLux to-royal px-10 py-4 font-sans text-[15px] font-semibold uppercase tracking-wide text-white shadow-[0_0_0_3px_rgba(255,255,255,.08)_inset] transition duration-150 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealLux cursor-pointer"
                 >
                   Get Your FREE Full Performance Report
-                </a>
+                </HoverButton>
               </div>
             </CardContent>
           </Card>
@@ -469,13 +467,13 @@ const Speedtest = () => {
               />
               {formErrors.phone && <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>}
             </div>
-            <Button 
+            <HoverButton 
               type="submit" 
-              className="w-full bg-gradient-to-r from-tealLux to-royal text-white font-bold py-3 px-4 rounded-md text-base transition-all duration-300 uppercase tracking-wide"
+              className="w-full"
               disabled={submissionStatus === 'submitting'}
             >
               {submissionStatus === 'submitting' ? 'Submitting...' : 'Get My FREE Report Now'}
-            </Button>
+            </HoverButton>
           </form>
           {submissionError && (
             <Alert variant="destructive" className="mt-4">
@@ -490,7 +488,16 @@ const Speedtest = () => {
       </Dialog>
 
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
-        <p className="text-xs text-mute opacity-80">©2025 Aoniqq LLC. All rights reserved.</p>
+        <div className="flex-shrink-0">
+          <Image
+            src="/images/aoniqqlogo.png"
+            alt="Aoniqq Logo"
+            width={150}
+            height={150}
+            className="w-28 h-14 object-contain"
+          />
+        </div>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
           <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service

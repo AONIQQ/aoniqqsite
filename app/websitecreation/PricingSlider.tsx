@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { GlassButton } from '@/components/ui/GlassButton'
+import { HoverButton } from '@/components/ui/HoverButton'
 
 const pricingTiers = [
   {
@@ -251,16 +253,11 @@ export default function PricingSlider({ openContactForm }: PricingSliderProps) {
         <p className="text-mute mb-4 leading-relaxed">
           This provides an estimate. To get an exact quote, book a call to discuss your project&apos;s needs.
         </p>
-        <a
-          href="#contact"
-          className="group relative inline-flex rounded-full bg-gradient-to-br from-royal to-royal2 px-10 py-4 font-sans text-[15px] font-semibold uppercase tracking-wide text-white shadow-[0_0_0_3px_rgba(255,255,255,.08)_inset] transition duration-150 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealLux"
-           onClick={(e) => {
-             e.preventDefault();
-             openContactForm();
-           }}
+        <HoverButton
+           onClick={openContactForm}
         >
           Get Started
-        </a>
+        </HoverButton>
       </motion.div>
     </div>
   )

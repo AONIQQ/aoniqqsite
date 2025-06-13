@@ -24,12 +24,12 @@ const TimelineEntry = ({ item }: { item: TimelineEntryData }) => {
       ref={entryRef}
       className="flex flex-col items-center justify-center pt-10 md:pt-20"
     >
-      <div className="flex justify-start md:gap-10 w-full max-w-4xl">
-        <div className="sticky flex-col md:flex-row z-40 items-center top-40 self-start hidden md:flex">
+      <div className="flex flex-col md:flex-row justify-center md:gap-10 w-full max-w-4xl">
+        <div className="flex z-40 items-center top-40 self-start mb-4 md:mb-0 md:sticky">
           <div className="flex items-center gap-6">
             <span className="inline-block h-4 w-4 rounded-full bg-white/10 backdrop-blur-[2px] ring-1 ring-inset ring-white/10"></span>
             <div className="relative inline-block">
-              <h3 className="text-xl md:text-5xl font-bold text-mute">
+              <h3 className="text-2xl md:text-5xl font-bold text-mute">
                 {item.title}
               </h3>
               <motion.span 
@@ -39,10 +39,7 @@ const TimelineEntry = ({ item }: { item: TimelineEntryData }) => {
           </div>
         </div>
 
-        <div className="relative pl-20 pr-4 md:pl-4 w-full">
-          <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-mute">
-            {item.title}
-          </h3>
+        <div className="relative pl-12 pr-4 md:pl-4 w-full">
           {item.content}{" "}
         </div>
       </div>

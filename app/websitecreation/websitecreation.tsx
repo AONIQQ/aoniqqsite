@@ -14,6 +14,10 @@ import { Calendar, ChevronRight, ChevronLeft, Menu, X, Star, ArrowRight, DollarS
 import Link from 'next/link'
 import clsx from 'clsx'
 import { Timeline } from '@/components/ui/timeline'
+import { GlassButton } from '@/components/ui/GlassButton'
+import { HoverButton } from '@/components/ui/HoverButton'
+import { TestimonialCard } from '@/components/ui/testimonial-cards'
+import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel'
 
 // Lazy load components
 const LazyWebsiteJourneyMap = lazy(() => import('./website-journey-map'))
@@ -34,30 +38,59 @@ export default function WebsiteCreation() {
 
   const testimonials = useMemo(() => [
     {
+      id: 1,
       body: "I have had the pleasure of working with Andrew, the founder of Aoniqq, on projects for multiple years. Throughout our collaborations, Andrew has consistently demonstrated competence, trustworthiness, professionalism, discipline, punctuality, open-mindedness, quick learning ability, and excellent problem-solving skills. His extensive experience is further bolstered by his ability to know when to delegate or call in experts to fill any gaps. In challenging situations, Andrew has shown his ability to perform under pressure and in harsh conditions without slipping up. His technical expertise combined with his ability to work with and manage a team of developers makes him a great resource. For the sake of providing a more specific and helpful review, I'd like to share one of my recent positive experiences with Aoniqq. Aoniqq single-handedly saved a project launch that was being severely mismanaged by a team of supposedly professional developers. The other developers not only failed to do their job correctly but were also an absolute nightmare to work with when corrections were needed. Aoniqq solved the technical issues while also successfully navigating the complicated communication issues with the original dev team to ensure that they provided what was needed for the corrections to be completed. I felt safe trusting Aoniqq to take charge of the process, and they executed flawlessly, leading to a smooth launch for the project. Being able to trust Aoniqq to handle the development side of a project completely allows my team and me to focus our energy on our areas of specialization, opening us up to the most success and growth possible. The peace of mind provided by such confident delegation is priceless. If anyone requires further validation of any claims or would like to learn more about the quality of work I've seen from Andrew and Aoniqq, I would be happy to serve as a reference.",
       author: "Ryan",
       role: "Founder, Pylon Enterprises"
     },
     {
+      id: 2,
       body: "Aoniqq is a lifesaver.  After spending 6 months spinning my wheels with another developer, I brought in Andrew from Aoniqq and he accomplished more in our first meeting than had been done in the previous 6 months.  He's been great, building an entire custom website for me to get me exactly the functionality I needed while also fixing all the weird issues that came up while we had been trying to use Webflow.  It's what I want without compromises, and looks better.  I'm even saving money on hosting his tailor-made build compared to the cost of an endless subscription to Webflow or another competitor.  Just considering the final product, Aoniqq is absolutely the way to go.\nFactoring in Andrew's excellent communication, professionalism, cleverness, flexibility, and discipline, I can't recommend Andrew and Aoniqq enough.  His ability to understand and implement 'bleeding-edge' web development tools has also been a huge help.  When I've asked if we need to add a feature, he's always clear about how he would go about it and what the pros and cons would be, allowing me to make a decision based on the final product.  Aoniqq is an excellent service.  When you compare it to other website development services, Aoniqq is truly exceptional.\nI've been recommending Aoniqq to friends and business contacts since I first worked with Andrew and will happily continue to do so.",
       author: "Rob",
       role: "Founder, Remotetutoring.com"
     },
     {
+      id: 3,
       body: "Andrew was recommended to assist in the development of the website for our organization. I did not know him or have any experience in designing a website. We desired to have the first features in place by August 12, 2024. Andrew got it done. Phase II required greater effort and periodic revisions as we refined our objectives. Features that we envisioned but did not know how to implement were easily effectuated by Andrew. Tasks first outlined on Friday were accomplished over the weekend. Andrew has been a pleasure to work with.",
       author: "Albert",
       role: "Treasurer, DPE Foundation for Foreign Service Education"
     },
     {
+      id: 4,
       body: "I recently had the pleasure of working with Aoniqq on a project and was extremely impressed with their expertise. Their team of developers were not only highly skilled, but also very responsive and efficient in meeting deadlines. One of the things I appreciated most about Aoniqq was their ability to understand our business, and provide tailored solutions based on this information. I highly recommend Aoniqq for anyone in need of the services they offer. Their attention to detail, expertise, and customer service is top-notch. Aoniqq truly exceeded our expectations and we will not hesitate to recommend them and work with them in the future.",
       author: "Josh",
       role: "CEO, Express Solutions"
     },
     {
-      body: "Our Design assets and our website were delivered ahead of schedule, and exceeded our expectations. We were able to be truly hands off throughout the process, which was extremely valuable, as we are already extremely busy. After discussing the project with the Aoniqq team and seeing their attention to detail, we knew we had made the right decision. In past projects of ours, web development has been a huge headache because of the necessity to micromanage developers. This was not the case with Aoniqq, which made working with them a breath of fresh air.",
+      id: 5,
+      body: "After discussing our plans with the Aoniqq team and asking them more about how they can help fill a gap we had, we were extremely impressed. Their ability to understand our complex business and explain things in a way that was easy to understand enabled us to consider them a true partner, and is what led us to bring them on for ongoing project and strategy management.",
       author: "Fastrack Team",
       role: "Fastrack EDU LLC"
     },
+    {
+      id: 6,
+      body: "After months of working with Aoniqq, I can say without pause, that they are one of the most reliable service providers with whom we have worked. What started with generative art coding services has blossomed into Aoniqq providing overall smart contract consulting and project management. They have taken on the increased scope professionally. They have taken the initiative to research new trends as they emerge in the space. And, they have properly -and timely! - communicated things along the way. We consider Aoniqq to be a true partner in the project.",
+      author: "Justin",
+      role: "Founder, Bodega Blocks"
+    },
+    {
+      id: 7,
+      body: "Aoniqq was fantastic to work with. They have been a great partner in the development of our website as well as various consulting and custom software development needs throughout the last few years. The team is professional, knowledgeable, and always willing to go above and beyond to ensure the project is successful. We look forward to continuing to work with them in the future.",
+      author: "Steven",
+      role: "Founder, Wall Street Vision"
+    },
+    {
+      id: 8,
+      body: "Aoniqq was recommended to the team by an advisor helping out on the project after we had issues with our previous development team. The level of professionalism we received from the team at Aoniqq was something we haven't experienced in web3 before, and it came at the perfect time. Their team was actively engaged in the whole process and their technical knowledge from start to finish allowed us to focus on the growth of the project.",
+      author: "Alex",
+      role: "Founder, All For One"
+    },
+    {
+      id: 9,
+      body: "The team at Aoniqq helped us program all of the contracts and code for our NFT drop and much much more. Andrew from the team came to every meeting and had excellent ideas. Despite changing direction multiple times as the project developed, their team never complained, and their team didn't flinch when the work doubled and then tripled. Highly professional, and especially trustworthy team. Can't wait to work together in the future.",
+      author: "Max",
+      role: "CEO, Unreal Assets"
+    }
   ], [])
 
   useEffect(() => {
@@ -141,32 +174,48 @@ export default function WebsiteCreation() {
         <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
-          <Image
-            src="/images/logo-nav-uppercase.svg"
-            alt="Aoniqq Logo"
+            <Image
+            src="/images/aoniqqlogo.png"
+              alt="Aoniqq Logo"
             width={300}
             height={300}
             className="w-40 h-20 object-contain"
-            priority
-          />
+              priority
+            />
         </Link>
         <div className="flex items-center">
           {!isNavbarCollapsed ? (
             <>
               <nav className="hidden gap-9 md:flex">
-                {['Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item) => (
-                  <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
-                    {item}
+                <a href="#why-aoniqq" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
+                    What Sets Us Apart
                     <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
-                  </a>
-                ))}
+                </a>
+                <a href="#portfolio" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
+                    Portfolio
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
+                </a>
+                <a href="#testimonials" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
+                    Testimonials
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
+                </a>
+                <a href="#pricing" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
+                    Pricing
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
+                </a>
+                <a href="#contact" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
+                    Contact
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
+                </a>
               </nav>
               <div className="hidden gap-3 md:flex items-center ml-8">
-                <Link href="/speedtest" className="px-3 py-1.5 text-sm font-medium text-ink hover:text-white transition">
-                  Website Speed Test
+                <Link href="/speedtest" className="relative px-3 py-1.5 text-sm font-medium text-white transition">
+                    Website Speed Test
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-full bg-gradient-to-r from-tealLux to-royal"/>
                 </Link>
-                <Link href="/websitecreation/book" className="px-3 py-1.5 text-sm font-medium text-ink hover:text-white transition">
-                  Book
+                <Link href="/websitecreation/book" className="relative px-3 py-1.5 text-sm font-medium text-white transition">
+                    Book
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-full bg-gradient-to-r from-tealLux to-royal"/>
                 </Link>
               </div>
             </>
@@ -180,17 +229,27 @@ export default function WebsiteCreation() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-obsidian border-l border-white-_06">
                 <nav className="flex flex-col gap-8 mt-12 font-sans">
-                  {['Why Aoniqq', 'Portfolio', 'Testimonials', 'Pricing', 'Contact'].map((item) => (
-                    <a key={item} className="text-lg font-medium hover:text-white transition-colors" href={`#${item.toLowerCase().replace(' ', '-')}`} onClick={handleNavClick}>
-                      {item}
-                    </a>
-                  ))}
+                  <a className="text-lg font-medium hover:text-white transition-colors" href="#why-aoniqq" onClick={handleNavClick}>
+                    What Sets Us Apart
+                  </a>
+                  <a className="text-lg font-medium hover:text-white transition-colors" href="#portfolio" onClick={handleNavClick}>
+                    Portfolio
+                  </a>
+                  <a className="text-lg font-medium hover:text-white transition-colors" href="#testimonials" onClick={handleNavClick}>
+                    Testimonials
+                  </a>
+                  <a className="text-lg font-medium hover:text-white transition-colors" href="#pricing" onClick={handleNavClick}>
+                    Pricing
+                  </a>
+                  <a className="text-lg font-medium hover:text-white transition-colors" href="#contact" onClick={handleNavClick}>
+                    Contact
+                  </a>
                   <Button asChild variant="outline" className="w-full justify-start border-white-_06 hover:bg-white/5 hover:text-white font-semibold">
                     <Link href="/speedtest">Website Speed Test</Link>
                   </Button>
-                  <Button asChild variant="outline" className="w-full justify-start border-white-_06 hover:bg-white/5 hover:text-white font-semibold">
-                    <Link href="/websitecreation/book">Book</Link>
-                  </Button>
+                  <Link href="/websitecreation/book" passHref>
+                    <GlassButton className="w-full justify-start" label="Book" />
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -207,18 +266,21 @@ export default function WebsiteCreation() {
           <div className="container mx-auto px-8 max-w-7xl z-10">
               <div className="flex flex-col items-center space-y-8 text-center">
                 <h1 className="font-serif font-black tracking-[-.025em] text-[clamp(48px,8vw,108px)] leading-[1.05] text-white">
-                    Get a Fast, Functional, and Fully Customized Website
-                    <br />
-                    <span className="bg-gradient-to-r from-royal to-royal2 bg-clip-text text-transparent">Tailored to Your Business</span>
+                  Get a Fast, Functional, and Fully Customized Website
+                  <br />
+                  <span className="bg-gradient-to-r from-royal via-royal2 via-45% to-indigo bg-clip-text text-transparent">
+                    Tailored to Your Business
+                  </span>
                 </h1>
                 <p className="mx-auto mt-8 max-w-[55ch] text-[18px]/[1.65] text-[#c4c4c4]">
                   Don&apos;t waste valuable time and money on low quality design, poor communication, and long turnaround times. Get a thoughtfully designed website that is optimized for conversions and sales, without having to spend precious time on the development process.
                 </p>
-                <a href="#contact"
-                   className="group relative mt-14 inline-flex rounded-full bg-gradient-to-br from-royal to-royal2 px-10 py-4 font-sans text-[15px] font-semibold uppercase tracking-wide text-white shadow-[0_0_0_3px_rgba(255,255,255,.08)_inset] transition duration-150 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealLux">
+                <HoverButton onClick={openContactForm}>
+                  <span className="flex items-center">
                   Submit Inquiry
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </HoverButton>
             </div>
           </div>
         </section>
@@ -231,10 +293,10 @@ export default function WebsiteCreation() {
             <div className="grid gap-12 md:grid-cols-2">
               <motion.article 
                 className="relative overflow-hidden rounded-2xl bg-[#0d0d0d]/90 p-10 ring-1 ring-inset ring-white/5"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: .45, ease: 'easeOut' }}
-                viewport={{ once: true }}
+              viewport={{ once: true }}
               >
                 <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-[#ff3b3b]/20 blur-[4px]" />
                 <span className="pointer-events-none absolute -top-10 left-0 h-20 w-[150%] -rotate-4 bg-[#0d0d0d]/90" />
@@ -272,7 +334,7 @@ export default function WebsiteCreation() {
                 <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-tealLux/30 blur-[4px]" />
                 <span className="pointer-events-none absolute -top-10 left-0 h-20 w-[150%] rotate-4 bg-[rgba(36,84,255,.08)]" />
                 <h3 className="mb-8 font-serif text-2xl font-semibold text-white">
-                  Aoniqq&apos;s Approach
+                  Our Approach
                 </h3>
                 <ul className="space-y-5 text-[17px] leading-[1.55] text-ink font-sans">
                   {[
@@ -321,61 +383,15 @@ export default function WebsiteCreation() {
         </section>
 
         <section id="testimonials" className="relative py-28">
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="h-[480px] w-[480px] rounded-full bg-[rgba(36,84,255,.05)] blur-[120px]" />
-            </div>
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="h-[480px] w-[480px] rounded-full bg-[rgba(36,84,255,.05)] blur-[120px]" />
+          </div>
 
-            <h2 className="mb-20 text-center font-serif text-[46px] font-semibold text-white">
-              Client Reviews
-            </h2>
+          <h2 className="mb-20 text-center font-serif text-[46px] font-semibold text-white">
+            Client Reviews
+          </h2>
 
-            <AnimatePresence mode="wait">
-              <motion.article
-                key={currentReview}
-                initial={{ opacity: 0, y: 24, scale: .96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: .45, ease: 'easeOut' }}
-                className="relative mx-auto flex max-w-6xl flex-col items-center rounded-2xl bg-[rgba(36,84,255,.03)] p-12 backdrop-blur-md ring-1 ring-inset ring-white/10"
-              >
-                <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-full bg-[rgba(255,255,255,.06)] backdrop-blur-md ring-1 ring-inset ring-white/10">
-                  <Quote className="h-8 w-8 text-royal" />
-                </div>
-
-                <blockquote className="text-center font-serif italic text-[19px]/[1.65] text-ink text-balance">
-                  {testimonials[currentReview].body}
-                </blockquote>
-
-                <figcaption className="mt-10 font-sans text-[14px] uppercase tracking-wide text-white/85">
-                  {testimonials[currentReview].author} | {testimonials[currentReview].role}
-                </figcaption>
-
-                <div className="mt-12 flex flex-col items-center gap-6">
-                  <div className="flex gap-4">
-                    <button onClick={prevReview} aria-label="Previous"
-                      className="grid h-10 w-10 place-items-center rounded-full bg-[rgba(255,255,255,.06)] backdrop-blur-md ring-1 ring-inset ring-white/10 transition hover:bg-[rgba(255,255,255,.09)]">
-                      <ChevronLeft className="h-4 w-4 text-ink" />
-                    </button>
-                    <button onClick={nextReview} aria-label="Next"
-                      className="grid h-10 w-10 place-items-center rounded-full bg-[rgba(255,255,255,.06)] backdrop-blur-md ring-1 ring-inset ring-white/10 transition hover:bg-[rgba(255,255,255,.09)]">
-                      <ChevronRight className="h-4 w-4 text-ink" />
-                    </button>
-                  </div>
-
-                  <div className="flex gap-2">
-                    {testimonials.map((_, i) => (
-                      <span key={i}
-                        className={clsx(
-                          'h-1.5 rounded-full transition-all duration-300',
-                          currentReview === i
-                            ? 'w-6 bg-tealLux'
-                            : 'w-1.5 bg-tealLux/30'
-                        )}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
-            </AnimatePresence>
+          <TestimonialCarousel testimonials={testimonials} />
         </section>
 
         <section id="pricing" className="w-full py-16 md:py-24 bg-transparent">
@@ -408,17 +424,27 @@ export default function WebsiteCreation() {
                 <p>info@aoniqq.com</p>
                 <p>605-884-6550</p>
               </motion.div>
-              <a href="/book"
-                 className="group relative mt-14 inline-flex rounded-full bg-gradient-to-br from-royal to-royal2 px-10 py-4 font-sans text-[15px] font-semibold uppercase tracking-wide text-white shadow-[0_0_0_3px_rgba(255,255,255,.08)_inset] transition duration-150 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealLux">
-                Submit Inquiry
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              <HoverButton onClick={openContactForm}>
+                <span className="flex items-center">
+                  Submit Inquiry
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </HoverButton>
             </div>
           </div>
         </section>
       </main>
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
-        <p className="text-xs text-mute opacity-80">©2025 Aoniqq LLC. All rights reserved.</p>
+        <div className="flex-shrink-0">
+          <Image
+            src="/images/aoniqqlogo.png"
+            alt="Aoniqq Logo"
+            width={150}
+            height={150}
+            className="w-28 h-14 object-contain"
+          />
+        </div>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
           <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service

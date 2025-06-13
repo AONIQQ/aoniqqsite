@@ -22,14 +22,17 @@ const config: Config = {
         tealLux: '#0ABF8E',
         ink:     '#D0D0D0',
         mute:    '#8A8A8A',
-        'white-_06': 'rgba(255, 255, 255, 0.06)'
+        'white-_06': 'rgba(255, 255, 255, 0.06)',
+        indigo : '#2E2A66',
+        onyx   : '#0D0D25',
+        teal   : '#0ABF8E',
+        glass  : 'rgba(13,13,25,0.30)',
       },
       boxShadow: {
-        'cta-glow': '0 0 28px 0 rgba(36, 84, 255, 0.30)',
-        'cta-glow-hover': '0 6px 28px rgba(36, 84, 255, 0.35)',
-        'diffused-bloom': '0 0 24px rgba(255, 255, 255, 0.06)',
-        'cta-inset': '0 0 0 3px rgba(255, 255, 255, .08) inset',
-        'cta-inset-hover': '0 0 0 3px rgba(255, 255, 255, .12) inset'
+        'glass'    : 'inset 0 0 8px rgba(2,2,20,.35)',
+        'glass-lg' : 'inset 0 0 10px rgba(2,2,20,.55)',
+        'glass-sm' : 'inset 0 0 6px rgba(2,2,20,.65)',
+        'card-glass' : 'inset 0 0 8px rgba(2,2,20,.45)',
       },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

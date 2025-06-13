@@ -5,6 +5,7 @@ import { getAllBlogPosts } from '@/lib/blog'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import MobileNav from './MobileNav'
+import { HoverButton } from '@/components/ui/HoverButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,25 +18,28 @@ export default async function BlogIndexPage() {
   const posts = await getAllBlogPosts()
 
   return (
-    <div className="min-h-screen font-sans">
-      <header className="bg-clr-surface-1 py-4 shadow-md border-b border-clr-highlight/10">
+    <div className="relative isolate flex flex-col min-h-screen bg-obsidian text-ink">
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-3 backdrop-blur-md">
         <div className="container mx-auto px-8 flex justify-between items-center">
-          <Link href="/" className="relative w-36 h-12">
+          <Link href="/" className="relative w-40 h-20">
             <Image
-              src="/images/LargeSideLogo.png"
+              src="/images/aoniqqlogo.png"
               alt="Aoniqq Logo"
-              fill
-              objectFit="contain"
+              width={400}
+              height={400}
+              className="object-contain"
               priority
             />
           </Link>
           <div className="hidden md:flex space-x-4">
-            <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105">
-              <Link href="/websitecreation">Website Creation Service</Link>
-            </Button>
-            <Button asChild className="font-semibold tracking-wide uppercase bg-gradient-to-r from-clr-primary-light to-clr-primary-dark text-clr-text-high font-bold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105">
-              <Link href="/speedtest">Free Website Speed Test</Link>
-            </Button>
+            <Link href="/websitecreation" passHref>
+              <HoverButton>Website Creation Service</HoverButton>
+            </Link>
+            <Link href="/speedtest" passHref>
+              <HoverButton>Free Website Speed Test</HoverButton>
+            </Link>
           </div>
           <MobileNav />
         </div>
