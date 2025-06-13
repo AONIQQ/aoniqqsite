@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import MobileNav from './MobileNav'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Blog | Aoniqq',
   description: 'Read the latest insights and updates from the Aoniqq team on software and website development, AI use cases, project management, CRMs and technology trends.',
