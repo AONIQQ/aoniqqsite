@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { HoverButton } from '@/components/ui/HoverButton'
+import AoniqqLogo from '/public/images/aoniqqlogo.png';
 
 export default function BookingSuccessPage() {
   const [isClient, setIsClient] = useState(false)
@@ -36,7 +37,7 @@ export default function BookingSuccessPage() {
         </Button>
         <Link href="/" className="flex-shrink-0">
           <Image
-            src="/images/aoniqqlogo.png"
+            src={AoniqqLogo}
             alt="Aoniqq Logo"
             width={400}
             height={400}
@@ -84,7 +85,7 @@ export default function BookingSuccessPage() {
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
           <Image
-            src="/images/aoniqqlogo.png"
+            src={AoniqqLogo}
             alt="Aoniqq Logo"
             width={150}
             height={150}

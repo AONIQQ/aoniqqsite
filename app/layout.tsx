@@ -3,6 +3,9 @@ import './globals.css';
 import { ReactNode } from 'react';
 import ClientProvider from './ClientProvider';  // Import the client-side provider
 import localFont from 'next/font/local'
+import AoniqqLogo from '/public/images/aoniqqlogo.png';
+import Link from 'next/link'
+import Image from 'next/image'
 
 const playfair_display = localFont({
   src: './fonts/playfairDisplay/PlayfairDisplay-VariableFont_wght.ttf',

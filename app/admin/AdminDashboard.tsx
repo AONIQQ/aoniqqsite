@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Link from 'next/link'
 import { Textarea } from "@/components/ui/textarea"
 import { HoverButton } from '@/components/ui/HoverButton'
+import AoniqqLogo from '/public/images/aoniqqlogo.png'
 
 interface Contact {
   id: number
@@ -298,12 +299,14 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-obsidian text-ink">
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
+      <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} theme="dark" />
       <header className="bg-obsidian/80 backdrop-blur-md py-4 sticky top-0 z-10 shadow-md border-b border-white-_06">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/" className="relative w-40 h-20">
             <Image
-              src="/images/aoniqqlogo.png"
+              src={AoniqqLogo}
               alt="Aoniqq Logo"
               width={400}
               height={400}
@@ -490,6 +493,26 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
       </main>
+      <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
+        <div className="flex-shrink-0">
+          <Image
+            src={AoniqqLogo}
+            alt="Aoniqq Logo"
+            width={150}
+            height={150}
+            className="w-28 h-14 object-contain"
+          />
+        </div>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-6 sm:gap-8">
+          <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
+            Terms of Service
+          </Link>
+          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
+            Privacy Policy
+          </Link>
+        </nav>
+      </footer>
       <Dialog open={showNewBlogPostDialog} onOpenChange={setShowNewBlogPostDialog}>
         <DialogContent className="bg-obsidian/80 backdrop-blur-md text-white border border-white-_06 rounded-lg shadow-diffused-bloom">
           <DialogHeader>
