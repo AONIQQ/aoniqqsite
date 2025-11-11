@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dx-base: cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  * {
+    border-color: transparent;
+    transition: color .2s var(--dx-base),
+                background-color .25s var(--dx-base),
+                transform .35s var(--dx-base);
+  }
+  body {
+    /* Base styles will be applied in layout.tsx */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { 
+    transition: none !important; 
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 1s ease-out forwards;
+}
