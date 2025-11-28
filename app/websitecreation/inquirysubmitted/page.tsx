@@ -1,4 +1,4 @@
-import WebsiteCreation from '../page'
+import WebsiteCreation from '../websitecreation'
 import Head from 'next/head'
 
 export default function InquirySubmitted() {

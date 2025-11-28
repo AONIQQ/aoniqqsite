@@ -2,23 +2,17 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import { Calendar, Code, Briefcase, ChevronRight, ChevronLeft, Menu, X, Star, Quote, CheckCircle2, MessageCircle, AlertTriangle } from 'lucide-react'
+import { Calendar, Code, Briefcase, ChevronRight, ChevronLeft, Menu, X, Star, Quote, CheckCircle2, MessageCircle, AlertTriangle, MonitorSmartphone } from 'lucide-react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HoverSlider, HoverSliderContentWrap, HoverSliderDescription, TextStaggerHover } from '@/components/ui/hover-slider'
 import { cn } from '@/lib/utils'
-import { Timeline } from '@/components/ui/timeline'
+import { Timeline, type TimelineItem } from '@/components/ui/timeline'
 import clsx from 'clsx'
 import { HoverButton } from '@/components/ui/HoverButton'
 import { ShuffleCards, TestimonialCard } from '@/components/ui/testimonial-cards'
-import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel'
+import { TestimonialsMarquee } from '@/components/ui/testimonials-marquee'
 
 const motionProps = {
   transition: { duration: 0.35, ease: [0.4, 0, 0.2, 1] }
@@ -88,30 +82,33 @@ export default function Component() {
     }
   ], [])
 
-  const services = [
-    { 
-      title: "Full Stack Development", 
-      content: (
-        <p className="text-ink text-[17px]/[1.6] max-w-[55ch]">
-          We have built the technical aspects of projects in different industries from the ground up. We are constantly researching and learning new technologies to provide the most effective solutions. We&apos;ve built everything from software as a service (SaaS) products, full scale custom applications and dashboards, algorithm systems, AI integration tools, to complex smart contract systems and more. Our focus is on balancing the fastest, most secure, and most scalable solutions with cost-effectiveness.
-        </p>
-      )
+  const services: TimelineItem[] = [
+    {
+      id: 1,
+      title: "Full Stack Development",
+      date: "Ongoing",
+      content:
+        "We have built the technical aspects of projects in different industries from the ground up. We are constantly researching and learning new technologies to provide the most effective solutions. We've built everything from software as a service (SaaS) products, full scale custom applications and dashboards, algorithm systems, AI integration tools, to complex smart contract systems and more. Our focus is on balancing the fastest, most secure, and most scalable solutions with cost-effectiveness.",
+      icon: Code,
+      relatedIds: [2]
     },
-    { 
-      title: "Website Development", 
-      content: (
-        <p className="text-ink text-[17px]/[1.6] max-w-[55ch]">
-          We have a rich history in creating fast, responsive, and aesthetic websites for massive corporations, ecommerce brands, service professionals, startups, foundations, politicians, local businesses, and many others. Our core offer is centered around our ability to create a website that is tailored to your needs, without the headache of a long development process, or having to micromanage every aspect of the project. We have a deep knowledge of effective copywriting and SEO, to ensure your website is not only aesthetically pleasing, but also effective in achieving your business goals.
-        </p>
-      ) 
+    {
+      id: 2,
+      title: "Website Development",
+      date: "Ongoing",
+      content:
+        "We have a rich history in creating fast, responsive, and aesthetic websites for massive corporations, ecommerce brands, service professionals, startups, foundations, politicians, local businesses, and many others. Our core offer is centered around our ability to create a website that is tailored to your needs, without the headache of a long development process, or having to micromanage every aspect of the project. We have a deep knowledge of effective copywriting and SEO, to ensure your website is not only aesthetically pleasing, but also effective in achieving your business goals.",
+      icon: MonitorSmartphone,
+      relatedIds: [1, 3]
     },
-    { 
-      title: "Project & Team Management & Consulting", 
-      content: (
-        <p className="text-ink text-[17px]/[1.6] max-w-[55ch]">
-          Our constant pursuit of new information and trends, as well as our track record of success in multiple industries, makes us an excellent resource to provide consultation on, or manage your project. We have experience in managing projects of all sizes from scaling small business operations, to startup launches, to massive corporate projects. Using our diverse knowledge base, we are able to provide a comprehensive approach towards complex problems and roadblocks that businesses from a variety of sectors are facing.
-        </p>
-      ) 
+    {
+      id: 3,
+      title: "Project & Team Management & Consulting",
+      date: "Ongoing",
+      content:
+        "Our constant pursuit of new information and trends, as well as our track record of success in multiple industries, makes us an excellent resource to provide consultation on, or manage your project. We have experience in managing projects of all sizes from scaling small business operations, to startup launches, to massive corporate projects. Using our diverse knowledge base, we are able to provide a comprehensive approach towards complex problems and roadblocks that businesses from a variety of sectors are facing.",
+      icon: Briefcase,
+      relatedIds: [2]
     }
   ]
 
@@ -165,89 +162,140 @@ export default function Component() {
     const sentenceArray = text.match(/[^.!?]+[.!?]+/g) || []
     return sentenceArray.slice(0, sentences).join(' ')
   }, [])
+
+  const navLinks = [
+    { label: 'Services', href: '#services' },
+    { label: 'What Sets Us Apart', href: '#why-aoniqq' },
+    { label: 'Testimonials', href: '#testimonials' },
+    { label: 'Contact', href: '#contact' }
+  ]
+
+  const ctaLinks = [
+    { label: 'Book', href: '/book' }
+  ]
   return (
-    <div className="relative isolate flex flex-col min-h-screen bg-obsidian text-ink">
-      <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
+    <div className="relative isolate flex flex-col min-h-screen  text-ink">
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
-        <Link href="/" className="flex-shrink-0">
-          <Image
-            src="/images/Finalaoniqqlogo.png"
-            alt="Aoniqq Logo"
-            width={400}
-            height={400}
-            className="h-14 w-auto object-contain"
-            priority
-          />
-        </Link>
-        <div className="flex items-center">
-          <nav className="hidden gap-6 lg:flex">
-            <a href="#services" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
-              Services
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
-            </a>
-            <a href="#why-aoniqq" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
-              What Sets Us Apart
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
-            </a>
-            <a href="#testimonials" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
-              Testimonials
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
-            </a>
-            <a href="#contact" onClick={handleNavClick} className="group relative text-[15px] font-medium text-ink transition-colors hover:text-white">
-              Contact
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-tealLux to-royal transition-all duration-300 group-hover:w-full"/>
-            </a>
-          </nav>
-          <div className="hidden gap-3 lg:flex items-center ml-8">
-            <Link href="/websitecreation" className="relative px-3 py-1.5 text-sm font-medium text-white transition">
-              Website Development
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-full bg-gradient-to-r from-tealLux to-royal"/>
+      <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4">
+        <div className="flex w-full justify-center">
+          <div className="relative flex w-[85vw] min-w-[220px] items-center justify-between rounded-full border border-white/10 bg-[#0d111c]/85 px-4 py-2.5 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:w-[70vw] md:w-[60vw] lg:w-1/2 lg:px-6 lg:py-3">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/Finalaoniqqlogo.png"
+                alt="Aoniqq Logo"
+                width={400}
+                height={400}
+                className="h-12 w-auto object-contain lg:h-12"
+                priority
+              />
             </Link>
-            <Link href="/speedtest" className="relative px-3 py-1.5 text-sm font-medium text-white transition">
-              Website Speed Test
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-full bg-gradient-to-r from-tealLux to-royal"/>
-            </Link>
-            <Link href="/book" className="relative px-3 py-1.5 text-sm font-medium text-white transition">
-              Book
-              <span className="absolute -bottom-1 left-0 h-[1.5px] w-full bg-gradient-to-r from-tealLux to-royal"/>
-            </Link>
+            <nav className="hidden items-center space-x-8 lg:flex">
+              {navLinks.map((item, index) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <a
+                    href={item.href}
+                    onClick={handleNavClick}
+                    className="text-sm font-medium text-white/80 transition-colors hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                </motion.div>
+              ))}
+            </nav>
+            <motion.div
+              className="hidden items-center space-x-3 xl:flex"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+              whileHover={{ scale: 1.02 }}
+            >
+              {ctaLinks.map((cta) => (
+                <Link
+                  key={cta.href}
+                  href={cta.href}
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white hover:text-black"
+                >
+                  {cta.label}
+                </Link>
+              ))}
+            </motion.div>
+            <motion.button
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white lg:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle menu"
+            >
+              <Menu className="h-5 w-5" />
+            </motion.button>
           </div>
-          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="lg:hidden ml-4 border-white-_06">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-obsidian border-l border-white-_06">
-              <nav className="flex flex-col gap-8 mt-12 font-sans">
-                <a className="text-lg font-medium hover:text-white transition-colors" href="#services" onClick={handleNavClick}>
-                  Services
-                </a>
-                <a className="text-lg font-medium hover:text-white transition-colors" href="#why-aoniqq" onClick={handleNavClick}>
-                  What Sets Us Apart
-                </a>
-                <a className="text-lg font-medium hover:text-white transition-colors" href="#testimonials" onClick={handleNavClick}>
-                  Testimonials
-                </a>
-                <a className="text-lg font-medium hover:text-white transition-colors" href="#contact" onClick={handleNavClick}>
-                  Contact
-                </a>
-                <Link href="/websitecreation" passHref>
-                  <HoverButton className="w-full">Website Development</HoverButton>
-                </Link>
-                <Link href="/speedtest" passHref>
-                  <HoverButton className="w-full">Website Speed Test</HoverButton>
-                </Link>
-                <Link href="/book" passHref>
-                  <HoverButton className="w-full">Book</HoverButton>
-                </Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
         </div>
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              className="fixed inset-0 z-[60] bg-obsidian px-6 pt-24 lg:hidden"
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            >
+              <motion.button
+                className="absolute right-6 top-6 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5"
+                onClick={() => setIsMenuOpen(false)}
+                whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <X className="h-6 w-6 text-white" />
+              </motion.button>
+
+              <div className="flex flex-col space-y-6">
+                {navLinks.map((item, i) => (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ delay: i * 0.08 + 0.1 }}
+                  >
+                    <a
+                      href={item.href}
+                      onClick={handleNavClick}
+                      className="text-lg font-medium text-white"
+                    >
+                      {item.label}
+                    </a>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                className="mt-10 flex flex-col space-y-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: 0.4 }}
+              >
+                {ctaLinks.map((cta) => (
+                  <Link
+                    key={cta.href}
+                    href={cta.href}
+                    className="inline-flex w-full items-center justify-center rounded-full bg-white px-5 py-3 text-base font-semibold text-black transition-colors hover:bg-white/90"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {cta.label}
+                  </Link>
+                ))}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
       <main className="flex-1">
         <section className="relative isolate flex min-h-[92vh] flex-col items-center justify-center px-6 text-center">
@@ -281,7 +329,7 @@ export default function Component() {
         </section>
         <section id="why-aoniqq" className="w-full py-16 md:py-24 bg-transparent">
           <div className="mx-auto max-w-6xl px-8">
-            <h2 className="mb-16 text-center font-serif text-[46px] font-semibold tracking-[-.01em] text-white">
+            <h2 className="mb-16 text-center font-display text-[46px] font-semibold tracking-[-.01em] text-white">
               What Sets Us Apart
             </h2>
 
@@ -330,7 +378,7 @@ export default function Component() {
               >
                 <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-tealLux/30 blur-[4px]" />
                 <span className="pointer-events-none absolute -top-10 left-0 h-20 w-[150%] rotate-4 bg-[rgba(36,84,255,.08)]" />
-                <h3 className="text-2xl font-serif font-semibold -tracking-wide mb-8 text-white text-center">Aoniqq&apos;s Approach</h3>
+                <h3 className="text-2xl font-serif font-semibold -tracking-wide mb-8 text-white text-center">Our Approach</h3>
                 <ul className="space-y-5 text-[17px] leading-[1.55] text-ink font-sans">
                   {[
                     "Guaranteed On-Time Delivery",
@@ -359,16 +407,16 @@ export default function Component() {
             <div className="h-[480px] w-[480px] rounded-full bg-[rgba(36,84,255,.05)] blur-[120px]" />
           </div>
 
-          <h2 className="mb-20 text-center font-serif text-[46px] font-semibold text-white">
+          <h2 className="mb-20 text-center font-display text-[46px] font-semibold text-white">
             Client Reviews
           </h2>
 
-          <TestimonialCarousel testimonials={testimonials} />
+          <TestimonialsMarquee testimonials={testimonials} />
         </section>
         <section id="contact" className="w-full py-16 md:py-24 bg-transparent">
           <div className="container mx-auto px-8 max-w-6xl">
             <div className="flex flex-col items-center space-y-8 text-center">
-              <h2 className="text-5xl font-serif font-bold -tracking-wider text-white">Ready to Get Started?</h2>
+              <h2 className="text-5xl font-display font-bold -tracking-wider text-white">Ready to Get Started?</h2>
               <p className="mx-auto max-w-[700px] md:text-xl text-ink font-sans leading-relaxed">
                 Let&apos;s discuss your project and see how we can help you achieve your goals.
               </p>

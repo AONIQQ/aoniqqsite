@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import WebsiteCreation from './websitecreation'
+import { notFound } from 'next/navigation'
+// import WebsiteCreation from './websitecreation'
 
 export const metadata: Metadata = {
   title: 'Website Creation Service | Aoniqq',
@@ -19,5 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default function WebsiteCreationPage() {
-  return <WebsiteCreation />
+  // Temporarily disabled
+  // return <WebsiteCreation />
+  notFound()
 }

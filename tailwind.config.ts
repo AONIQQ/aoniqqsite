@@ -13,6 +13,7 @@ const config: Config = {
         sans: ['var(--font-epilogue)'],
         serif: ['var(--font-playfair-display)'],
         mono: ['var(--font-jetbrains-mono)'],
+        display: ['var(--font-space-grotesk)'],
       },
       colors: {
         obsidian: '#0D0D0D',
@@ -38,30 +39,35 @@ const config: Config = {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
   		},
-  		animation: {
-  			'gradient-x': 'gradient-x 15s ease infinite',
-  			pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-  		},
-  		keyframes: {
-  			'gradient-x': {
-  				'0%, 100%': {
-  					'background-size': '200% 200%',
-  					'background-position': 'left center'
-  				},
-  				'50%': {
-  					'background-size': '200% 200%',
-  					'background-position': 'right center'
-  				}
-  			},
-  			pulse: {
-  				'0%, 100%': {
-  					opacity: '1'
-  				},
-  				'50%': {
-  					opacity: '.5'
-  				}
-  			}
-  		},
+		animation: {
+			'gradient-x': 'gradient-x 15s ease infinite',
+			pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+			marquee: 'marquee var(--duration) linear infinite'
+		},
+		keyframes: {
+			'gradient-x': {
+				'0%, 100%': {
+					'background-size': '200% 200%',
+					'background-position': 'left center'
+				},
+				'50%': {
+					'background-size': '200% 200%',
+					'background-position': 'right center'
+				}
+			},
+			pulse: {
+				'0%, 100%': {
+					opacity: '1'
+				},
+				'50%': {
+					opacity: '.5'
+				}
+			},
+			marquee: {
+				from: { transform: 'translateX(0)' },
+				to: { transform: 'translateX(calc(-100% - var(--gap)))' }
+			}
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -82,4 +88,4 @@ const config: Config = {
 ],
 };
 
-export default config; 
+export default config;

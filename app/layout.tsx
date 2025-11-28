@@ -3,9 +3,11 @@ import './globals.css';
 import { ReactNode } from 'react';
 import ClientProvider from './ClientProvider';  // Import the client-side provider
 import localFont from 'next/font/local'
+import { Space_Grotesk } from 'next/font/google'
 import AoniqqLogo from '/public/images/aoniqqlogo.png';
 import Link from 'next/link'
 import Image from 'next/image'
+import AnoAIBackground from '@/components/ui/AnoAIBackground';
 
 const playfair_display = localFont({
   src: './fonts/playfairDisplay/PlayfairDisplay-VariableFont_wght.ttf',
@@ -46,6 +48,13 @@ const jetbrains_mono = localFont({
   variable: '--font-jetbrains-mono',
 })
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
+
 
 export const metadata = {
   title: 'Aoniqq - Software Development and Consulting Services',
@@ -70,7 +79,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" className={`${epilogue.variable} ${playfair_display.variable} ${jetbrains_mono.variable}`}>
+    <html lang="en" className={`${epilogue.variable} ${playfair_display.variable} ${jetbrains_mono.variable} ${spaceGrotesk.variable}`}>
       <head>
         {/* Facebook Pixel Code */}
         <script
@@ -129,9 +138,13 @@ export default function RootLayout({
         {/* End Google Tag */}
       </head>
       <body className={`font-sans bg-obsidian text-ink`}>
+        {/* Site-wide animated background */}
+        <AnoAIBackground />
         {/* ClientProvider wraps all children to provide session context */}
         <ClientProvider>
-          {children}
+          <div className="relative z-20">
+            {children}
+          </div>
         </ClientProvider>
       </body>
     </html>
