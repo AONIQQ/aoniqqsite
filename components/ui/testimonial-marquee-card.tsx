@@ -13,7 +13,7 @@ export interface TestimonialMarqueeCardProps {
 
 const CHARACTER_LIMIT = 200
 
-export function TestimonialMarqueeCard({ 
+export function TestimonialMarqueeCard({
   body,
   author,
   role,
@@ -43,7 +43,7 @@ export function TestimonialMarqueeCard({
         {shouldTruncate && (
           <button
             onClick={() => setIsOpen(true)}
-            className="mt-2 text-sm text-tealLux hover:text-teal transition-colors font-medium"
+            className="mt-2 text-sm font-medium bg-gradient-to-r from-tealLux to-royal bg-clip-text text-transparent hover:opacity-80 transition-opacity"
           >
             Read More
           </button>

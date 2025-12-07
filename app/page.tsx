@@ -176,7 +176,7 @@ export default function Component() {
   return (
     <div className="relative isolate flex flex-col min-h-screen  text-ink">
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
-      
+
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4">
         <div className="flex w-full justify-center">
           <div className="relative flex w-[85vw] min-w-[220px] items-center justify-between rounded-full border border-white/10 bg-[#0d111c]/85 px-4 py-2.5 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:w-[70vw] md:w-[60vw] lg:w-1/2 lg:px-6 lg:py-3">
@@ -304,10 +304,10 @@ export default function Component() {
           </div>
           <div className="pointer-events-none absolute inset-0 bg-[url('/images/texture.png')] opacity-[.02] mix-blend-overlay" />
           <div className="pointer-events-none absolute top-1/2 left-[6%] h-[120vh] w-px -translate-y-1/2 scale-y-[0.95] bg-gradient-to-b from-transparent via-royal to-transparent opacity-5"></div>
-          
+
           <div className="container mx-auto px-8 max-w-7xl z-10">
             <div className="flex flex-col items-center space-y-8 text-center">
-            
+
               <p className="mt-8 max-w-[55ch] text-[18px]/[1.65] text-[#c4c4c4]">
                 At Aoniqq, we handle the technical side of projects so you can focus on what matters most — your business. Our personalized approach, clear communication, and industry expertise ensure your project is in capable hands, from start to finish.
               </p>
@@ -335,19 +335,20 @@ export default function Component() {
 
             <div className="grid gap-12 md:grid-cols-2">
               {/* LEFT – pain points */}
-              <motion.article 
-                className="relative overflow-hidden rounded-2xl bg-[#0d0d0d]/90 p-10 ring-1 ring-inset ring-white/5"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: .45, ease: 'easeOut' }}
+              <motion.article
+                className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#0a0a0a] to-[#050505] p-10 ring-1 ring-white/5 transition-all duration-500 hover:ring-white/10"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: .5, ease: 'easeOut' }}
                 viewport={{ once: true }}
               >
-                <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-[#ff3b3b]/20 blur-[4px]" />
-                <span className="pointer-events-none absolute -top-10 left-0 h-20 w-[150%] -rotate-4 bg-[#0d0d0d]/90" />
-                <h3 className="mb-8 font-serif text-2xl font-semibold text-mute">
+                {/* Subtle red glow at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#ff3b3b]/5 to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <h3 className="relative mb-8 font-serif text-2xl font-semibold text-mute/80">
                   Common Issues with Other Partners
                 </h3>
-                <ul className="space-y-5 text-[17px] leading-[1.55] text-mute font-sans">
+                <ul className="relative space-y-5 text-[17px] leading-[1.55] text-mute/60 font-sans">
                   {[
                     "Missed Deadlines, Delaying Deliveries",
                     "Poor Communication",
@@ -359,9 +360,9 @@ export default function Component() {
                     "Unresponsive After Project Completion",
                     "Poor Attention to Detail",
                     "Generalized Solutions"
-                  ].map((issue) => (
-                    <li key={issue} className="flex items-start gap-3">
-                      <AlertTriangle className="mt-[3px] h-4 w-4 flex-none text-[#ff3b3b]/70" aria-hidden="true" />
+                  ].map((issue, i) => (
+                    <li key={issue} className="flex items-start gap-3 transition-colors duration-300 hover:text-mute">
+                      <AlertTriangle className="mt-[3px] h-4 w-4 flex-none text-[#ff3b3b]/40 transition-colors duration-300 group-hover:text-[#ff3b3b]/60" aria-hidden="true" />
                       <span>{issue}</span>
                     </li>
                   ))}
@@ -369,35 +370,55 @@ export default function Component() {
               </motion.article>
 
               {/* RIGHT – solutions */}
-              <motion.article 
-                className="relative overflow-hidden rounded-2xl bg-[rgba(36,84,255,.08)] backdrop-blur-md p-10 ring-1 ring-inset ring-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: .45, ease: 'easeOut' }}
+              <motion.article
+                className="relative overflow-hidden rounded-2xl bg-[#0d0d1a]/60 backdrop-blur-xl p-[1px] group/card"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: .5, ease: 'easeOut', delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-tealLux/30 blur-[4px]" />
-                <span className="pointer-events-none absolute -top-10 left-0 h-20 w-[150%] rotate-4 bg-[rgba(36,84,255,.08)]" />
-                <h3 className="text-2xl font-serif font-semibold -tracking-wide mb-8 text-white text-center">Our Approach</h3>
-                <ul className="space-y-5 text-[17px] leading-[1.55] text-ink font-sans">
-                  {[
-                    "Guaranteed On-Time Delivery",
-                    "Clear & Consistent Communication and Explanation",
-                    "Realistic Expectations",
-                    "Hands Off Client Approach",
-                    "Full Accountability",
-                    "Refund-Backed Quality Assurance",
-                    "Transparent Pricing",
-                    "Ongoing Support",
-                    "Full Customization",
-                    "Tailored to Your Business Needs"
-                  ].map((gain) => (
-                    <li key={gain} className="flex items-start gap-3">
-                      <CheckCircle2 className="mt-[3px] h-4 w-4 flex-none text-tealLux" aria-hidden="true" />
-                      <span>{gain}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Gradient Border Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-tealLux/30 via-royal/10 to-royal/30 opacity-50 transition-opacity duration-500 group-hover/card:opacity-100" />
+
+                {/* Inner Content Container */}
+                <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#0d0d12]/90 p-10">
+                  {/* Decorative Glows */}
+                  <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-royal/20 blur-[80px] transition-all duration-700 group-hover/card:bg-royal/30" />
+                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-tealLux/10 blur-[80px] transition-all duration-700 group-hover/card:bg-tealLux/20" />
+
+                  <h3 className="relative mb-8 text-2xl font-serif font-semibold -tracking-wide text-white text-center">
+                    <span className="bg-gradient-to-r from-tealLux to-royal bg-clip-text text-transparent">
+                      Our Approach
+                    </span>
+                  </h3>
+
+                  <ul className="relative space-y-5 text-[17px] leading-[1.55] text-ink font-sans">
+                    {[
+                      "Guaranteed On-Time Delivery",
+                      "Clear & Consistent Communication and Explanation",
+                      "Realistic Expectations",
+                      "Hands Off Client Approach",
+                      "Full Accountability",
+                      "Refund-Backed Quality Assurance",
+                      "Transparent Pricing",
+                      "Ongoing Support",
+                      "Full Customization",
+                      "Tailored to Your Business Needs"
+                    ].map((gain, i) => (
+                      <li
+                        key={gain}
+                        className="group/item flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
+                      >
+                        <div className="mt-[3px] rounded-full bg-tealLux/10 p-1 transition-colors duration-300 group-hover/item:bg-tealLux/20">
+                          <CheckCircle2 className="h-3 w-3 flex-none text-tealLux" aria-hidden="true" />
+                        </div>
+                        <span className="transition-colors duration-300 group-hover/item:text-white">
+                          {gain}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.article>
             </div>
           </div>
