@@ -42,10 +42,11 @@ export default function BookPage() {
 
         <div className="px-6 pb-4 pt-8 text-center md:pb-8 md:pt-14">
           <h1 className="font-display text-[clamp(1.25rem,3vw,1.75rem)] font-medium tracking-[-0.02em] text-white">
-            Book a call
+            Inquiries
           </h1>
           <p className="mx-auto mt-2 max-w-sm text-[13px] leading-relaxed text-[#999] md:text-[14px]">
-            Pick a time that works. We&apos;ll take it from there.
+            We take on a limited number of engagements. If there&apos;s a fit,
+            we&apos;ll find a time to speak.
           </p>
         </div>
 

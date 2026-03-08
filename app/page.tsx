@@ -53,7 +53,7 @@ export default function Component() {
   const navItems = [
     { label: 'Work', href: '#work' },
     { label: 'About', href: '#about' },
-    { label: 'Clients', href: '#clients' },
+    { label: 'Relationships', href: '#clients' },
   ]
 
   return (
@@ -127,8 +127,8 @@ export default function Component() {
                 transition={{ delay: 1.1, duration: 0.8, ease }}
                 className="mt-8 mx-auto max-w-md text-[15px] leading-[1.75] text-[#aaa] md:mx-0"
               >
-                We partner with a small number of companies on technical
-                execution and startups where calm judgment matters.
+                We partner with a small number of companies on software,
+                systems, new ventures, and situations where direct judgment matters.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
@@ -191,14 +191,14 @@ export default function Component() {
               <motion.div {...fade}>
                 <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Areas of work</p>
                 <p className="mt-4 text-[13px] italic leading-relaxed text-[#555] md:mt-6">
-                  Operation of our<br className="hidden md:block" /> portfolio.
+                  Alongside client work, we build<br className="hidden md:block" /> and operate our own ventures.
                 </p>
               </motion.div>
               <div>
                 {[
                   { title: 'Software Development', body: 'End-to-end technical execution across custom applications, SaaS products, AI integration, and complex distributed systems. Built for scale, security, and long-term maintainability.' },
                   { title: 'Digital Products', body: 'High-performance websites and digital products for companies that value craft. Corporate platforms, specialized tools, and everything in between.' },
-                  { title: 'Strategic Advisory', body: 'Technical consulting and project leadership for companies navigating critical buildouts and startups.' },
+                  { title: 'Strategic Advisory', body: 'Technical consulting and project leadership for companies navigating critical buildouts and new ventures.' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.title}
@@ -225,7 +225,7 @@ export default function Component() {
           <div className="mx-auto max-w-[1280px]">
             <div className="grid gap-6 md:grid-cols-[240px_1fr] md:gap-16 lg:grid-cols-[280px_1fr] lg:gap-20">
               <motion.div {...fade}>
-                <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Clients</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Selected relationships</p>
               </motion.div>
               <div>
                 {quotes.map((t, i) => (

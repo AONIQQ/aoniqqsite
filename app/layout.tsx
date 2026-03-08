@@ -55,7 +55,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   title: 'Aoniqq - Software, Systems, and Select Advisory',
-  description: 'Aoniqq partners with a small number of companies on technical execution and special situations where calm judgment matters.',
+  description: 'Aoniqq partners with a small number of companies on software, systems, new ventures, and situations where direct judgment matters.',
   metadataBase: new URL('https://aoniqq.com'),
   icons: {
     icon: [
