@@ -4,10 +4,8 @@ import { ReactNode } from 'react';
 import ClientProvider from './ClientProvider';  // Import the client-side provider
 import localFont from 'next/font/local'
 import { Space_Grotesk } from 'next/font/google'
-import AoniqqLogo from '/public/images/aoniqqlogo.png';
 import Link from 'next/link'
 import Image from 'next/image'
-import AnoAIBackground from '@/components/ui/AnoAIBackground';
 
 const playfair_display = localFont({
   src: './fonts/playfairDisplay/PlayfairDisplay-VariableFont_wght.ttf',
@@ -138,13 +136,8 @@ export default function RootLayout({
         {/* End Google Tag */}
       </head>
       <body className={`font-sans bg-obsidian text-ink`}>
-        {/* Site-wide animated background */}
-        <AnoAIBackground />
-        {/* ClientProvider wraps all children to provide session context */}
         <ClientProvider>
-          <div className="relative z-20">
-            {children}
-          </div>
+          {children}
         </ClientProvider>
       </body>
     </html>

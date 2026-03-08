@@ -1,91 +1,79 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'; 
-import Cal, { getCalApi } from "@calcom/embed-react";
+import Link from 'next/link'
+import Cal, { getCalApi } from "@calcom/embed-react"
 
 export default function BookPage() {
   const router = useRouter()
 
   useEffect(() => {
     (async function () {
-      const cal = await getCalApi({"namespace":"30min"});
-      cal("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"});
-    })();
+      const cal = await getCalApi({"namespace":"30min"})
+      cal("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"})
+    })()
   }, [])
 
-  const handleGoBack = () => {
-    router.back()
-  }
-
   return (
-    <div className="relative isolate flex flex-col min-h-screen bg-obsidian text-ink">
-      <div className="pointer-events-none absolute inset-0 z-[-1] bg-gradient-to-b from-obsidian via-obsidian to-[#11131a]" />
-      <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
+    <div className="flex min-h-screen flex-col bg-obsidian text-ink">
 
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleGoBack}
-          className="text-ink hover:text-white"
-        >
-          <ArrowLeft className="h-6 w-6" />
-          <span className="sr-only">Go back</span>
-        </Button>
-        <Link href="/" className="flex-shrink-0">
-          <Image
-            src="/images/Finalaoniqqlogo.png"
-            alt="Aoniqq Logo"
-            width={400}
-            height={400}
-            className="h-14 w-auto object-contain"
-            priority
-          />
-        </Link>
-        <div className="w-10" /> {/* Placeholder for layout balance */}
+      <div className="pointer-events-none fixed inset-0 z-[100] bg-[url('/images/texture.png')] bg-repeat opacity-[0.035] mix-blend-overlay" />
+
+      {/* NAV */}
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-obsidian/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 md:px-10">
+          <Link href="/" className="font-display text-[15px] font-medium tracking-[0.1em] text-white">
+            AONIQQ
+          </Link>
+          <button
+            onClick={() => router.back()}
+            className="group flex items-center gap-2 font-mono text-[12px] text-[#999] transition-colors duration-200 hover:text-white"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
+            Back
+          </button>
+        </div>
       </header>
 
-      <main className="flex-grow flex items-center justify-center p-8 pt-32">
-        <Card className="w-full max-w-4xl h-[70vh] bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm overflow-hidden">
-          <CardHeader>
-            <CardTitle className="text-2xl font-serif font-semibold -tracking-wide text-center text-white">Schedule Your Free Consultation</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0 h-full">
-             <Cal
-                namespace="30min"
-                calLink="andrew-olson/30min"
-                style={{width:"100%",height:"100%",overflow:"scroll"}}
-                config={{"layout":"month_view","theme":"dark"}}
-              />
-          </CardContent>
-        </Card>
+      {/* MAIN */}
+      <main className="flex flex-1 flex-col pt-16">
+
+        <div className="px-6 pb-4 pt-8 text-center md:pb-8 md:pt-14">
+          <h1 className="font-display text-[clamp(1.25rem,3vw,1.75rem)] font-medium tracking-[-0.02em] text-white">
+            Book a call
+          </h1>
+          <p className="mx-auto mt-2 max-w-sm text-[13px] leading-relaxed text-[#999] md:text-[14px]">
+            Pick a time that works. We&apos;ll take it from there.
+          </p>
+        </div>
+
+        <div className="flex-1 px-3 pb-6 md:px-10 md:pb-8">
+          <div className="mx-auto h-full max-w-4xl overflow-hidden rounded-lg border border-white/[0.06] bg-white/[0.02] md:rounded-xl">
+            <Cal
+              namespace="30min"
+              calLink="andrew-olson/30min"
+              style={{width:"100%",height:"100%",minHeight:"min(calc(100vh - 200px), 700px)",overflow:"scroll"}}
+              config={{"layout":"month_view","theme":"dark"}}
+            />
+          </div>
+        </div>
+
       </main>
 
-      <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
-        <div className="flex-shrink-0">
-          <Image
-            src="/images/Finalaoniqqlogo.png"
-            alt="Aoniqq Logo"
-            width={150}
-            height={150}
-            className="w-28 h-14 object-contain"
-          />
+      {/* FOOTER */}
+      <footer className="border-t border-white/[0.06] px-6 py-8 md:px-10">
+        <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 sm:flex-row">
+          <div className="flex items-center gap-4">
+            <span className="font-display text-[13px] font-medium tracking-[0.1em] text-[#666]">AONIQQ</span>
+            <p className="text-[12px] text-[#555]">&copy; {new Date().getFullYear()} Aoniqq LLC</p>
+          </div>
+          <div className="flex gap-6">
+            <Link href="/tos" className="text-[12px] text-[#555] transition-colors hover:text-[#999]">Terms</Link>
+            <Link href="/privacy" className="text-[12px] text-[#555] transition-colors hover:text-[#999]">Privacy</Link>
+          </div>
         </div>
-        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-6 sm:gap-8">
-          <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
-            Terms of Service
-          </Link>
-          <Link href="/privacy" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
-            Privacy Policy
-          </Link>
-        </nav>
       </footer>
     </div>
   )

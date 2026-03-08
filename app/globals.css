@@ -6,6 +6,11 @@
   --dx-base: cubic-bezier(.4,0,.2,1);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 @keyframes gradient-x {
   0%, 100% {
     background-size: 200% 200%;
@@ -35,7 +40,9 @@
                 transform .35s var(--dx-base);
   }
   body {
-    /* Base styles will be applied in layout.tsx */
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
