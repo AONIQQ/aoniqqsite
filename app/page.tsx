@@ -191,7 +191,7 @@ export default function Component() {
               <motion.div {...fade}>
                 <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Areas of work</p>
                 <p className="mt-4 text-[13px] italic leading-relaxed text-[#555] md:mt-6">
-                  We also build and operate<br className="hidden md:block" /> our own software.
+                  Operation of our<br className="hidden md:block" /> portfolio.
                 </p>
               </motion.div>
               <div>
