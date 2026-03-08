@@ -5,7 +5,6 @@ import ClientProvider from './ClientProvider';  // Import the client-side provid
 import localFont from 'next/font/local'
 import { Space_Grotesk } from 'next/font/google'
 import Link from 'next/link'
-import Image from 'next/image'
 
 const playfair_display = localFont({
   src: './fonts/playfairDisplay/PlayfairDisplay-VariableFont_wght.ttf',
@@ -55,19 +54,22 @@ const spaceGrotesk = Space_Grotesk({
 
 
 export const metadata = {
-  title: 'Aoniqq - Software Development and Consulting Services',
-  description: 'Aoniqq provides software and website development, project management, and consulting services.',
+  title: 'Aoniqq - Software, Systems, and Select Advisory',
+  description: 'Aoniqq partners with a small number of companies on technical execution and special situations where calm judgment matters.',
   metadataBase: new URL('https://aoniqq.com'),
   icons: {
-    icon: '/favicon_io/favicon.ico',
-    apple: '/favicon_io/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon_new/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon_new/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/favicon_new/apple-touch-icon.png',
   },
   openGraph: {
-    images: '/images/aoniqqlogo.png',
+    images: '/images/og-image.png',
   },
   twitter: {
     card: 'summary_large_image',
-    images: '/images/aoniqqlogo.png',
+    images: '/images/og-image.png',
   },
 };
 

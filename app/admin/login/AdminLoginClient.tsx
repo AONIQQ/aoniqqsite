@@ -3,7 +3,6 @@
 import { signIn, useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -71,16 +70,7 @@ export default function AdminLoginClient() {
       <Card className="w-full max-w-md bg-white/5 border border-white-_06 shadow-diffused-bloom backdrop-blur-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="relative w-40 h-20">
-              <Image
-                src="/images/Finalaoniqqlogo.png"
-                alt="Aoniqq Logo"
-                width={400}
-                height={400}
-                className="object-contain"
-                priority
-              />
-            </div>
+            <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
           </div>
           <CardTitle className="text-2xl font-bold text-white font-serif -tracking-wide">Admin Login</CardTitle>
         </CardHeader>

@@ -64,8 +64,8 @@ export default function Component() {
       {/* NAV */}
       <header className="fixed inset-x-0 top-0 z-[60] border-b border-white/[0.06] bg-obsidian/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 md:px-10">
-          <Link href="/" className="relative z-[70] font-display text-[15px] font-medium tracking-[0.1em] text-white">
-            AONIQQ
+          <Link href="/" className="relative z-[70]">
+            <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[22px] w-auto" />
           </Link>
           <nav className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
@@ -119,7 +119,7 @@ export default function Component() {
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.8, ease }}
-                className="mt-8 h-px w-24 mx-auto origin-center bg-gradient-to-r from-royal via-royal2 to-tealLux shadow-[0_0_8px_rgba(36,84,255,0.25),0_0_16px_rgba(10,191,142,0.1)] md:mx-0 md:origin-left"
+                className="mt-8 h-px w-24 mx-auto origin-center bg-gradient-to-r from-[#34D4C8] via-[#4D73FF] to-[#8B5CF6] shadow-[0_0_8px_rgba(77,115,255,0.25),0_0_16px_rgba(52,212,200,0.1)] md:mx-0 md:origin-left"
               />
               <motion.p
                 initial={{ opacity: 0 }}
@@ -128,7 +128,7 @@ export default function Component() {
                 className="mt-8 mx-auto max-w-md text-[15px] leading-[1.75] text-[#aaa] md:mx-0"
               >
                 We partner with a small number of companies on technical
-                execution and special situations where calm judgment matters.
+                execution and startups where calm judgment matters.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
@@ -148,7 +148,40 @@ export default function Component() {
 
         {/* Spectral divider */}
         <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-          <motion.div {...fade} className="h-px bg-gradient-to-r from-royal/40 via-royal2/25 to-tealLux/20" />
+          <motion.div {...fade} className="h-px bg-gradient-to-r from-[#34D4C8]/40 via-[#4D73FF]/25 to-[#8B5CF6]/20" />
+        </div>
+
+        {/* THESIS — Principal-access positioning (the strongest differentiator, now leads) */}
+        <section id="about" className="px-6 py-20 md:px-10 md:py-32 lg:py-40">
+          <div className="mx-auto max-w-[1280px]">
+            <div className="grid gap-6 md:grid-cols-[240px_1fr] md:gap-16 lg:grid-cols-[280px_1fr] lg:gap-20">
+              <motion.div {...fade}>
+                <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">How we operate</p>
+              </motion.div>
+              <motion.div {...fade} transition={{ ...fade.transition, delay: 0.1 }}>
+                <p className="max-w-xl font-display text-[clamp(1.1rem,2vw,1.4rem)] font-normal leading-[1.65] tracking-[-0.01em] text-[#ccc]">
+                  Small client roster. Direct principal access on every engagement.
+                  No account managers, no handoffs, no layers between you and the
+                  people doing the work.
+                </p>
+                <div className="mt-8 h-px w-16 bg-gradient-to-r from-[#34D4C8]/40 via-[#4D73FF]/30 to-transparent" />
+                <p className="mt-8 max-w-lg text-[15px] leading-[1.8] text-[#999]">
+                  Aoniqq was built on a simple premise: companies deserve technical
+                  partners who operate with the same care, discretion, and judgment
+                  they bring to their own work.
+                </p>
+                <div className="mt-8 flex items-center gap-4">
+                  <div className="h-px w-4 bg-[#4D73FF]/30" />
+                  <p className="font-mono text-[12px] text-[#777]">Andrew Olson, Founder</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Spectral divider */}
+        <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+          <div className="h-px bg-gradient-to-r from-transparent via-[#4D73FF]/20 to-[#8B5CF6]/30" />
         </div>
 
         {/* AREAS OF WORK */}
@@ -157,9 +190,6 @@ export default function Component() {
             <div className="grid gap-6 md:grid-cols-[240px_1fr] md:gap-16 lg:grid-cols-[280px_1fr] lg:gap-20">
               <motion.div {...fade}>
                 <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Areas of work</p>
-                <h2 className="mt-3 font-display text-[clamp(1.15rem,2.5vw,1.5rem)] font-medium leading-[1.25] tracking-[-0.02em] text-white md:mt-4">
-                  Software, systems,<br className="hidden md:block" /> special situations
-                </h2>
                 <p className="mt-4 text-[13px] italic leading-relaxed text-[#555] md:mt-6">
                   We also build and operate<br className="hidden md:block" /> our own software.
                 </p>
@@ -168,7 +198,7 @@ export default function Component() {
                 {[
                   { title: 'Software Development', body: 'End-to-end technical execution across custom applications, SaaS products, AI integration, and complex distributed systems. Built for scale, security, and long-term maintainability.' },
                   { title: 'Digital Products', body: 'High-performance websites and digital products for companies that value craft. Corporate platforms, specialized tools, and everything in between.' },
-                  { title: 'Strategic Advisory', body: 'Technical consulting and project leadership for companies navigating critical buildouts and special situations.' },
+                  { title: 'Strategic Advisory', body: 'Technical consulting and project leadership for companies navigating critical buildouts and startups.' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.title}
@@ -187,7 +217,7 @@ export default function Component() {
 
         {/* Spectral divider */}
         <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-          <div className="h-px bg-gradient-to-r from-transparent via-royal2/20 to-tealLux/30" />
+          <div className="h-px bg-gradient-to-r from-[#8B5CF6]/20 via-[#4D73FF]/20 to-[#34D4C8]/30" />
         </div>
 
         {/* CLIENTS */}
@@ -207,9 +237,8 @@ export default function Component() {
                     onMouseEnter={() => setActiveQuote(i)}
                     onClick={() => setActiveQuote(i)}
                   >
-                    {/* Spectral accent line */}
                     <div
-                      className={`absolute left-0 top-0 bottom-0 w-[3px] rounded-full bg-gradient-to-b from-royal via-royal2 to-tealLux transition-opacity duration-300 ${activeQuote === i ? 'opacity-70' : 'opacity-0'}`}
+                      className={`absolute left-0 top-0 bottom-0 w-[3px] rounded-full bg-gradient-to-b from-[#34D4C8] via-[#4D73FF] to-[#8B5CF6] transition-opacity duration-300 ${activeQuote === i ? 'opacity-70' : 'opacity-0'}`}
                     />
                     <p className={`max-w-xl leading-[1.75] text-[#ccc] transition-all duration-300 ${activeQuote === i ? 'text-[clamp(0.95rem,1.5vw,1.125rem)] font-display font-normal tracking-[-0.01em]' : 'text-[14px]'}`}>
                       &ldquo;{t.quote}&rdquo;
@@ -226,43 +255,11 @@ export default function Component() {
           </div>
         </section>
 
-        {/* Spectral divider */}
-        <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-          <div className="h-px bg-gradient-to-r from-tealLux/20 via-royal2/20 to-royal/30" />
-        </div>
-
-        {/* PRINCIPAL */}
-        <section id="about" className="px-6 py-20 md:px-10 md:py-32 lg:py-40">
-          <div className="mx-auto max-w-[1280px]">
-            <div className="grid gap-6 md:grid-cols-[240px_1fr] md:gap-16 lg:grid-cols-[280px_1fr] lg:gap-20">
-              <motion.div {...fade}>
-                <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Principal</p>
-                <h2 className="mt-3 font-display text-[clamp(1.15rem,2.5vw,1.5rem)] font-medium tracking-[-0.02em] text-white md:mt-4">Andrew Olson</h2>
-                <p className="mt-1 font-mono text-[12px] text-[#777]">Founder</p>
-                <div className="mt-4 h-px w-8 bg-gradient-to-r from-royal/40 to-transparent md:mt-5" />
-              </motion.div>
-              <motion.div {...fade} transition={{ ...fade.transition, delay: 0.1 }}>
-                <p className="max-w-lg text-[15px] leading-[1.8] text-[#aaa]">
-                  Aoniqq was built on a simple premise: companies deserve technical
-                  partners who operate with the same care, discretion, and judgment
-                  they bring to their own work.
-                </p>
-                <p className="mt-5 max-w-lg text-[15px] leading-[1.8] text-[#aaa]">
-                  We keep our client roster small, our communication direct, and our
-                  standards uncompromising. Every engagement has direct principal
-                  access. No account managers, no handoffs, no layers between you
-                  and the people doing the work.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
         {/* CTA */}
         <section className="px-6 py-20 md:px-10 md:py-32 lg:py-40">
           <div className="mx-auto max-w-[1280px]">
             <motion.div {...fade}>
-              <div className="mb-12 h-px bg-gradient-to-r from-royal/30 via-royal2/20 to-tealLux/25 md:mb-16" />
+              <div className="mb-12 h-px bg-gradient-to-r from-[#34D4C8]/30 via-[#4D73FF]/20 to-[#8B5CF6]/25 md:mb-16" />
               <div className="text-center md:text-left md:grid md:grid-cols-[1fr_auto] md:items-end md:gap-12">
                 <div>
                   <h2 className="font-display text-[clamp(1.5rem,3vw,2rem)] font-medium tracking-[-0.02em] text-white">
@@ -288,7 +285,7 @@ export default function Component() {
       <footer className="border-t border-white/[0.06] px-6 py-8 md:px-10">
         <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-4">
-            <span className="font-display text-[13px] font-medium tracking-[0.1em] text-[#666]">AONIQQ</span>
+            <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
             <p className="text-[12px] text-[#555]">&copy; {new Date().getFullYear()} Aoniqq LLC</p>
           </div>
           <div className="flex gap-6">

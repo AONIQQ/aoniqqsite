@@ -10,13 +10,11 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Download, Edit, LogOut, AlertCircle, Trash2, RefreshCw, Plus } from 'lucide-react'
-import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Link from 'next/link'
 import { Textarea } from "@/components/ui/textarea"
 import { HoverButton } from '@/components/ui/HoverButton'
-import AoniqqLogo from '/public/images/Finalaoniqqlogo.png'
 
 interface Contact {
   id: number
@@ -304,15 +302,8 @@ export default function AdminDashboard() {
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} theme="dark" />
       <header className="bg-obsidian/80 backdrop-blur-md py-4 sticky top-0 z-10 shadow-md border-b border-white-_06">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link href="/" className="relative w-40 h-20">
-            <Image
-              src="/images/Finalaoniqqlogo.png"
-              alt="Aoniqq Logo"
-              width={400}
-              height={400}
-              className="object-contain"
-              priority
-            />
+          <Link href="/" className="relative">
+            <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
           </Link>
           <HoverButton onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" />
@@ -495,13 +486,7 @@ export default function AdminDashboard() {
       </main>
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={150}
-            height={150}
-            className="w-28 h-14 object-contain"
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
         <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">

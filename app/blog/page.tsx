@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import { getAllBlogPosts } from '@/lib/blog'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -23,14 +22,7 @@ export default async function BlogIndexPage() {
       <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
-          <Image
-            src="/images/aoniqqlogo.png"
-            alt="Aoniqq Logo"
-            width={400}
-            height={400}
-            className="h-14 w-auto object-contain"
-            priority
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
         </Link>
         <div className="flex items-center">
           <div className="hidden lg:flex space-x-4 items-center">

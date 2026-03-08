@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { Zap } from "lucide-react";
 
@@ -183,14 +182,7 @@ function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTimelineProps) {
             transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
           }}
         >
-          <Image
-            src="/images/Finalaoniqqlogo.png"
-            alt="Aoniqq logo"
-            width={96}
-            height={96}
-            className="pointer-events-none select-none object-contain"
-            priority
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto pointer-events-none select-none" />
 
           <div className="absolute h-96 w-96 rounded-full border border-white/10"></div>
 

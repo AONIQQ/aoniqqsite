@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react'
-import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -18,7 +17,6 @@ import { GlassButton } from '@/components/ui/GlassButton'
 import { HoverButton } from '@/components/ui/HoverButton'
 import { TestimonialCard } from '@/components/ui/testimonial-cards'
 import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel'
-import AoniqqLogo from '/public/images/aoniqqlogo.png'
 
 // Lazy load components
 const LazyWebsiteJourneyMap = lazy(() => import('./website-journey-map'))
@@ -160,14 +158,7 @@ export default function WebsiteCreation() {
         <div className="pointer-events-none absolute inset-0 z-[-1] bg-[url('/images/texture.png')] opacity-[.06]" />
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
-          <Image
-            src="/images/Finalaoniqqlogo.png"
-            alt="Aoniqq Logo"
-            width={300}
-            height={300}
-            className="h-14 w-auto object-contain"
-            priority
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
         </Link>
         <div className="flex items-center">
           <nav className="hidden gap-6 lg:flex">
@@ -416,13 +407,7 @@ export default function WebsiteCreation() {
       </main>
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
-          <Image
-            src="/images/Finalaoniqqlogo.png"
-            alt="Aoniqq Logo"
-            width={150}
-            height={150}
-            className="w-28 h-14 object-contain"
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
         <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">

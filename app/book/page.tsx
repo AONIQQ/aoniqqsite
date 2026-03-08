@@ -24,8 +24,8 @@ export default function BookPage() {
       {/* NAV */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-obsidian/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6 md:px-10">
-          <Link href="/" className="font-display text-[15px] font-medium tracking-[0.1em] text-white">
-            AONIQQ
+          <Link href="/">
+            <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[22px] w-auto" />
           </Link>
           <button
             onClick={() => router.back()}
@@ -66,7 +66,7 @@ export default function BookPage() {
       <footer className="border-t border-white/[0.06] px-6 py-8 md:px-10">
         <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-4">
-            <span className="font-display text-[13px] font-medium tracking-[0.1em] text-[#666]">AONIQQ</span>
+            <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
             <p className="text-[12px] text-[#555]">&copy; {new Date().getFullYear()} Aoniqq LLC</p>
           </div>
           <div className="flex gap-6">

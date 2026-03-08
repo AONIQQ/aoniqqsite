@@ -5,11 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, CheckCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { HoverButton } from '@/components/ui/HoverButton'
-import AoniqqLogo from '/public/images/Finalaoniqqlogo.png';
 
 export default function BookingSuccessPage() {
   const [isClient, setIsClient] = useState(false)
@@ -36,14 +34,7 @@ export default function BookingSuccessPage() {
           <span className="sr-only">Go back</span>
         </Button>
         <Link href="/" className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={400}
-            height={400}
-            className="h-14 w-auto object-contain"
-            priority
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
         </Link>
         <div className="w-10" /> {/* Placeholder for layout balance */}
       </header>
@@ -84,13 +75,7 @@ export default function BookingSuccessPage() {
 
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={150}
-            height={150}
-            className="w-28 h-14 object-contain"
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
         <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">

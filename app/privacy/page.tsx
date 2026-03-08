@@ -2,8 +2,6 @@
 
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import AoniqqLogo from '/public/images/Finalaoniqqlogo.png';
 
 export default function Component() {
   return (
@@ -13,14 +11,7 @@ export default function Component() {
 
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={400}
-            height={400}
-            className="h-14 w-auto object-contain"
-            priority
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
         </Link>
       </header>
 
@@ -94,13 +85,7 @@ export default function Component() {
 
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={150}
-            height={150}
-            className="w-28 h-14 object-contain"
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
         <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">

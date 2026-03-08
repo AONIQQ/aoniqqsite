@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Loader2, Smartphone, Laptop, DollarSign, TrendingUp, Users, Menu, AlertTriangle, CheckCircle2, ArrowRight, Quote, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import Image from 'next/image'
 import { Progress } from "@/components/ui/progress"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { useRouter } from 'next/navigation'
@@ -16,7 +15,6 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Label } from "@/components/ui/label"
 import { GlassButton } from '@/components/ui/GlassButton'
 import { HoverButton } from '@/components/ui/HoverButton'
-import AoniqqLogo from '/public/images/Finalaoniqqlogo.png';
 
 interface PageSpeedResult {
   performance: number;
@@ -249,14 +247,7 @@ const Speedtest = () => {
 
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-obsidian/55 px-8 py-4 backdrop-blur-md">
         <Link href="/" className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={300}
-            height={300}
-            className="h-14 w-auto object-contain"
-            priority
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
         </Link>
         <div className="flex items-center">
             <nav className="hidden gap-9 lg:flex">
@@ -490,13 +481,7 @@ const Speedtest = () => {
 
       <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-8 md:px-12 border-t border-white-_06 font-sans">
         <div className="flex-shrink-0">
-          <Image
-            src={AoniqqLogo}
-            alt="Aoniqq Logo"
-            width={150}
-            height={150}
-            className="w-28 h-14 object-contain"
-          />
+          <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
         <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
