@@ -189,7 +189,7 @@ export default function Component() {
           <div className="mx-auto max-w-[1280px]">
             <div className="grid gap-6 md:grid-cols-[240px_1fr] md:gap-16 lg:grid-cols-[280px_1fr] lg:gap-20">
               <motion.div {...fade}>
-                <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Areas of work</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#888]">Operating capabilities</p>
                 <p className="mt-4 text-[13px] italic leading-relaxed text-[#555] md:mt-6">
                   Alongside client work, we build<br className="hidden md:block" /> and operate our own ventures.
                 </p>
@@ -197,7 +197,7 @@ export default function Component() {
               <div>
                 {[
                   { title: 'Software Development', body: 'End-to-end technical execution across custom applications, SaaS products, AI integration, and complex distributed systems. Built for scale, security, and long-term maintainability.' },
-                  { title: 'Digital Products', body: 'High-performance websites and digital products for companies that value craft. Corporate platforms, specialized tools, and everything in between.' },
+                  { title: 'Product & Platform Engineering', body: 'High-performance digital products, corporate platforms, and specialized tools for companies that value craft.' },
                   { title: 'Strategic Advisory', body: 'Technical consulting and project leadership for companies navigating critical buildouts and new ventures.' },
                 ].map((item, i) => (
                   <motion.div

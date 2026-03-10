@@ -48,6 +48,10 @@ export default function BookPage() {
             We take on a limited number of engagements. If there&apos;s a fit,
             we&apos;ll find a time to speak.
           </p>
+          <p className="mx-auto mt-3 max-w-md text-[12px] leading-relaxed text-[#666]">
+            Please include details about your project and objectives when booking.
+            Calls without context provided in advance may be rescheduled.
+          </p>
         </div>
 
         <div className="flex-1 px-3 pb-6 md:px-10 md:pb-8">

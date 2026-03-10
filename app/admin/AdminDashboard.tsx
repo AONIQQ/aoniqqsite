@@ -488,7 +488,7 @@ export default function AdminDashboard() {
         <div className="flex-shrink-0">
           <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
-        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">© {new Date().getFullYear()} Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
           <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service

@@ -19,7 +19,7 @@ export default function Component() {
         <h1 className="text-5xl font-serif font-bold -tracking-wider text-center mb-12 text-white">Terms of Service</h1>
         <div className="prose prose-invert max-w-4xl mx-auto text-ink prose-p:text-ink prose-headings:text-white prose-strong:text-white prose-a:text-royal hover:prose-a:text-royal2">
             <h2>1. Acceptance of Terms</h2>
-            <p>By accessing or using Aoniqq.com (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) and the services provided through this website, including but not limited to website development, project management, and other tech/business-related services (collectively, the &quot;Services&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you should not use the Services.</p>
+            <p>By accessing or using Aoniqq.com (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) and the services provided through this website, including but not limited to software development, systems architecture, strategic advisory, and related technology services (collectively, the &quot;Services&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you should not use the Services.</p>
 
             <h2>2. Modifications to Terms</h2>
             <p>We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting the updated Terms on this page. Your continued use of the Services after such changes will constitute your acceptance of the new Terms.</p>
@@ -28,7 +28,7 @@ export default function Component() {
             <p>To use the Services, you must be at least 18 years old and have the legal authority to enter into a binding contract. By using our Services, you confirm that you meet these eligibility requirements.</p>
             
             <h2>4. Services Provided</h2>
-            <p>Aoniqq.com offers various tech and business-related services, including but not limited to website development, project management, and other consulting services. The specific scope of services will be outlined in individual agreements or contracts between the Company and the client.</p>
+            <p>Aoniqq.com offers software development, systems architecture, product engineering, strategic advisory, and related technology services. The specific scope of services will be outlined in individual agreements or contracts between the Company and the client.</p>
             
             <h2>5. Payment Terms</h2>
             <p>You agree to pay for the Services as set forth in the applicable agreement or contract. Invoices will be issued in accordance with the agreed-upon payment schedule, and payments are due upon receipt unless otherwise stated. We reserve the right to suspend or terminate Services if payments are not made on time.</p>
@@ -63,7 +63,7 @@ export default function Component() {
         <div className="flex-shrink-0">
           <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
-        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">© {new Date().getFullYear()} Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
           <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service

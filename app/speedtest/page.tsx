@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-import Speedtest from './speedtest'; // Ensure correct import of Speedtest component
-
+import Speedtest from './speedtest';
 
 const Page = () => {
   return (
@@ -10,12 +9,10 @@ const Page = () => {
   );
 };
 
-
-
-
 export const metadata: Metadata = {
-  title: 'Website Page Speed Report Generator - Aoniqq',
-  description: 'Generate detailed reports on your website’s loading speed and performance metrics to optimize user experience.',
+  title: "Page Speed Test - Aoniqq",
+  description: "Analyze your website's loading speed and performance metrics.",
+  robots: { index: false, follow: false },
 };
 
 export default Page;

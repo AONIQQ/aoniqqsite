@@ -4,14 +4,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Loader2, Smartphone, Laptop, DollarSign, TrendingUp, Users, Menu, AlertTriangle, CheckCircle2, ArrowRight, Quote, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { Loader2, Smartphone, Laptop, DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle2, ArrowRight, Quote, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Progress } from "@/components/ui/progress"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link';
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Label } from "@/components/ui/label"
 import { GlassButton } from '@/components/ui/GlassButton'
 import { HoverButton } from '@/components/ui/HoverButton'
@@ -75,7 +74,6 @@ const Speedtest = () => {
   const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [submissionError, setSubmissionError] = useState<string | null>(null)
   const [formErrors, setFormErrors] = useState({ name: '', email: '', phone: '' })
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   useEffect(() => {
     if (loading) {
@@ -249,32 +247,12 @@ const Speedtest = () => {
         <Link href="/" className="flex-shrink-0">
           <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-[18px] w-auto" />
         </Link>
-        <div className="flex items-center">
-            <nav className="hidden gap-9 lg:flex">
-                <Link href="/websitecreation" className="px-3 py-1.5 text-sm font-medium text-ink hover:text-white transition">
-                  Website Creation Service
-                </Link>
-            </nav>
-            <Sheet open={showMobileMenu} onOpenChange={setShowMobileMenu}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="lg:hidden"
-                  onClick={() => setShowMobileMenu(!showMobileMenu)}
-                >
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-obsidian border-l border-white-_06">
-                <nav className="flex flex-col gap-8 mt-12 font-sans">
-                <Button asChild variant="outline" className="w-full justify-start border-white-_06 hover:bg-white/5 hover:text-white font-semibold">
-                    <Link href="/websitecreation">Website Creation</Link>
-                  </Button>
-                </nav>
-              </SheetContent>
-            </Sheet>
-        </div>
+        <button
+          onClick={() => router.push('/')}
+          className="font-mono text-[12px] text-[#999] transition-colors duration-200 hover:text-white"
+        >
+          Back
+        </button>
       </header>
 
       <main className="container mx-auto relative z-10 pt-32">
@@ -483,7 +461,7 @@ const Speedtest = () => {
         <div className="flex-shrink-0">
           <img src="/aoniqq_logo_pack_v1/aoniqq_wordmark_dark.svg" alt="AONIQQ" className="h-3 w-auto opacity-50" />
         </div>
-        <p className="text-xs text-mute opacity-80 sm:ml-4">©2025 Aoniqq LLC. All rights reserved.</p>
+        <p className="text-xs text-mute opacity-80 sm:ml-4">© {new Date().getFullYear()} Aoniqq LLC. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-6 sm:gap-8">
           <Link href="/tos" className="text-xs hover:underline underline-offset-4 text-mute hover:text-ink opacity-80">
             Terms of Service
