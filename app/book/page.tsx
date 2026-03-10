@@ -50,7 +50,7 @@ export default function BookPage() {
           </p>
           <p className="mx-auto mt-3 max-w-md text-[12px] leading-relaxed text-[#666]">
             Please include details about your project and objectives when booking.
-            Calls without context provided in advance may be rescheduled.
+            Calls without context provided in the booking details may be cancelled or rescheduled. We will reach out via email.
           </p>
         </div>
 
